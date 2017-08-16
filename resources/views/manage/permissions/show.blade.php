@@ -1,34 +1,36 @@
-@extends('layouts.master')
-
+@extends('layouts.app')
 @section('content')
-  <div class="flex-container">
-    <div class="columns m-t-10">
-      <div class="column">
-        <h1 class="title">View Permission Details</h1>
-      </div> <!-- end of column -->
-
-      <div class="column">
-        <a href="{{route('permissions.edit', $permission->id)}}" class="button is-primary is-pulled-right"><i class="fa fa-edit m-r-10"></i> Edit Permission</a>
-      </div>
-    </div>
-    <hr class="m-t-0">
-
-    <div class="columns">
-      <div class="column">
-        <div class="box">
-          <article class="media">
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <strong>{{$permission->display_name}}</strong> <small>{{$permission->name}}</small>
-                  <br>
-                  {{$permission->description}}
-                </p>
-              </div>
+    <!-- Basic Card -->
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        {!! $permission->name !!}
+                        <small>{!! $permission->email !!}</small>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="{!! route('admin.security.permissions.create') !!}">Add</a></li>
+                                <li><a href="{!! route('admin.security.permissions.edit', [$permission->id]) !!}">Edit</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <p>
+                        {!! $user->display_name !!}
+                    </p>
+                    <a href="{!! route('admin.security.permissions.edit', [$permission->id]) !!}"
+                       class="btn btn-primary m-t-15 waves-effect">EDIT</a>
+                    <a href="{!! route('admin.security.permissions.index') !!}" class="btn btn-primary m-t-15 waves-effect">BACK</a>
+                </div>
             </div>
-          </article>
         </div>
-      </div>
     </div>
-  </div>
-@endsection
+@stop

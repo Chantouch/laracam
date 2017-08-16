@@ -1,84 +1,50 @@
-@extends('layouts.master')
-
+@extends('layouts.app')
 @section('content')
-  <div class="flex-container">
-    <div class="columns m-t-10">
-      <div class="column">
-        <h1 class="title">Create New Role</h1>
-      </div>
+    <!-- Vertical Layout -->
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        ADD PERMISSION
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="{!! route('admin.security.roles.index') !!}">MINISTRY LIST</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    {!! Form::open(['route' => ['admin.security.roles.store'], 'method' => 'POST']) !!}
+                    @include('security.roles.fields')
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
     </div>
-    <hr class="m-t-0">
-    <form action="{{route('roles.store')}}" method="POST">
-      {{ csrf_field() }}
-      <div class="columns">
-        <div class="column">
-          <div class="box">
-            <article class="media">
-              <div class="media-content">
-                <div class="content">
-                  <h2 class="title">Role Details:</h1>
-                  <div class="field">
-                    <p class="control">
-                      <label for="display_name" class="label">Name (Human Readable)</label>
-                      <input type="text" class="input" name="display_name" value="{{old('display_name')}}" id="display_name">
-                    </p>
-                  </div>
-                  <div class="field">
-                    <p class="control">
-                      <label for="name" class="label">Slug (Can not be changed)</label>
-                      <input type="text" class="input" name="name" value="{{old('name')}}" id="name">
-                    </p>
-                  </div>
-                  <div class="field">
-                    <p class="control">
-                      <label for="description" class="label">Description</label>
-                      <input type="text" class="input" value="{{old('description')}}" id="description" name="description">
-                    </p>
-                  </div>
-                  <input type="hidden" :value="permissionsSelected" name="permissions">
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-
-      <div class="columns">
-        <div class="column">
-          <div class="box">
-            <article class="media">
-              <div class="media-content">
-                <div class="content">
-                  <h2 class="title">Permissions:</h1>
-                  <b-checkbox-group v-model="permissionsSelected">
-                    @foreach ($permissions as $permission)
-                      <div class="field">
-                        <b-checkbox :custom-value="{{$permission->id}}">{{$permission->display_name}} <em>({{$permission->description}})</em></b-checkbox>
-                      </div>
-                    @endforeach
-                  </ul>
-                </div>
-              </div>
-            </article>
-          </div> <!-- end of .box -->
-
-          <button class="button is-primary">Create new User</button>
-        </div>
-      </div>
-    </form>
-  </div>
-@endsection
-
-
+    <!-- #END# Vertical Layout -->
+@stop
 @section('scripts')
-  <script>
+    <script src="{!! asset('plugins/autosize/autosize.js') !!}"></script>
+    <script src="{!! asset('js/script.js') !!}"></script>
+    <script>
+        $(function () {
+            autosize($('textarea.auto-growth'));
+            $('#basic').prop("checked", true);
+            $('#crud_form').addClass('hidden');
+        });
+        let app = new Vue({
+            el: '#app',
+            data: {
+                permissionsSelected: []
+            }
+        });
 
-  var app = new Vue({
-    el: '#app',
-    data: {
-      permissionsSelected: []
-    }
-  });
-
-  </script>
-@endsection
+    </script>
+@stop

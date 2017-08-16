@@ -28,9 +28,14 @@
                 <td>{!! $user->created_at !!}</td>
                 <td>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-info btn-outline btn-1b waves-effect btn-xs">View</button>
-                        <button type="button" class="btn btn-primary btn-outline waves-effect btn-xs">Edit</button>
-                        <button type="button" class="btn btn-danger btn-outline waves-effect btn-xs">Delete</button>
+                        <a href="{!! route('admin.manage.user.show', [$user->id]) !!}"
+                           class='btn btn-info btn-outline btn-1b waves-effect btn-xs'>
+                            View
+                        </a>
+                        <a href="{!! route('admin.manage.user.edit', [$user->id]) !!}"
+                           class='btn btn-primary btn-outline waves-effect btn-xs'>
+                            Edit
+                        </a>
                     </div>
                 </td>
             </tr>

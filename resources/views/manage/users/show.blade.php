@@ -1,44 +1,42 @@
-@extends('layouts.manage')
-
+@extends('layouts.master')
 @section('content')
-  <div class="flex-container">
-    <div class="columns m-t-10">
-      <div class="column">
-        <h1 class="title">View User Details</h1>
-      </div> <!-- end of column -->
-
-      <div class="column">
-        <a href="{{route('users.edit', $user->id)}}" class="button is-primary is-pulled-right"><i class="fa fa-user m-r-10"></i> Edit User</a>
-      </div>
+    <!-- Basic Card -->
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        {!! $user->name !!}
+                        <small>{!! $user->email !!}</small>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="{!! route('admin.manage.user.create') !!}">Add</a></li>
+                                <li><a href="{!! route('admin.manage.user.edit', [$user->id]) !!}">Edit</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <p>
+                        {!! $user->email !!}
+                    </p>
+                    <ul>
+                        {{$user->roles->count() == 0 ? 'This user has not been assigned any roles yet' : ''}}
+                        @foreach ($user->roles as $role)
+                            <li>{{$role->display_name}} ({{$role->description}})</li>
+                        @endforeach
+                    </ul>
+                    <a href="{!! route('admin.manage.user.edit', [$user->id]) !!}"
+                       class="btn btn-primary m-t-15 waves-effect">EDIT</a>
+                    <a href="{!! route('admin.manage.user.index') !!}" class="btn btn-primary m-t-15 waves-effect">BACK</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <hr class="m-t-0">
-
-    <div class="columns">
-      <div class="column">
-        <div class="field">
-          <label for="name" class="label">Name</label>
-          <pre>{{$user->name}}</pre>
-        </div>
-
-        <div class="field">
-          <div class="field">
-            <label for="email" class="label">Email</label>
-            <pre>{{$user->email}}</pre>
-          </div>
-        </div>
-
-        <div class="field">
-          <div class="field">
-            <label for="email" class="label">Roles</label>
-            <ul>
-              {{$user->roles->count() == 0 ? 'This user has not been assigned any roles yet' : ''}}
-              @foreach ($user->roles as $role)
-                <li>{{$role->display_name}} ({{$role->description}})</li>
-              @endforeach
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-@endsection
+@stop

@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Manage;
 
+use App\Model\Role;
 use App\Model\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -15,9 +19,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $page_title = "Manage";
         $users = User::all();
-        return view('manage.users.index', compact('users', 'page_title'));
+        return view('manage.users.index', compact('users'));
     }
 
     /**
@@ -27,8 +30,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $page_title = "Manage";
-        return view('manage.users.create', compact('page_title'));
+        $roles = Role::all();
+        return view('manage.users.create', compact('roles'));
     }
 
     /**
@@ -39,43 +42,34 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|unique:users'
-        ]);
-
-        if (!empty($request->password)) {
-            $password = trim($request->password);
-        } else {
-            # set the manual password
-            $length = 10;
-            $keyspace = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
-            $str = '';
-            $max = mb_strlen($keyspace, '8bit') - 1;
-            for ($i = 0; $i < $length; ++$i) {
-                $str .= $keyspace[random_int(0, $max)];
+        try {
+            $data = $request->all();
+            $validator = Validator::make($data, User::rule(), User::messages());
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
             }
-            $password = $str;
+            if (!empty($request->password)) {
+                $password = trim($request->password);
+            } else {
+                # set the manual password
+                $length = 10;
+                $key_space = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
+                $str = '';
+                $max = mb_strlen($key_space, '8bit') - 1;
+                for ($i = 0; $i < $length; ++$i) {
+                    $str .= $key_space[random_int(0, $max)];
+                }
+                $password = $str;
+            }
+            $data['password'] = bcrypt($password);
+            $user = User::with('roles')->create($data);
+            if (isset($request->roles)) {
+                $user->syncRoles(explode(',', implode(',', $request->roles)));
+            }
+            return redirect()->route('admin.manage.user.show', $user->id);
+        } catch (ModelNotFoundException $exception) {
+            throw  new ModelNotFoundException();
         }
-
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($password);
-        $user->save();
-
-        if ($request->roles) {
-            $user->syncRoles(explode(',', $request->roles));
-        }
-
-        return redirect()->route('users.show', $user->id);
-
-        // if () {
-        //
-        // } else {
-        //   Session::flash('danger', 'Sorry a problem occurred while creating this user.');
-        //   return redirect()->route('users.create');
-        // }
     }
 
     /**
@@ -86,8 +80,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::where('id', $id)->with('roles')->first();
-        return view("manage.users.show")->withUser($user);
+        $user = User::with('roles')->find($id);
+        return view('manage.users.show', compact('user'));
     }
 
     /**
@@ -98,9 +92,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $user = User::with('roles')->findOrFail($id);
         $roles = Role::all();
-        $user = User::where('id', $id)->with('roles')->first();
-        return view("manage.users.edit")->withUser($user)->withRoles($roles);
+        return view('manage.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -112,37 +106,42 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|unique:users,email,'.$id
-        ]);
-
-        $user = User::findOrFail($id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        if ($request->password_options == 'auto') {
-            $length = 10;
-            $keyspace = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
-            $str = '';
-            $max = mb_strlen($keyspace, '8bit') - 1;
-            for ($i = 0; $i < $length; ++$i) {
-                $str .= $keyspace[random_int(0, $max)];
+        try {
+            $data = $request->all();
+            $this->validate($request, [
+                'name' => 'required|max:255',
+                'email' => 'required|email|unique:users,email,' . $id
+            ]);
+            $validator = Validator::make($data, User::rule($id), User::messages());
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
             }
-            $user->password = Hash::make($str);
-        } elseif ($request->password_options == 'manual') {
-            $user->password = Hash::make($request->password);
+            $user = User::with('roles')->find($id);
+            $data['name'] = $request->name;
+            $data['email'] = $request->email;
+            if ($request->password_options == 'auto') {
+                $length = 10;
+                $key_space = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
+                $str = '';
+                $max = mb_strlen($key_space, '8bit') - 1;
+                for ($i = 0; $i < $length; ++$i) {
+                    $str .= $key_space[random_int(0, $max)];
+                }
+                $data['password'] = bcrypt($str);
+            } elseif ($request->password_options == 'manual') {
+                $data['password'] = bcrypt($request->password);
+            }
+            $update = $user->update($data);
+            if ($update) {
+                $user->syncRoles(explode(',', implode(',', $request->roles)));
+            } else {
+                DB::rollBack();
+                return redirect()->back()->with('error', 'You can not update user role, Please contact admin');
+            }
+            return redirect()->route('admin.manage.user.show', $id);
+        } catch (ModelNotFoundException $exception) {
+            throw  new ModelNotFoundException();
         }
-        $user->save();
-
-        $user->syncRoles(explode(',', $request->roles));
-        return redirect()->route('users.show', $id);
-
-        // if () {
-        //   return redirect()->route('users.show', $id);
-        // } else {
-        //   Session::flash('error', 'There was a problem saving the updated user info to the database. Try again later.');
-        //   return redirect()->route('users.edit', $id);
-        // }
     }
 
     /**

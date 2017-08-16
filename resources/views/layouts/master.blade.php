@@ -99,6 +99,10 @@
 <script src="{{ asset('js/waves.js') }}"></script>
 <!-- Custom Theme JavaScript -->
 <script src="{{ asset('js/custom.min.js') }}"></script>
+<script type="text/javascript" src="{!! asset('js/vue/vue.js') !!}"></script>
+<script src="{!! asset('js/vue/vue-resource.min.js') !!}"></script>
+<script src="{!! asset('js/vue/vue-axios.min.js') !!}"></script>
+@yield('scripts')
 @yield('plugins')
 <!--Style Switcher -->
 <script src="{{ asset('plugins/styleswitcher/jQuery.style.switcher.js') }}"></script>

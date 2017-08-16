@@ -1,44 +1,35 @@
-@extends('layouts.master')
-
+@extends('layouts.app')
 @section('content')
-  <div class="flex-container">
-    <div class="columns m-t-10">
-      <div class="column">
-        <h1 class="title">Manage Roles</h1>
-      </div>
-      <div class="column">
-        <a href="{{route('roles.create')}}" class="button is-primary is-pulled-right"><i class="fa fa-user-plus m-r-10"></i> Create New Role</a>
-      </div>
-    </div>
-    <hr class="m-t-0">
-
-    <div class="columns is-multiline">
-      @foreach ($roles as $role)
-        <div class="column is-one-quarter">
-          <div class="box">
-            <article class="media">
-              <div class="media-content">
-                <div class="content">
-                  <h3 class="title">{{$role->display_name}}</h3>
-                  <h4 class="subtitle"><em>{{$role->name}}</em></h4>
-                  <p>
-                    {{$role->description}}
-                  </p>
+    {{--<div class="block-header">--}}
+        {{--<h2>COUNTRIES</h2>--}}
+    {{--</div>--}}
+    <!-- Hover Rows -->
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        ROLES
+                        {{--<small>Add <code>.table-hover</code> to enable a hover state on table rows within a <code>&lt;tbody&gt;</code>.--}}
+                        {{--</small>--}}
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li>
+                                    <a href="{!! route('admin.security.roles.create') !!}">Add</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
-
-                <div class="columns is-mobile">
-                  <div class="column is-one-half">
-                    <a href="{{route('roles.show', $role->id)}}" class="button is-primary is-fullwidth">Details</a>
-                  </div>
-                  <div class="column is-one-half">
-                    <a href="{{route('roles.edit', $role->id)}}" class="button is-light is-fullwidth">Edit</a>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
+                @include('security.roles.table')
+            </div>
         </div>
-      @endforeach
     </div>
-  </div>
-@endsection
+    <!-- #END# Hover Rows -->
+@stop
