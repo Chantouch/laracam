@@ -10,3 +10,12 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 .env
+public/images/large/.DS_Store
+public/plugins/datatables-plugins/sorting/.DS_Store
+public/plugins/datatables-responsive/examples/.DS_Store
+public/plugins/datatables-responsive/examples/initialisation/.DS_Store
+public/plugins/etc/
+public/plugins/horizontal-timeline/js/.DS_Store
+public/plugins/ion-rangeslider/.DS_Store
+public/plugins/ion-rangeslider/js/.DS_Store
+public/plugins/styleswitcher/.DS_Store

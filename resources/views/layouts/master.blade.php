@@ -13,11 +13,12 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
+{{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
 
-    <!-- Bootstrap Core CSS -->
+<!-- Bootstrap Core CSS -->
     <link href="{!! asset('bootstrap/dist/css/bootstrap.min.css') !!}" rel="stylesheet">
-    <!-- Menu CSS -->
+@yield('bootstrap')
+<!-- Menu CSS -->
     <link href="{!! asset('plugins/sidebar-nav/dist/sidebar-nav.min.css') !!}" rel="stylesheet">
     <!-- animation CSS -->
     <link href="{!! asset('css/animate.css') !!}" rel="stylesheet">
@@ -47,7 +48,7 @@
     <!-- ============================================================== -->
     <div id="wrapper">
     @include('layouts.inc.header')
-    @include('layouts.inc.left-sidebar')
+    @include('layouts.inc.menu')
 
     <!-- ============================================================== -->
         <!-- ============================================================== -->
@@ -57,12 +58,13 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Starter Page</h4></div>
+                        <h4 class="page-title">{!! isset($page_title) ? $page_title : 'Home' !!}</h4>
+                    </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <button class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20">
                             <i class="ti-settings text-white"></i></button>
                         <ol class="breadcrumb">
-                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="{!! route('admin.dashboard') !!}">Dashboard</a></li>
                             <li class="active">Starter Page</li>
                         </ol>
                     </div>
@@ -97,6 +99,7 @@
 <script src="{{ asset('js/waves.js') }}"></script>
 <!-- Custom Theme JavaScript -->
 <script src="{{ asset('js/custom.min.js') }}"></script>
+@yield('plugins')
 <!--Style Switcher -->
 <script src="{{ asset('plugins/styleswitcher/jQuery.style.switcher.js') }}"></script>
 </body>
