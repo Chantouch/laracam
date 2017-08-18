@@ -1,46 +1,17 @@
-@extends('layouts.app')
+@extends('layouts.master')
 @section('content')
-    <!-- Vertical Layout -->
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="header">
-                    <h2>
-                        ADD PERMISSION
-                    </h2>
-                    <ul class="header-dropdown m-r--5">
-                        <li class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false">
-                                <i class="material-icons">more_vert</i>
-                            </a>
-                            <ul class="dropdown-menu pull-right">
-                                <li><a href="{!! route('admin.security.permissions.index') !!}">MINISTRY LIST</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <div class="body">
-                    {!! Form::open(['route' => ['admin.security.permissions.store'], 'method' => 'POST']) !!}
-                    @include('security.permissions.fields')
-                    {!! Form::close() !!}
-                </div>
-            </div>
+    <div class="col-md-12">
+        <div class="white-box">
+            <h3 class="box-title m-b-0">Add Permission</h3>
+            <p class="text-muted m-b-2 font-13">Clearify lall thesl</p>
+            {!! Form::open(['route' => ['admin.manage.permission.store'], 'method' => 'POST']) !!}
+            @include('manage.permissions.fields')
+            {!! Form::close() !!}
         </div>
     </div>
-    <!-- #END# Vertical Layout -->
 @stop
 @section('scripts')
-    <script src="{!! asset('plugins/autosize/autosize.js') !!}"></script>
     <script src="{!! asset('js/script.js') !!}"></script>
-    <script>
-        $(function () {
-            autosize($('textarea.auto-growth'));
-            $('#basic').prop("checked", true);
-            $('#crud_form').addClass('hidden');
-        });
-    </script>
-
     <script>
         let app = new Vue({
             el: '#app',

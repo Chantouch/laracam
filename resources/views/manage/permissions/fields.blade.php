@@ -94,4 +94,4 @@
 
 <br>
 <button class="btn btn-primary m-t-15 waves-effect">SUBMIT</button>
-<a href="{!! route('admin.security.permissions.index') !!}" class="btn btn-primary m-t-15 waves-effect">CANCEL</a>
+<a href="{!! route('admin.manage.permission.index') !!}" class="btn btn-primary m-t-15 waves-effect">CANCEL</a>

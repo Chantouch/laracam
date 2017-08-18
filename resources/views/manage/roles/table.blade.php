@@ -20,14 +20,16 @@
                     <td>{!! $role->description !!}</td>
                     <td>{!! $role->created_at !!}</td>
                     <td>
-                        <a href="{!! route('admin.security.roles.show', [$role->id]) !!}"
-                           class='btn btn-default btn-xs'>
-                            <i class="material-icons">remove_red_eye</i>
-                        </a>
-                        <a href="{!! route('admin.security.roles.edit', [$role->id]) !!}"
-                           class='btn btn-default btn-xs'>
-                            <i class="material-icons">mode_edit</i>
-                        </a>
+                        <div class="btn-group">
+                            <a href="{!! route('admin.manage.role.show', [$role->id]) !!}"
+                               class='btn btn-info btn-outline btn-1b waves-effect btn-xs'>
+                                View
+                            </a>
+                            <a href="{!! route('admin.manage.role.edit', [$role->id]) !!}"
+                               class='btn btn-primary btn-outline waves-effect btn-xs'>
+                                Edit
+                            </a>
+                        </div>
                     </td>
                 </tr>
             @endforeach

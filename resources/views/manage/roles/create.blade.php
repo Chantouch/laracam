@@ -1,44 +1,18 @@
-@extends('layouts.app')
+@extends('layouts.master')
 @section('content')
-    <!-- Vertical Layout -->
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="header">
-                    <h2>
-                        ADD PERMISSION
-                    </h2>
-                    <ul class="header-dropdown m-r--5">
-                        <li class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false">
-                                <i class="material-icons">more_vert</i>
-                            </a>
-                            <ul class="dropdown-menu pull-right">
-                                <li><a href="{!! route('admin.security.roles.index') !!}">MINISTRY LIST</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <div class="body">
-                    {!! Form::open(['route' => ['admin.security.roles.store'], 'method' => 'POST']) !!}
-                    @include('security.roles.fields')
-                    {!! Form::close() !!}
-                </div>
-            </div>
+    <div class="col-md-12">
+        <div class="white-box">
+            <h3 class="box-title m-b-0">Edit Role</h3>
+            <p class="text-muted m-b-2 font-13">Clearify lall thesl</p>
+            {!! Form::open(['route' => ['admin.manage.role.store'], 'method' => 'POST']) !!}
+            @include('manage.roles.fields')
+            {!! Form::close() !!}
         </div>
     </div>
-    <!-- #END# Vertical Layout -->
 @stop
 @section('scripts')
-    <script src="{!! asset('plugins/autosize/autosize.js') !!}"></script>
     <script src="{!! asset('js/script.js') !!}"></script>
     <script>
-        $(function () {
-            autosize($('textarea.auto-growth'));
-            $('#basic').prop("checked", true);
-            $('#crud_form').addClass('hidden');
-        });
         let app = new Vue({
             el: '#app',
             data: {

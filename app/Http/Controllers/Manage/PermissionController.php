@@ -95,7 +95,8 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        //
+        $permission = Permission::findOrFail($id);
+        return view('manage.permissions.show')->withPermission($permission);
     }
 
     /**
@@ -123,7 +124,16 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'display_name' => 'required|max:255',
+            'description' => 'sometimes|max:255'
+        ]);
+        $permission = Permission::findOrFail($id);
+        $permission->display_name = $request->display_name;
+        $permission->description = $request->description;
+        $permission->save();
+        Session::flash('success', 'Updated the ' . $permission->display_name . ' permission.');
+        return redirect()->route($this->route . 'show', $id);
     }
 
     /**

@@ -48,6 +48,22 @@
                     </li>
                 </ul>
             </li>
+
+            <li>
+                <a href="#" class="waves-effect">
+                    <i class="mdi mdi-av-timer fa-fw" data-icon="v"></i>
+                    <span class="hide-menu"> Ref.Master Data <span class="fa arrow"></span>
+                        <span class="label label-rouded label-inverse pull-right">4</span>
+                    </span>
+                </a>
+                <ul class="nav nav-second-level">
+                    <li><a href="#">
+                            <i class="fa-fw">1</i>
+                            <span class="hide-menu">Dashboard 1</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <li class="{!! Request::is('admin/manage/*')? 'active' : '' !!}">
                 <a href="javascript:void(0)" class="waves-effect {!! Request::is('admin/manage/*')? 'active' : '' !!}">
                     <i class="mdi mdi-content-copy fa-fw"></i>
@@ -57,15 +73,22 @@
                 </a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="{!! route('admin.manage.user.index') !!}" class="{!! Request::is('admin/manage/user*')? 'active' : '' !!}">
+                        <a href="{!! route('admin.manage.user.index') !!}"
+                           class="{!! Request::is('admin/manage/user*')? 'active' : '' !!}">
                             <i class="ti-layout-width-default fa-fw"></i>
                             <span class="hide-menu">User</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{!! route('admin.manage.role.index') !!}">
                             <i class="ti-layout-sidebar-left fa-fw"></i>
-                            <span class="hide-menu">Blank Page</span>
+                            <span class="hide-menu">Role</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{!! route('admin.manage.permission.index') !!}">
+                            <i class="ti-layout-sidebar-left fa-fw"></i>
+                            <span class="hide-menu">Permission</span>
                         </a>
                     </li>
                     <li>

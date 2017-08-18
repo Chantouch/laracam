@@ -21,5 +21,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', 'HomeController@index')->name('dashboard');
     Route::prefix('manage')->name('manage.')->group(function () {
         Route::resource('user', 'Manage\UserController');
+        Route::resource('role', 'Manage\RoleController');
+        Route::resource('permission', 'Manage\PermissionController');
     });
 });
