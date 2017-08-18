@@ -9,18 +9,11 @@
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Styles -->
-{{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
-
-<!-- Bootstrap Core CSS -->
     <link href="{!! asset('bootstrap/dist/css/bootstrap.min.css') !!}" rel="stylesheet">
-@yield('bootstrap')
-<!-- Menu CSS -->
+    @yield('bootstrap')
     <link href="{!! asset('plugins/sidebar-nav/dist/sidebar-nav.min.css') !!}" rel="stylesheet">
-    <!-- animation CSS -->
+    @yield('page-css')
     <link href="{!! asset('css/animate.css') !!}" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="{!! asset('css/style.css') !!}" rel="stylesheet">

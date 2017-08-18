@@ -12,16 +12,20 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
 Auth::routes();
 
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('dashboard', 'HomeController@index')->name('dashboard');
-    Route::prefix('manage')->name('manage.')->group(function () {
-        Route::resource('user', 'Manage\UserController');
-        Route::resource('role', 'Manage\RoleController');
-        Route::resource('permission', 'Manage\PermissionController');
-    });
+	Route::get('dashboard', 'HomeController@index')->name('dashboard');
+	Route::prefix('manage')->name('manage.')->group(function () {
+		Route::resource('user', 'Manage\UserController');
+		Route::resource('role', 'Manage\RoleController');
+		Route::resource('permission', 'Manage\PermissionController');
+	});
+	Route::prefix('ref')->name('ref.')->group(function () {
+		Route::resource('category', 'Ref\CategoryController');
+		Route::resource('tag', 'Ref\TagController');
+	});
 });

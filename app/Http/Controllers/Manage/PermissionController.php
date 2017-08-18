@@ -17,7 +17,7 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $route = 'admin.manage.permissions.';
+    public $route = 'admin.manage.permission.';
 
     public function index()
     {

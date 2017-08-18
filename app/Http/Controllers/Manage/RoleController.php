@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 
 class RoleController extends Controller
 {
-    public $route = 'admin.manage.roles.';
+    public $route = 'admin.manage.role.';
 
     /**
      * Display a listing of the resource.

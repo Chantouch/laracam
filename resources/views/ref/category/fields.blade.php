@@ -31,14 +31,15 @@
     @endif
 </div>
 
-{!! Form::label('tags', 'Tags:') !!}
+
 <div class="form-group tagsinput-area">
+    <label for="tag">Tag:</label>
+    <input type="hidden" name="tags" :value="tags">
     <div class="form-line">
-        @if(isset($category))
-            {!! Form::text('tags', $category->tagList(), ['class' => 'form-control', 'placeholder' => 'Enter your product tag', 'data-role'=>'tagsinput', 'id'=>'tags']) !!}
-        @else
-            {!! Form::text('tags', null, ['class' => 'form-control', 'placeholder' => 'Enter your product tag', 'data-role'=>'tagsinput', 'id'=>'tags']) !!}
-        @endif
+        <select class="select2 m-b-10 select2-multiple" multiple="multiple" data-placeholder="Choose" id="tag"
+                v-model="tags">
+            <option v-for="tag in tag_lists" :value="tag.name">@{{ tag.name }}</option>
+        </select>
     </div>
     @if ($errors->has('tags'))
         <span class="help-block">
@@ -47,9 +48,10 @@
     @endif
 </div>
 
+
 {{ Form::hidden('status', '0') }}
 {!! Form::checkbox('status', '1', null, ['class' => 'filled-in', 'id'=> 'active']) !!}
 <label for="active">Active</label>
 <br>
 <button type="submit" class="btn btn-primary m-t-15 waves-effect">SUBMIT</button>
-<a href="{!! route('admin.manage.categories.index') !!}" class="btn btn-primary m-t-15 waves-effect">CANCEL</a>
+<a href="{!! route('admin.ref.category.index') !!}" class="btn btn-primary m-t-15 waves-effect">CANCEL</a>

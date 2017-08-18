@@ -12,7 +12,6 @@ class Category extends Model
         'name', 'slug', 'description', 'status', 'parent_id'
     ];
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
