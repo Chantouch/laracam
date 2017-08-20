@@ -1,16 +1,16 @@
-@if(count($categories)>1)
-    {!! Form::label('parent_id', 'Category Level:') !!}
+@if(count($pages)>1)
+    {!! Form::label('parent_id', 'Page Level:') !!}
     <div class="form-group">
         <div class="form-line">
-            {!! Form::select('parent_id',$categories , null, ['class' => 'form-control show-tick', 'data-live-search' => 'true', 'placeholder' => 'Select category']) !!}
+            {!! Form::select('parent_id',$pages , null, ['class' => 'form-control show-tick', 'data-live-search' => 'true', 'placeholder' => 'Select page']) !!}
         </div>
     </div>
 @endif
 
-{!! Form::label('name', 'Category Name:') !!}
+{!! Form::label('name', 'Page Name:') !!}
 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
     <div class="form-line">
-        {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Enter your category name']) !!}
+        {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Enter your page name']) !!}
     </div>
     @if ($errors->has('name'))
         <span class="help-block">
@@ -19,10 +19,10 @@
     @endif
 </div>
 
-{!! Form::label('slug', 'Category slug:') !!}
+{!! Form::label('slug', 'Page slug:') !!}
 <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
     <div class="form-line">
-        {!! Form::text('slug', null, ['class' => 'form-control', 'placeholder' => 'Enter your category slug']) !!}
+        {!! Form::text('slug', null, ['class' => 'form-control', 'placeholder' => 'Enter your page slug']) !!}
     </div>
     @if ($errors->has('slug'))
         <span class="help-block">
@@ -31,10 +31,10 @@
     @endif
 </div>
 
-{!! Form::label('description', 'Category Description:') !!}
+{!! Form::label('description', 'Page Description:') !!}
 <div class="form-group">
     <div class="form-line">
-        {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'Enter your category description']) !!}
+        {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'Enter your page description']) !!}
     </div>
     @if ($errors->has('description'))
         <span class="help-block">
@@ -79,4 +79,4 @@
 <label for="active">Active</label>
 <br>
 <button type="submit" class="btn btn-primary m-t-15 waves-effect">SUBMIT</button>
-<a href="{!! route('admin.ref.category.index') !!}" class="btn btn-primary m-t-15 waves-effect">CANCEL</a>
+<a href="{!! route('admin.ref.page.index') !!}" class="btn btn-primary m-t-15 waves-effect">CANCEL</a>

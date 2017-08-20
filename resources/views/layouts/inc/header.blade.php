@@ -12,17 +12,23 @@
                     <!--This is light logo icon-->
                     <img src="{!! asset('images/admin-logo-dark.png') !!}" alt="home" class="light-logo"/>
                 </b>
-                <!-- Logo text image you can use text also --><span class="hidden-xs">
-                        <!--This is dark logo text--><img src="{!! asset('images/admin-text.png') !!}" alt="home"
-                                                          class="dark-logo"/><!--This is light logo text--><img
-                            src="{!! asset('images/admin-text-dark.png') !!}" alt="home" class="light-logo"/>
-                     </span> </a>
+                <!-- Logo text image you can use text also -->
+                <span class="hidden-xs">
+                        <!--This is dark logo text-->
+                    <img src="{!! asset('images/admin-text.png') !!}" alt="home" class="dark-logo"/>
+                    <!--This is light logo text-->
+                    <img src="{!! asset('images/admin-text-dark.png') !!}" alt="home" class="light-logo"/>
+                </span>
+            </a>
         </div>
         <!-- /Logo -->
         <!-- Search input and Toggle icon -->
         <ul class="nav navbar-top-links navbar-left">
-            <li><a href="javascript:void(0)" class="open-close waves-effect waves-light visible-xs"><i
-                            class="ti-close ti-menu"></i></a></li>
+            <li>
+                <a href="javascript:void(0)" class="open-close waves-effect waves-light visible-xs">
+                    <i class="ti-close ti-menu"></i>
+                </a>
+            </li>
             <li class="dropdown">
                 <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"> <i
                             class="mdi mdi-gmail"></i>

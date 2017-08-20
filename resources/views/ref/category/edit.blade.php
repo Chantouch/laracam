@@ -1,6 +1,7 @@
 @extends('layouts.master')
-@section('style')
-
+@section('page-css')
+    <link href="{!! asset('plugins/multiselect/css/multi-select.css') !!}" rel="stylesheet" type="text/css"/>
+    <link href="{!! asset('plugins/custom-select/custom-select.css') !!}" rel="stylesheet" type="text/css"/>
 @stop
 @section('content')
     <div class="col-sm-12">
@@ -14,12 +15,43 @@
     </div>
 @stop
 @section('plugins')
+    <script type="text/javascript" src="{!! asset('plugins/multiselect/js/jquery.multi-select.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('plugins/custom-select/custom-select.min.js') !!}"></script>
 @stop
 
-@section('script')
+
+@section('scripts')
     <script>
-//        $('#img_name').change(function () {
-//            uploadPreview(this, 'img_preview');
-//        });
+        let app = new Vue({
+            el: '#app',
+            data: {
+                tags: {!! $category->tags->pluck('id') !!},
+                tag_lists: [],
+                api_url: '/api/v1/'
+            },
+            created: function () {
+                this.tagList();
+            },
+            methods: {
+                tagList: function () {
+                    let vm = this;
+                    vm.$http.get('/api/v1/tag')
+                        .then((response) => {
+                            vm.tag_lists = response.data;
+                        })
+                        .catch((response) => {
+
+                        })
+                }
+            },
+            watch: {
+                tags: function (nv) {
+                    this.tags = nv;
+                }
+            }
+        });
+        $(function () {
+            $(".select2").select2();
+        })
     </script>
 @stop

@@ -4,22 +4,26 @@ namespace App\Model;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Request;
 
 class Post extends Model
 {
 
     use Sluggable;
+    //use SoftDeletes;
     protected $guarded = [];
     protected $fillable = [
-        'title', 'description', 'slug', 'user_id', 'active'
+        'title', 'description', 'slug', 'user_id', 'active', 'path'
     ];
 
     public static function rule()
     {
         return [
             'title' => 'required|max:255',
-            'description' => 'required'
+            'description' => 'required|min:20',
+            'slug' => 'required',
+            'categories' => 'required'
         ];
     }
 
@@ -42,6 +46,8 @@ class Post extends Model
         ];
     }
 
+    //-----------Relationship--------------//
+
     /**
      * Get all of the tags for the post.
      */
@@ -56,6 +62,23 @@ class Post extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'post_categories', 'post_id', 'category_id')->withPivot('post_id', 'category_id')->withTimestamps();
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\morphOne
+     */
+    public function images()
+    {
+        return $this->morphOne(Attachment::class, 'attachable');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
+    public function meta_key()
+    {
+        return $this->morphOne(Meta::class, 'metable');
     }
 
 }

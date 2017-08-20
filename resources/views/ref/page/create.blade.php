@@ -6,10 +6,10 @@
 @section('content')
     <div class="col-sm-12">
         <div class="white-box">
-            <h3 class="box-title m-b-0">Category</h3>
-            <p class="text-muted m-b-30">Easy to managing your category</p>
-            {!! Form::open(['route' => ['admin.ref.category.store'], 'method' => 'POST', 'files'=> true]) !!}
-            @include('ref.category.fields')
+            <h3 class="box-title m-b-0">Page</h3>
+            <p class="text-muted m-b-30">Easy to managing your page</p>
+            {!! Form::open(['route' => ['admin.ref.page.store'], 'method' => 'POST', 'files'=> true]) !!}
+            @include('ref.page.fields')
             {!! Form::close() !!}
         </div>
     </div>

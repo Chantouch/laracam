@@ -1,5 +1,5 @@
 <div class="body table-responsive">
-    @if(count($categories))
+    @if(count($pages))
         <table class="table table-hover">
             <thead>
             <tr>
@@ -13,36 +13,36 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($categories as $index => $category)
+            @foreach($pages as $index => $page)
                 <tr>
-                    <th scope="row">{!! $loop->index+1 !!}</th>
+                    <th>{!! $loop->index+1 !!}</th>
                     <td>
-                        @if(count($category->images))
-                            <img src="{!! asset('uploads/category/'.$category->images->file) !!}"
-                                 alt="{!! $category->name !!}" width="25">
+                        @if(count($page->images))
+                            <img src="{!! asset('uploads/page/'.$page->images->file) !!}"
+                                 alt="{!! $page->name !!}" width="25">
                         @else
-                            <img src="{!! asset('img/slider-870x323.jpg') !!}" alt="Thumbnail of category"
+                            <img src="{!! asset('img/slider-870x323.jpg') !!}" alt="Thumbnail of page"
                                  class="img-thumbnail">
                         @endif
                     </td>
-                    <td>{!! $category->name !!}</td>
-                    <td>{!! str_limit($category->description, 70) !!}</td>
+                    <td>{!! $page->name !!}</td>
+                    <td>{!! str_limit($page->description, 70) !!}</td>
                     <td>
-                        @foreach($category->tags as $tag)
+                        @foreach($page->tags as $tag)
                             <span class="label label-info">{!! $tag->name !!}</span>
                         @endforeach
                     </td>
                     <td>
-                        <span class="badge badge-primary">{!! $category->status !!}</span>
+                        <span class="badge badge-primary">{!! $page->status !!}</span>
                     </td>
                     <td>
                         <div class="btn-group">
-                            {!! Form::open(['route' => ['admin.ref.category.destroy', $category->id], 'method' => 'delete']) !!}
-                            <a href="{!! route('admin.ref.category.show', [$category->id]) !!}"
+                            {!! Form::open(['route' => ['admin.ref.page.destroy', $page->id], 'method' => 'delete']) !!}
+                            <a href="{!! route('admin.ref.page.show', [$page->id]) !!}"
                                class='btn btn-info btn-outline btn-1b waves-effect btn-xs'>
                                 View
                             </a>
-                            <a href="{!! route('admin.ref.category.edit', [$category->id]) !!}"
+                            <a href="{!! route('admin.ref.page.edit', [$page->id]) !!}"
                                class='btn btn-primary btn-outline waves-effect btn-xs'>
                                 Edit
                             </a>
@@ -54,7 +54,7 @@
             @endforeach
             </tbody>
         </table>
-        {!! $categories->render() !!}
+        {!! $pages->render() !!}
     @else
         <p>There is no data here.</p>
     @endif

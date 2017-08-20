@@ -62,20 +62,55 @@
             <li>
                 <a href="#" class="waves-effect">
                     <i class="mdi mdi-av-timer fa-fw" data-icon="v"></i>
+                    <span class="hide-menu"> Posts <span class="fa arrow"></span>
+                        <span class="label label-rouded label-inverse pull-right">4</span>
+                    </span>
+                </a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{!! route('admin.article.index') !!}">
+                            <i class="fa-fw">A</i>
+                            <span class="hide-menu">All Article</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{!! route('admin.article.create') !!}">
+                            <i class="fa-fw">N</i>
+                            <span class="hide-menu">New Article</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{!! route('admin.article.draft') !!}">
+                            <i class="fa-fw">D</i>
+                            <span class="hide-menu">Draft Article</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#" class="waves-effect">
+                    <i class="mdi mdi-av-timer fa-fw" data-icon="v"></i>
                     <span class="hide-menu"> Ref.Master Data <span class="fa arrow"></span>
                         <span class="label label-rouded label-inverse pull-right">4</span>
                     </span>
                 </a>
                 <ul class="nav nav-second-level">
                     <li>
+                        <a href="{!! route('admin.ref.page.index') !!}">
+                            <i class="fa-fw">P</i>
+                            <span class="hide-menu">Page</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{!! route('admin.ref.category.index') !!}">
-                            <i class="fa-fw">1</i>
+                            <i class="fa-fw">C</i>
                             <span class="hide-menu">Category</span>
                         </a>
                     </li>
                     <li>
                         <a href="{!! route('admin.ref.tag.index') !!}">
-                            <i class="fa-fw">2</i>
+                            <i class="fa-fw">T</i>
                             <span class="hide-menu">Tag</span>
                         </a>
                     </li>

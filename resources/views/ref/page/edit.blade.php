@@ -6,15 +6,14 @@
 @section('content')
     <div class="col-sm-12">
         <div class="white-box">
-            <h3 class="box-title m-b-0">Category</h3>
-            <p class="text-muted m-b-30">Easy to managing your category</p>
-            {!! Form::open(['route' => ['admin.ref.category.store'], 'method' => 'POST', 'files'=> true]) !!}
-            @include('ref.category.fields')
+            <h3 class="box-title m-b-0">Page</h3>
+            <p class="text-muted m-b-30">Easy to managing your page</p>
+            {!! Form::model($page, ['route' => ['admin.ref.page.update', $page->id], 'method' => 'patch', 'files'=> true]) !!}
+            @include('ref.page.fields')
             {!! Form::close() !!}
         </div>
     </div>
 @stop
-
 @section('plugins')
     <script type="text/javascript" src="{!! asset('plugins/multiselect/js/jquery.multi-select.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('plugins/custom-select/custom-select.min.js') !!}"></script>
@@ -26,7 +25,7 @@
         let app = new Vue({
             el: '#app',
             data: {
-                tags: [],
+                tags: {!! $page->tags->pluck('id') !!},
                 tag_lists: [],
                 api_url: '/api/v1/'
             },

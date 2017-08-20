@@ -5,11 +5,11 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
 
-class Category extends Model
+class Page extends Model
 {
     protected $guarded = [];
     protected $fillable = [
-        'name', 'slug', 'description', 'status', 'parent_id'
+        'name', 'slug', 'description', 'status', 'parent_id', 'order'
     ];
 
     /**
@@ -17,7 +17,7 @@ class Category extends Model
      */
     public function parent()
     {
-        return $this->belongsTo(Category::class, 'parent_id');
+        return $this->belongsTo(Page::class, 'parent_id');
     }
 
     /**
@@ -25,7 +25,7 @@ class Category extends Model
      */
     public function children()
     {
-        return $this->hasMany(Category::class, 'parent_id', 'id')
+        return $this->hasMany(Page::class, 'parent_id', 'id')
             ->whereNotNull('parent_id');
     }
 
@@ -39,19 +39,6 @@ class Category extends Model
         return $this->morphToMany(Tag::class, 'taggable');
     }
 
-    /**
-     * @return string
-     */
-    public function tagList()
-    {
-        $tag = $this->tags;
-        $tags = array();
-        foreach ($tag as $tg) {
-            $tags[$tg->name] = $tg->name;
-        }
-        return implode(', ', $tags);
-    }
-
     //===============Validation===============//
     public static function rules($id = null)
     {
@@ -62,15 +49,15 @@ class Category extends Model
             }
             case 'POST': {
                 return [
-                    'name' => 'required|unique:categories|max:255',
-                    'file' => 'mimes:jpg,png|max:10240'
+                    'name' => 'required|unique:pages|max:255',
+                    'file' => 'image|max:10240'
                 ];
             }
             case 'PUT':
             case 'PATCH': {
                 return [
-                    'name' => 'required|max:255|unique:categories,name,' . $id . ',id',
-                    'file' => 'mimes:jpg,png|max:10240'
+                    'name' => 'required|max:255|unique:pages,name,' . $id . ',id',
+                    'file' => 'image|max:10240'
                 ];
             }
             default:
@@ -93,13 +80,5 @@ class Category extends Model
     public function images()
     {
         return $this->morphOne(Attachment::class, 'attachable');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function articles()
-    {
-        return $this->belongsToMany(Post::class, 'post_categories', 'category_id', 'post_id')->withPivot('category_id', 'post_id')->withTimestamps();
     }
 }

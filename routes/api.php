@@ -14,9 +14,12 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-	return $request->user();
+    return $request->user();
 });
 
 Route::prefix('v1')->name('api.v1.')->group(function () {
-	Route::get('category', 'API\MasterController@category')->name('category');
+    Route::get('tag', 'API\MasterController@tag')->name('tag');
+    Route::get('categories', 'API\MasterController@categories')->name('categories');
+    Route::get('cat-most-used', 'API\MasterController@catMostUsed')->name('cat-most-used');
+    Route::post('category', 'Ref\CategoryController@ajaxNew')->name('ajax-new');
 });

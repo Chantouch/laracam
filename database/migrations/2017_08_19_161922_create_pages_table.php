@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostsTable extends Migration
+class CreatePagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,17 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title',255)->nullable();
+            $table->string('name')->nullable();
             $table->string('slug',255)->nullable();
+            $table->unsignedInteger('parent_id', false)->nullable();
             $table->longText('description')->nullable();
-            $table->unsignedInteger('user_id', false)->nullable();
-            $table->tinyInteger('active')->default(0);
-            $table->string('path')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('order')->default(0);
             $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('parent_id')->references('id')->on('pages')->onDelete('cascade');
         });
     }
 
@@ -33,6 +34,6 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('pages');
     }
 }

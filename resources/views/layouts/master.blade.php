@@ -95,8 +95,8 @@
 <script type="text/javascript" src="{!! asset('js/vue/vue.js') !!}"></script>
 <script src="{!! asset('js/vue/vue-resource.min.js') !!}"></script>
 <script src="{!! asset('js/vue/vue-axios.min.js') !!}"></script>
-@yield('scripts')
 @yield('plugins')
+@yield('scripts')
 <!--Style Switcher -->
 <script src="{{ asset('plugins/styleswitcher/jQuery.style.switcher.js') }}"></script>
 </body>
