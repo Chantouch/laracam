@@ -327,7 +327,7 @@
                     <img src="{!! asset('images/not.jpg') !!}" alt="No Image Available"
                          class="img-thumbnail">
                     <div class="img-preview" v-if="images.length > 0">
-                        <img class="preview" :src="images">
+                        <img class="img-thumbnail" :src="images">
                     </div>
                 @endif
             </div>

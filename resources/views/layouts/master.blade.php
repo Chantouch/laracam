@@ -13,6 +13,8 @@
     <link href="{!! asset('bootstrap/dist/css/bootstrap.min.css') !!}" rel="stylesheet">
     @yield('bootstrap')
     <link href="{!! asset('plugins/sidebar-nav/dist/sidebar-nav.min.css') !!}" rel="stylesheet">
+    <!-- toast CSS -->
+    <link href="{!! asset('plugins/toast-master/css/jquery.toast.css') !!}" rel="stylesheet">
     @yield('page-css')
     <link href="{!! asset('css/animate.css') !!}" rel="stylesheet">
     <!-- Custom CSS -->
@@ -86,10 +88,12 @@
 <script src="{{ asset('bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <!-- Menu Plugin JavaScript -->
 <script src="{{ asset('plugins/sidebar-nav/dist/sidebar-nav.min.js') }}"></script>
-<!--slimscroll JavaScript -->
+<!--Slimscroll JavaScript -->
 <script src="{{ asset('js/jquery.slimscroll.js') }}"></script>
 <!--Wave Effects -->
 <script src="{{ asset('js/waves.js') }}"></script>
+<script src="{!! asset('plugins/toast-master/js/jquery.toast.js') !!}"></script>
+<script src="{!! asset('js/toastr.js') !!}"></script>
 <!-- Custom Theme JavaScript -->
 <script src="{{ asset('js/custom.min.js') }}"></script>
 <script type="text/javascript" src="{!! asset('js/vue/vue.js') !!}"></script>
@@ -99,5 +103,58 @@
 @yield('scripts')
 <!--Style Switcher -->
 <script src="{{ asset('plugins/styleswitcher/jQuery.style.switcher.js') }}"></script>
+<script>
+    $(function () {
+        @if(Session::has('message'))
+        let type = "{{ Session::get('alert-type', 'info') }}";
+        switch (type) {
+            case 'info':
+                $.toast({
+                    heading: 'Welcome to my Elite admin',
+                    text: {{ Session::get('message') }},
+                    position: 'top-right',
+                    loaderBg: '#ff6849',
+                    icon: 'info',
+                    hideAfter: 3000,
+                    stack: 6
+                });
+                break;
+            case 'warning':
+                $.toast({
+                    heading: 'Welcome to my Elite admin',
+                    text: {{ Session::get('message') }},
+                    position: 'top-right',
+                    loaderBg: '#ff6849',
+                    icon: 'warning',
+                    hideAfter: 3000,
+                    stack: 6
+                });
+                break;
+            case 'success':
+                $.toast({
+                    heading: 'Welcome to my Elite admin',
+                    text: {{ Session::get('message') }},
+                    position: 'top-right',
+                    loaderBg: '#ff6849',
+                    icon: 'success',
+                    hideAfter: 3000,
+                    stack: 6
+                });
+                break;
+            case 'error':
+                $.toast({
+                    heading: 'Welcome to my Elite admin',
+                    text: {{ Session::get('message') }},
+                    position: 'top-right',
+                    loaderBg: '#ff6849',
+                    icon: 'error',
+                    hideAfter: 3000,
+                    stack: 6
+                });
+                break;
+        }
+        @endif
+    })
+</script>
 </body>
 </html>

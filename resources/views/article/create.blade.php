@@ -92,7 +92,15 @@
                             };
                             vm.formErrors = '';
                             this.showCat = false;
-                            alert('Category ' + response.data.name + ' added successfully');
+                            $.toast({
+                                heading: 'Welcome to my Elite admin',
+                                text: 'Category ' + response.data.name + ' added successfully',
+                                position: 'top-right',
+                                loaderBg: '#ff6849',
+                                icon: 'success',
+                                hideAfter: 3000,
+                                stack: 6
+                            });
                             vm.categoryList();
                         }
                     })
