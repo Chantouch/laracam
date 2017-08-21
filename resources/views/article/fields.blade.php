@@ -31,21 +31,6 @@
                 @endif
             </div>
         </div>
-
-        <div class="form-group tagsinput-area">
-            <label class="col-sm-12" for="tag">Tag:</label>
-            <input type="hidden" name="tags" :value="tags">
-            <div class="col-sm-12">
-                <select class="form-control" multiple data-placeholder="Choose" id="tag" v-model="tags">
-                    <option v-for="tag in tag_lists" :value="tag.id">@{{ tag.name }}</option>
-                </select>
-                @if ($errors->has('tags'))
-                    <span class="help-block">
-                        <small>{{ $errors->first('tags') }}</small>
-                    </span>
-                @endif
-            </div>
-        </div>
     </div>
 
     <!--Feature Image-->
@@ -267,6 +252,24 @@
         </div>
         <div class="panel-wrapper collapse in">
             <div class="panel-body">
+
+                <div class="form-group tagsinput-area">
+                    <label class="col-sm-12" for="tag"></label>
+                    <div class="col-md-12">
+                        <input type="hidden" name="tags" :value="article.tags">
+                        <div class="checkbox checkbox-info" v-for="tag in tag_lists">
+                            <input :id="'tag-'+tag.id" type="checkbox" :value="tag.id"
+                                   v-model="article.tags">
+                            <label :for="'tag-'+tag.id"> @{{ tag.name }} </label>
+                        </div>
+                        @if ($errors->has('tags'))
+                            <span class="help-block">
+                                <small>{{ $errors->first('tags') }}</small>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
                 <div class="input-group m-b-10">
                     <input type="text" id="example-input2-group2" name="example-input2-group2" class="form-control"
                            placeholder="Tag">

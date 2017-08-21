@@ -171,6 +171,7 @@ return [
         Laratrust\LaratrustServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
+	    Torann\LaravelMetaTags\MetaTagsServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -233,6 +234,7 @@ return [
         'Laratrust' => Laratrust\LaratrustFacade::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'MetaTag'   => Torann\LaravelMetaTags\Facades\MetaTag::class,
     ],
 
 ];

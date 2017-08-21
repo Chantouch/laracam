@@ -24,14 +24,14 @@
         let app = new Vue({
             el: '#app',
             data: {
-                tags: {!! isset($post->tags) ? $post->tags->pluck('id') : 0 !!},
                 tag_lists: [],
                 api_url: '/api/v1/',
                 status: false,
                 edit: true,
                 article: {
                     'status': 'draft',
-                    category: {!! isset($post->categories) ? $post->categories->pluck('id') : 0 !!}
+                    category: {!! isset($post->categories) ? $post->categories->pluck('id') : 0 !!},
+                    tags: {!! isset($post->tags) ? $post->tags->pluck('id') : 0 !!},
                 },
                 images: '',
                 categories: [],

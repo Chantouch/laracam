@@ -25,14 +25,14 @@
         let app = new Vue({
             el: '#app',
             data: {
-                tags: [],
                 tag_lists: [],
                 api_url: '/api/v1/',
                 status: false,
                 edit: true,
                 article: {
                     'status': 'draft',
-                    category: []
+                    category: [],
+                    tags: [],
                 },
                 images: '',
                 categories: [],
