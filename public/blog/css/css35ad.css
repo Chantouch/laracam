@@ -63,11 +63,11 @@ Template version: 1.1
 
 @font-face {
     font-family: 'entypo';
-    src: url('fonts/entypo.eot');
-    src: url('fonts/entypod41d.eot?#iefix') format('embedded-opentype'),
-         url('fonts/entypo.woff') format('woff'),
-         url('fonts/entypo.ttf') format('truetype'),
-         url('fonts/entypo.svg#entypo') format('svg');
+    src: url('../fonts/entypo.eot');
+    src: url('../fonts/entypod41d.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/entypo.woff') format('woff'),
+         url('../fonts/entypo.ttf') format('truetype'),
+         url('../fonts/entypo.svg#entypo') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -610,7 +610,7 @@ border: 1px solid #2c2c2c;
 display: inline-block;
 width: 8px;
 height: 14px;
-background: url(img/toolbar-arw-sml.html) no-repeat center 3px;
+background: url(../img/toolbar-arw-sml.html) no-repeat center 3px;
 margin-left: 2px;
 vertical-align: middle;
 border: none !important;
@@ -793,7 +793,7 @@ line-height: 30px;
 }
 
 span.topic-icn{
-	background: url(img/topic-icn-1.png) no-repeat;
+	background: url(../img/topic-icn-1.png) no-repeat;
 	background-size: 27px 23px;
 	width: 27px;
 	height: 23px;
@@ -1922,22 +1922,22 @@ margin: 7px;
 }
 
 .fb-ftr{
-	background: url(img/fb-ftr.png);
+	background: url(../img/fb-ftr.png);
 }
 .tw-ftr{
-	background: url(img/tw-ftr.png);
+	background: url(../img/tw-ftr.png);
 }
 .pin-ftr{
-	background: url(img/pin.png);
+	background: url(../img/pin.png);
 }
 .yt-ftr{
-	background: url(img/y-ftr.png);
+	background: url(../img/y-ftr.png);
 }
 .ins-ftr{
-	background: url(img/ins-ftr.png);
+	background: url(../img/ins-ftr.png);
 }
 .vm-ftr{
-	background: url(img/vm.png);
+	background: url(../img/vm.png);
 }
 
 .post-ftr{
@@ -2380,7 +2380,7 @@ width: 88.66666666666667%;
 .single-comment p{
 	float: left;
 	width: 100%;
-	margin: 0 0 3px; 0;
+	margin: 0 0 3px;
 	font-size: 14px;
 	color: #949494;
 }
@@ -2431,7 +2431,7 @@ color: #878686;
 a.cmnt-btn{
 float: left;
 margin-top: 15px;
-padding: 0px 29.5px;
+padding: 0 29.5px;
 background: transparent;
 border: 1px solid #191919;
 line-height: 29px;
@@ -2496,7 +2496,7 @@ font-size: 13px;
 /* 9- Contact page starts */
 
 .contact-maps{
-	margin: 0 0 30px; 0;
+	margin: 0 0 30px;
 }
 
 .contact-form{
@@ -2552,49 +2552,43 @@ margin-top: 27px;
 	text-decoration: none;
 }
 
-
-
-
-
-
-
-
-
-
-  /* 10 - Retina and Hight Res Custom CSS */
+/* 10 - Retina and Hight Res Custom CSS */
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
 
+	span.topic-icn {
+		background: url(../img/topic-icn-1%402x.png) no-repeat;
+	}
 
-		span.topic-icn{
-			background: url(img/topic-icn-1%402x.png) no-repeat;
-		}
+	.scl-ftr a, span.topic-icn {
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+	}
 
-		.scl-ftr a, span.topic-icn{
-			 -webkit-background-size: cover;
-		  -moz-background-size: cover;
-		  -o-background-size: cover;
-		  background-size: cover;
-		}
+	.fb-ftr {
+		background: url(../img/fb-ftr%402x.png);
+	}
 
-		.fb-ftr{
-			background: url(img/fb-ftr%402x.png);
-		}
-		.tw-ftr{
-			background: url(img/tw-ftr%402x.png);
-		}
-		.pin-ftr{
-			background: url(img/pin%402x.png);
-		}
-		.yt-ftr{
-			background: url(img/y-ftr%402x.png);
-		}
-		.ins-ftr{
-			background: url(img/ins-ftr%402x.png);
-		}
-		.vm-ftr{
-			background: url(img/vm%402x.png);
-		}
+	.tw-ftr {
+		background: url(../img/tw-ftr%402x.png);
+	}
 
+	.pin-ftr {
+		background: url(../img/pin%402x.png);
+	}
+
+	.yt-ftr {
+		background: url(../img/y-ftr%402x.png);
+	}
+
+	.ins-ftr {
+		background: url(../img/ins-ftr%402x.png);
+	}
+
+	.vm-ftr {
+		background: url(../img/vm%402x.png);
+	}
 
 }

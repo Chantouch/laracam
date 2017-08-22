@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -32,4 +28,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
     Route::resource('article', 'ArticleController');
     Route::get('draft/article', 'ArticleController@draft')->name('article.draft');
+});
+
+//-------------Blog Front Route-------------//
+
+Route::get('/', function () {
+    return view('blog.index');
+});
+
+Route::prefix('admin')->name('admin.')->group(function () {
+
 });
