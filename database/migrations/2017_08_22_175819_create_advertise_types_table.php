@@ -15,7 +15,8 @@ class CreateAdvertiseTypesTable extends Migration
 	{
 		Schema::create('advertise_types', function (Blueprint $table) {
 			$table->increments('id');
-			$table->string('name')->nullable();
+			$table->string('name',255)->nullable();
+			$table->string('slug')->nullable();
 			$table->tinyInteger('active')->default(0);
 			$table->timestamps();
 		});

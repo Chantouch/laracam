@@ -27,6 +27,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('page', 'Ref\PageController');
     });
     Route::resource('article', 'ArticleController');
+    Route::resource('advertise', 'AdvertiseController');
+    Route::resource('advertise-type', 'AdvertiseTypeController');
     Route::get('draft/article', 'ArticleController@draft')->name('article.draft');
 });
 

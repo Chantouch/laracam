@@ -2,8 +2,15 @@
 @section('content')
     <div class="col-sm-12">
         <div class="white-box">
-            <h3 class="box-title m-b-0">Category</h3>
-            <p class="text-muted m-b-30">Easy to managing your category</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="box-title m-b-0">Category</h3>
+                    <p class="text-muted m-b-30">Easy to managing your category</p>
+                </div>
+                <div class="col-md-6">
+                    <a href="{!! route('admin.ref.category.create') !!}" class="btn btn-primary">Add</a>
+                </div>
+            </div>
             @include('ref.category.table')
         </div>
     </div>

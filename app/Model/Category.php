@@ -63,7 +63,7 @@ class Category extends Model
             case 'POST': {
                 return [
                     'name' => 'required|unique:categories|max:255',
-                    'file' => 'mimes:jpg,png|max:10240'
+                    'file' => 'max:10240'
                 ];
             }
             case 'PUT':

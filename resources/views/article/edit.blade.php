@@ -43,6 +43,9 @@
                 formErrors: {},
                 item: {
                     category: [1]
+                },
+                newTag: {
+                    'name': ''
                 }
             },
             created: function () {
@@ -77,6 +80,30 @@
 
                     vm.status = false;
                     vm.edit = true;
+                },
+                newTags: function () {
+                    let vm = this;
+                    let input = this.newTag;
+                    vm.$http.post('/api/v1/tag', input).then(response => {
+                        if (response.data.fail) {
+                            vm.formErrors = response.data.errors;
+                        } else {
+                            this.newTag = {
+                                'name': ''
+                            };
+                            vm.formErrors = '';
+                            $.toast({
+                                heading: 'Welcome to my Elite admin',
+                                text: 'Tag ' + response.data.name + ' added successfully',
+                                position: 'top-right',
+                                loaderBg: '#ff6849',
+                                icon: 'success',
+                                hideAfter: 3000,
+                                stack: 6
+                            });
+                            vm.tagList();
+                        }
+                    })
                 },
                 newCategory: function () {
                     let vm = this;

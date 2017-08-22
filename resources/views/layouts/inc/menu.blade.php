@@ -114,6 +114,12 @@
                             <span class="hide-menu">Tag</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{!! route('admin.advertise-type.index') !!}">
+                            <i class="fa-fw">A</i>
+                            <span class="hide-menu">Advertise Type</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="{!! Request::is('admin/manage/*')? 'active' : '' !!}">
@@ -143,6 +149,7 @@
                             <span class="hide-menu">Permission</span>
                         </a>
                     </li>
+
                     <li>
                         <a href="javascript:void(0)" class="waves-effect">
                             <i class="ti-email fa-fw"></i>
@@ -159,6 +166,12 @@
                         </ul>
                     </li>
                 </ul>
+            </li>
+            <li>
+                <a href="{!! route('admin.advertise.index') !!}" class="waves-effect">
+                    <i class="mdi mdi-logout fa-fw"></i>
+                    <span class="hide-menu">Advertise</span>
+                </a>
             </li>
             <li class="devider"></li>
             <li>
