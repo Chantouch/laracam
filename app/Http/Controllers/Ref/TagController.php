@@ -137,4 +137,31 @@ class TagController extends Controller
 		}
 		return redirect()->route($this->route . 'index')->with('success', 'Tag deleted successfully');
 	}
+
+	/**
+	 * @param Request $request
+	 * @return $this|array|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Database\Eloquent\Model|\Symfony\Component\HttpFoundation\Response
+	 */
+	public function ajaxNew(Request $request)
+	{
+		try {
+			DB::beginTransaction();
+			$data = $request->all();
+			$validator = Validator::make($data, ['name' => 'required|min:3|unique:tags|max:255']);
+			if ($validator->fails()) {
+				return [
+					'fail'   => true,
+					'errors' => $validator->getMessageBag()->toArray()
+				];
+			}
+			$data['name'] = $request->name;
+			$data['slug'] = str_slug($request->name, '-');
+			$tag = Tag::with('posts')->create($data);
+			DB::commit();
+			return $tag;
+		} catch (ModelNotFoundException $exception) {
+			DB::rollback();
+			return response(['error' => 'Something went wrong']);
+		}
+	}
 }

@@ -270,15 +270,16 @@
                     </div>
                 </div>
 
-                <div class="input-group m-b-10">
-                    <input type="text" id="example-input2-group2" name="example-input2-group2" class="form-control"
-                           placeholder="Tag">
+                <div class="input-group m-b-10" :class="{ 'has-error': formErrors['name'] }">
+                    <input id="tag-input" class="form-control" placeholder="Tag" v-model="newTag.name">
                     <span class="input-group-btn">
-                      <button type="button" class="btn waves-effect waves-light btn-info">Add</button>
+                      <button type="button" class="btn waves-effect waves-light btn-info" @click.prevent="newTags()">
+                          Add
+                      </button>
                     </span>
                 </div>
-                <span class="help-block">
-                    <small>Separate tags with commas</small>
+                <span class="help-block" v-if="formErrors['name']" style="color: red">
+                    <small>@{{ formErrors['name'][0] }}</small>
                 </span>
             </div>
         </div>
