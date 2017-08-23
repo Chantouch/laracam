@@ -132,16 +132,10 @@
             <div class="panel-footer">
                 <div class="row">
                     <div class="col-md-6">
-                        @if(isset($post))
-                            {!! Form::open(['route' => ['admin.article.destroy', $post->id], 'method' => 'delete']) !!}
-                            {!! Form::button('Move to trash', ['type' => 'submit', 'class' => 'fcbtn btn btn-danger btn-outline btn-1d', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                            {!! Form::close() !!}
-                        @else
-                            <a href="{!! route('admin.article.index') !!}"
-                               class="fcbtn btn btn-danger btn-outline btn-1d">
-                                Move to trash
-                            </a>
-                        @endif
+                        <a href="{!! route('admin.article.index') !!}"
+                           class="fcbtn btn btn-danger btn-outline btn-1d">
+                            Move to trash
+                        </a>
                     </div>
                     <div class="col-md-6">
                         <button class="fcbtn btn btn-info btn-outline btn-1e">
@@ -193,6 +187,7 @@
                                            v-model="article.category">
                                     <label :for="'checkbox-'+category.id"> @{{ category.name }} </label>
                                 </div>
+                                {{--{!! Form::select('categories[]',$categories , null, ['class' => 'select2 m-b-10 select2-multiple', 'multiple', 'data-placeholder'=>'Choose']) !!}--}}
                                 @if ($errors->has('categories'))
                                     <span class="help-block">
                                         <small>{{ $errors->first('categories') }}</small>

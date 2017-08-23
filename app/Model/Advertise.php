@@ -26,7 +26,7 @@ class Advertise extends Model
     public static function message()
     {
         return [
-            'advertise_type_id' => 'Advertise type is required'
+            'advertise_type_id.required' => 'The advertise type field is required'
         ];
     }
 

@@ -22,7 +22,6 @@ class Post extends Model
         return [
             'title' => 'required|max:255',
             'description' => 'required|min:20',
-            'slug' => 'required',
             'categories' => 'required'
         ];
     }

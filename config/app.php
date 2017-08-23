@@ -235,6 +235,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'MetaTag'   => Torann\LaravelMetaTags\Facades\MetaTag::class,
+	    'Helper' => \App\Helpers\Helper::class,
     ],
 
 ];

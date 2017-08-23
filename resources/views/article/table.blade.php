@@ -33,7 +33,7 @@
                         @endforeach
                     </td>
                     <td>
-                        <span class="badge badge-primary">{!! $article->status !!}</span>
+                        <span class="badge badge-primary">{!! Helper::active($article->status) !!}</span>
                     </td>
                     <td>
                         <div class="btn-group" style="white-space: nowrap">
