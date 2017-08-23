@@ -46,7 +46,8 @@ class ArticleController extends Controller
 		$categories = Category::with('articles')->where('status', 1)
 			->orderBy('name', 'desc')
 			->pluck('name', 'id')->toArray();
-		//return response($categories);
+		$most_used_cat = Category::with('articles')->get();
+		//return response($most_used_cat);
 		return view($this->view . 'create', compact('categories'));
 	}
 

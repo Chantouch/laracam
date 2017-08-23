@@ -11,22 +11,24 @@
         <div class="col-lg-8">
             <!-- Main Menu -->
             <ul id="main-menu-items" class="sm sm-menu menu-efct">
-                <li class="active"><a href="#">News</a></li>
-                <li><a href="#">Music</a></li>
-                <li>
-                    <a href="#">Magalla Pages</a>
-                    <ul class="main-menu-sub">
-                        <li><a href="home.html">Home</a></li>
-                        <li><a href="single-cat.html">Single Category</a></li>
-                        <li><a href="article.html">Article</a></li>
-                        <li><a href="elements.html">Elements</a></li>
-                        <li><a href="contact.html">Contact us</a></li>
-                        <li><a href="rtl/home-1.html" target="blank">RTL Demo</a></li>
-                    </ul>
-                </li>
+                <li class="active"><a href="#">Home</a></li>
+                <li class=""><a href="#">Sport</a></li>
+                <li><a href="#">Health</a></li>
+                <li><a href="#">Entertainment</a></li>
+                {{--<li>--}}
+                {{--<a href="#">Magalla Pages</a>--}}
+                {{--<ul class="main-menu-sub">--}}
+                {{--<li><a href="home.html">Home</a></li>--}}
+                {{--<li><a href="single-cat.html">Single Category</a></li>--}}
+                {{--<li><a href="article.html">Article</a></li>--}}
+                {{--<li><a href="elements.html">Elements</a></li>--}}
+                {{--<li><a href="contact.html">Contact us</a></li>--}}
+                {{--<li><a href="rtl/home-1.html" target="blank">RTL Demo</a></li>--}}
+                {{--</ul>--}}
+                {{--</li>--}}
                 <li class="mega-menu-li">
-                    <a href="#">Mega Menu</a>
-                    <!-- Main Menu - Mega Menu -->
+                    <a href="#">Hot News</a>
+                    <!-- Main Menu -->
                     <ul class="mega-menu">
                         <li>
                             <h3 class="sec-title">MUSIC NEWS</h3>
@@ -71,18 +73,6 @@
                                 </div>
                             </div>
                         </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Games</a>
-                    <ul class="main-menu-sub">
-                        <li><a href="#">Top 100</a></li>
-                        <li><a href="#">Awards</a></li>
-                        <li><a href="#">Gameplays</a></li>
-                        <li><a href="#">Music Charts</a></li>
-                        <li><a href="#">Trending</a></li>
-                        <li><a href="#">Dance/Electronic</a></li>
-                        <li><a href="#">Articles</a></li>
                     </ul>
                 </li>
                 <li><a href="#">Reviews</a></li>

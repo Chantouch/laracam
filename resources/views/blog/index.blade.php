@@ -108,188 +108,157 @@
         <div class="float-width sec-cont">
             <h3 class="sec-title">Top news</h3>
             <div class="top-big-two">
-                <div class="big-two-1 blocky boxgrid3 caption">
-                    <img alt="" src="blog/img/samples/sample4.jpg"/>
-                    <div class="cover boxcaption3">
-                        <h3><a href="#single.html">Red hair just coming back to fashion</a></h3>
-                        <p class="artcl-time-1">
-                            <span><i class="fa fa-clock-o"></i>20 Jan 2014</span>
-                            <span><i class="fa fa-comment-o"></i>21 comments</span>
-                        </p>
-                        <p>Curabitur fringilla porttitor porta. Vivamus vel nulla ullamcorper, fringilla ligula
-                            nec,
-                            pellentesque nisl. Sed dol...</p>
+                @if(count($posts))
+                    @foreach($posts->random(1) as $post)
+                        <div class="big-two-1 blocky boxgrid3 caption">
+                            <img alt="" src="blog/img/samples/sample4.jpg"/>
+                            <div class="cover boxcaption3">
+                                <h3><a href="#single.html">Red hair just coming back to fashion</a></h3>
+                                <p class="artcl-time-1">
+                                    <span><i class="fa fa-clock-o"></i>20 Jan 2014</span>
+                                    <span><i class="fa fa-comment-o"></i>21 comments</span>
+                                </p>
+                                <p>Curabitur fringilla porttitor porta. Vivamus vel nulla ullamcorper, fringilla ligula
+                                    nec,
+                                    pellentesque nisl. Sed dol...</p>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+                @if(count($posts))
+                    @foreach($posts->random(1) as $post)
+                        <div class="big-two-2 blocky boxgrid3 caption">
+                            <img alt="" src="blog/img/samples/sample5.jpg"/>
+                            <div class="cover boxcaption3">
+                                <h3><a href="#single.html">Arrows will be allowed in Olympic Sport</a></h3>
+                                <p class="artcl-time-1">
+                                    <span><i class="fa fa-clock-o"></i>20 Jan 2014</span>
+                                    <span><i class="fa fa-comment-o"></i>13 comments</span>
+                                </p>
+                                <p>Curabitur fringilla porttitor porta. Vivamus vel nulla ullamcorper, fringilla ligula
+                                    nec,
+                                    pellentesque nisl. Sed dol...</p>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+        </div>
+        @if(isset($categories))
+            @if(count($categories))
+                @foreach($categories as $category)
+                    @foreach($category->articles->random(1) as $article)
+                        <div class="tn-small-1 blocky">
+                            <a href="#">
+                                <img alt="{!! $article->title !!}" class="lefty"
+                                     src="{!! asset($article->path.$article->images->file) !!}"/>
+                            </a>
+                            <h4 class="lefty">{!! $article->title !!}</h4>
+                            <a class="lefty cat-a cat-label{!! $category->id !!}" href="#">{!! $category->name !!}</a>
+                            <p class="righty">
+                                <span>
+                                    <i class="fa fa-clock-o"></i> {!! $article->created_at->diffForHumans() !!}
+                                </span>
+                            </p>
+                        </div>
+                    @endforeach
+                @endforeach
+            @endif
+        @endif
+    </div>
+    {{--<!-- Sec 1 -->--}}
+    @if(isset($categories))
+        @if(count($categories))
+            @foreach($categories as $category)
+                <div class="news-sec-1 float-width">
+                    <div class="float-width sec-cont2">
+                        <h3 class="sec-title"><a href="#">{!! $category->name !!}</a></h3>
+                        <div class="sec-1-big float-width">
+                            <img alt="" class="blocky" src="blog/img/samples/z1.jpg"/>
+                            <div class="sec-1-big-text lefty">
+                                <h3>Famous artist share his tracks for free</h3>
+                                <h6><span><i class="fa fa-user"></i>John Doe</span><span><i
+                                                class="fa fa-clock-o"></i>20 Jan 2014</span><span><i
+                                                class="fa fa-comment-o"></i>21 comments</span></h6>
+                                <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit amet,
+                                    lobortis
+                                    hendrerit nunc. Curabitur pharetra in velit at ornare. Pellentesque vitae nibh
+                                    volutpat
+                                    velit feugiat euismod ut a elit. Donec in felis rutrum risus bibendum cursus.
+                                    Aliquam
+                                    interdum aliquam elementum ...</p>
+                            </div>
+                        </div>
+                        <div class="sec-1-sm">
+                            <img alt="" class="blocky" src="blog/img/samples/e5.jpg"/>
+                            <div class="sec-1-sm-text blocky">
+                                <h3>TOP 10 Pop track list past year</h3>
+                                <h6><span><i class="fa fa-clock-o"></i>20 Jan 2014</span><span><i
+                                                class="fa fa-comment-o"></i>21 comments</span>
+                                </h6>
+                                <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit...</p>
+                            </div>
+                        </div>
+                        <div class="sec-1-sm">
+                            <img alt="" class="blocky" src="blog/img/samples/e6.jpg"/>
+                            <div class="sec-1-sm-text blocky">
+                                <h3>Another Hip-Hop rising star</h3>
+                                <h6><span><i class="fa fa-clock-o"></i>20 Jan 2014</span><span><i
+                                                class="fa fa-comment-o"></i>21 comments</span>
+                                </h6>
+                                <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit...</p>
+                            </div>
+                        </div>
+                        <div class="sec-1-sm">
+                            <img alt="" class="blocky" src="blog/img/samples/e7.jpg"/>
+                            <div class="sec-1-sm-text blocky">
+                                <h3>New MP3 tracks are coming </h3>
+                                <h6><span><i class="fa fa-clock-o"></i>20 Jan 2014</span><span><i
+                                                class="fa fa-comment-o"></i>21 comments</span>
+                                </h6>
+                                <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit...</p>
+                            </div>
+                        </div>
+                        <div class="sec-1-sm">
+                            <img alt="" class="blocky" src="blog/img/samples/e8.jpg"/>
+                            <div class="sec-1-sm-text blocky">
+                                <h3>DJ Open Music Festival 2014</h3>
+                                <h6><span><i class="fa fa-clock-o"></i>20 Jan 2014</span><span><i
+                                                class="fa fa-comment-o"></i>21 comments</span>
+                                </h6>
+                                <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit...</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="big-two-2 blocky boxgrid3 caption">
-                    <img alt="" src="blog/img/samples/sample5.jpg"/>
-                    <div class="cover boxcaption3">
-                        <h3><a href="#single.html">Arrows will be allowed in Olympic Sport</a></h3>
-                        <p class="artcl-time-1">
-                            <span><i class="fa fa-clock-o"></i>20 Jan 2014</span>
-                            <span><i class="fa fa-comment-o"></i>13 comments</span>
-                        </p>
-                        <p>Curabitur fringilla porttitor porta. Vivamus vel nulla ullamcorper, fringilla ligula
-                            nec,
-                            pellentesque nisl. Sed dol...</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="tn-small-1 blocky">
-            <a href="#"><img alt="" class="lefty" src="blog/img/samples/e1.jpg"/></a>
-            <h4 class="lefty">After party of Blondi Concert will begin tomorrow</h4>
-            <a class="lefty cat-a cat-label4" href="#">MUSIC</a>
-            <p class="righty"><span><i class="fa fa-clock-o"></i>20 Jan 2014</span></p>
-        </div>
-        <div class="tn-small-1 blocky">
-            <a href="#"><img alt="" class="lefty" src="blog/img/samples/e2.jpg"/></a>
-            <h4 class="lefty">USA Games Studio will release sandbox new game</h4>
-            <a class="lefty cat-a cat-label2" href="#">GAMES</a>
-            <p class="righty"><span><i class="fa fa-clock-o"></i>20 Jan 2014</span></p>
-        </div>
-        <div class="tn-small-1 blocky">
-            <a href="#"><img alt="" class="lefty" src="blog/img/samples/e3.jpg"/></a>
-            <h4 class="lefty">The best place to see in Winter season this year</h4>
-            <a class="lefty cat-a cat-label3" href="#">TOURISM</a>
-            <p class="righty"><span><i class="fa fa-clock-o"></i>20 Jan 2014</span></p>
-        </div>
-        <div class="tn-small-1 blocky">
-            <a href="#"><img alt="" class="lefty" src="blog/img/samples/e4.jpg"/></a>
-            <h4 class="lefty">New phone - people love it and sales are closed</h4>
-            <a class="lefty cat-a cat-label5" href="#">tech</a>
-            <p class="righty"><span><i class="fa fa-clock-o"></i>20 Jan 2014</span></p>
-        </div>
-    </div>
-    <!-- Sec 1 -->
-    <div class="news-sec-1 float-width">
-        <div class="float-width sec-cont2">
-            <h3 class="sec-title">MUSIC NEWS</h3>
-            <div class="sec-1-big float-width">
-                <img alt="" class="blocky" src="blog/img/samples/z1.jpg"/>
-                <div class="sec-1-big-text lefty">
-                    <h3>Famous artist share his tracks for free</h3>
-                    <h6><span><i class="fa fa-user"></i>John Doe</span><span><i
-                                    class="fa fa-clock-o"></i>20 Jan 2014</span><span><i
-                                    class="fa fa-comment-o"></i>21 comments</span></h6>
-                    <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit amet,
-                        lobortis
-                        hendrerit nunc. Curabitur pharetra in velit at ornare. Pellentesque vitae nibh volutpat
-                        velit feugiat euismod ut a elit. Donec in felis rutrum risus bibendum cursus. Aliquam
-                        interdum aliquam elementum ...</p>
-                </div>
-            </div>
-            <div class="sec-1-sm">
-                <img alt="" class="blocky" src="blog/img/samples/e5.jpg"/>
-                <div class="sec-1-sm-text blocky">
-                    <h3>TOP 10 Pop track list past year</h3>
-                    <h6><span><i class="fa fa-clock-o"></i>20 Jan 2014</span><span><i
-                                    class="fa fa-comment-o"></i>21 comments</span>
-                    </h6>
-                    <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit...</p>
-                </div>
-            </div>
-            <div class="sec-1-sm">
-                <img alt="" class="blocky" src="blog/img/samples/e6.jpg"/>
-                <div class="sec-1-sm-text blocky">
-                    <h3>Another Hip-Hop rising star</h3>
-                    <h6><span><i class="fa fa-clock-o"></i>20 Jan 2014</span><span><i
-                                    class="fa fa-comment-o"></i>21 comments</span>
-                    </h6>
-                    <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit...</p>
-                </div>
-            </div>
-            <div class="sec-1-sm">
-                <img alt="" class="blocky" src="blog/img/samples/e7.jpg"/>
-                <div class="sec-1-sm-text blocky">
-                    <h3>New MP3 tracks are coming </h3>
-                    <h6><span><i class="fa fa-clock-o"></i>20 Jan 2014</span><span><i
-                                    class="fa fa-comment-o"></i>21 comments</span>
-                    </h6>
-                    <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit...</p>
-                </div>
-            </div>
-            <div class="sec-1-sm">
-                <img alt="" class="blocky" src="blog/img/samples/e8.jpg"/>
-                <div class="sec-1-sm-text blocky">
-                    <h3>DJ Open Music Festival 2014</h3>
-                    <h6><span><i class="fa fa-clock-o"></i>20 Jan 2014</span><span><i
-                                    class="fa fa-comment-o"></i>21 comments</span>
-                    </h6>
-                    <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit...</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- News slider -->
+            @endforeach
+        @endif
+    @endif
+    {{--<!-- News slider -->--}}
     <div class="qk-slider float-width">
         <h3 class="sldr-title">slider</h3>
         <div class="flexslider news-sldr">
             <ul class="slides">
-                <li>
-                    <div class="trans2 slide-sngl">
-                        <a class="text-center" href="#"><img alt="" src="blog/img/samples/s1.jpg"/></a>
-                        <h4><a href="#">Listen during running</a></h4>
-                        <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit ...</p>
-                        <h6><span><i class="fa fa-clock-o"></i>20 Jan 2014</span></h6>
-                    </div>
-                </li>
-                <li>
-                    <div class="trans2 slide-sngl">
-                        <a class="text-center" href="#"><img alt="" src="blog/img/samples/s2.jpg"/></a>
-                        <h4><a href="#">Cinemas are closed</a></h4>
-                        <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit ...</p>
-                        <h6><span><i class="fa fa-clock-o"></i>20 Jan 2014</span></h6>
-                    </div>
-                </li>
-                <li>
-                    <div class="trans2 slide-sngl">
-                        <a class="text-center" href="#"><img alt="" src="blog/img/samples/s3.jpg"/></a>
-                        <h4><a href="#">Best time to marry</a></h4>
-                        <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit ...</p>
-                        <h6><span><i class="fa fa-clock-o"></i>20 Jan 2014</span></h6>
-                    </div>
-                </li>
-                <li>
-                    <div class="trans2 slide-sngl">
-                        <a class="text-center" href="#"><img alt="" src="blog/img/samples/s4.jpg"/></a>
-                        <h4><a href="#">Winter is coming</a></h4>
-                        <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit ...</p>
-                        <h6><span><i class="fa fa-clock-o"></i>20 Jan 2014</span></h6>
-                    </div>
-                </li>
-                <li>
-                    <div class="trans2 slide-sngl">
-                        <a class="text-center" href="#"><img alt="" src="blog/img/samples/s1.jpg"/></a>
-                        <h4><a href="#">Listen during running</a></h4>
-                        <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit ...</p>
-                        <h6><span><i class="fa fa-clock-o"></i>20 Jan 2014</span></h6>
-                    </div>
-                </li>
-                <li>
-                    <div class="trans2 slide-sngl">
-                        <a class="text-center" href="#"><img alt="" src="blog/img/samples/s2.jpg"/></a>
-                        <h4><a href="#">Cinemas are closed</a></h4>
-                        <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit ...</p>
-                        <h6><span><i class="fa fa-clock-o"></i>20 Jan 2014</span></h6>
-                    </div>
-                </li>
-                <li>
-                    <div class="trans2 slide-sngl">
-                        <a class="text-center" href="#"><img alt="" src="blog/img/samples/s3.jpg"/></a>
-                        <h4><a href="#">Best time to marry</a></h4>
-                        <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit ...</p>
-                        <h6><span><i class="fa fa-clock-o"></i>20 Jan 2014</span></h6>
-                    </div>
-                </li>
-                <li>
-                    <div class="trans2 slide-sngl">
-                        <a class="text-center" href="#"><img alt="" src="blog/img/samples/s4.jpg"/></a>
-                        <h4><a href="#">Winter is coming</a></h4>
-                        <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit ...</p>
-                        <h6><span><i class="fa fa-clock-o"></i>20 Jan 2014</span></h6>
-                    </div>
-                </li>
+                @if(isset($posts))
+                    @if(count($posts))
+                        @foreach($posts as $post)
+                            <li>
+                                <div class="trans2 slide-sngl">
+                                    <a class="text-center" href="#">
+                                        <img alt="" src="{!! asset('blog/img/samples/s1.jpg') !!}"/>
+                                    </a>
+                                    <h4><a href="#">Listen during running</a></h4>
+                                    <p>
+                                        Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit ...
+                                    </p>
+                                    <h6>
+                                        <span><i class="fa fa-clock-o"></i>{!! $post->created_at->format('d M Y') !!}</span>
+                                    </h6>
+                                </div>
+                            </li>
+                        @endforeach
+                    @endif
+                @endif
             </ul>
         </div>
     </div>

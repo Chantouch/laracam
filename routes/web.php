@@ -34,9 +34,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 //-------------Blog Front Route-------------//
 
-Route::get('/', function () {
-    return view('blog.index');
-});
+Route::get('/', 'Blog\HomeController@index')->name('blog.index');
 
 Route::prefix('admin')->name('admin.')->group(function () {
 

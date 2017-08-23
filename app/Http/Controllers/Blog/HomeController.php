@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Blog;
 
-use Illuminate\Http\Request;
+use App\Model\Category;
+use App\Model\Post;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
@@ -11,6 +12,8 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view($this->view . 'index');
+        $posts = Post::with('categories')->get();
+        $categories = Category::with('articles')->get();
+        return view($this->view . 'index', compact('posts', 'categories'));
     }
 }
