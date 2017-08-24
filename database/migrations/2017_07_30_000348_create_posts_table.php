@@ -22,6 +22,7 @@ class CreatePostsTable extends Migration
             $table->tinyInteger('active')->default(0);
             $table->string('path')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+	        $table->datetime('posted_at');
             $table->timestamps();
         });
     }

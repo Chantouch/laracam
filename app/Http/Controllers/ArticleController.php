@@ -32,7 +32,7 @@ class ArticleController extends Controller
 	public function index()
 	{
 		$articles = Post::with(['tags', 'categories', 'images'])
-			->paginate(25);
+			->withCount('comments')->with('author')->latest()->paginate(50);
 		return view($this->view . 'index', compact('articles'));
 	}
 

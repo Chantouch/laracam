@@ -37,6 +37,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
+	        \App\Http\Middleware\Cors::class,
             'throttle:60,1',
             'bindings',
         ],
@@ -59,5 +60,6 @@ class Kernel extends HttpKernel
         'role' => \Laratrust\Middleware\LaratrustRole::class,
         'permission' => \Laratrust\Middleware\LaratrustPermission::class,
         'ability' => \Laratrust\Middleware\LaratrustAbility::class,
+        'roles' => \App\Http\Middleware\RoleMiddleware::class,
     ];
 }
