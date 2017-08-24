@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AdvertiseType extends Model
 {
-    protected $fillable = ['name', 'slug', 'active'];
+    protected $fillable = ['name', 'slug', 'active', 'width', 'height'];
 
     //-------Validation-------//
 

@@ -8,9 +8,9 @@ class Advertise extends Model
 {
 
     protected $fillable = [
-        'slug', 'advertise_type_id', 'provider_name',
-        'tracking_code_large', 'tracking_code_tablet',
-        'tracking_code_mobile', 'active'
+        'slug', 'advertise_type_id', 'provider_name', 'tracking_code_large',
+        'tracking_code_tablet', 'tracking_code_mobile', 'active', 'url',
+        'start_date', 'end_date'
     ];
 
     //-------Validation-------//
@@ -37,6 +37,6 @@ class Advertise extends Model
      */
     public function ads_type()
     {
-        return $this->belongsTo(AdvertiseType::class,'advertise_type_id');
+        return $this->belongsTo(AdvertiseType::class, 'advertise_type_id');
     }
 }

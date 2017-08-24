@@ -6,6 +6,7 @@
                 <th>#</th>
                 <th>Name</th>
                 <th>Slug</th>
+                <th>Size</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -16,6 +17,7 @@
                     <th>{!! $loop->index+1 !!}</th>
                     <td>{!! $advertise_type->name !!}</td>
                     <td>{!! $advertise_type->slug !!}</td>
+                    <td>{!! $advertise_type->width.'x'.$advertise_type->height !!}</td>
                     <td>
                         <span class="badge badge-primary">{!! $advertise_type->active !!}</span>
                     </td>

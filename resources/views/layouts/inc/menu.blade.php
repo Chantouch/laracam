@@ -12,9 +12,14 @@
 <div class="navbar-default sidebar" role="navigation">
     <div class="sidebar-nav slimscrollsidebar">
         <div class="sidebar-head">
-            <h3><span class="fa-fw open-close"><i class="ti-menu hidden-xs"></i><i
-                            class="ti-close visible-xs"></i></span> <span class="hide-menu">Navigation</span>
-            </h3></div>
+            <h3>
+                <span class="fa-fw open-close">
+                    <i class="ti-menu hidden-xs"></i>
+                    <i class="ti-close visible-xs"></i>
+                </span>
+                <span class="hide-menu">Navigation</span>
+            </h3>
+        </div>
         <ul class="nav" id="side-menu">
             <li class="user-pro">
                 <a href="#" class="waves-effect">
@@ -70,19 +75,19 @@
                     <li>
                         <a href="{!! route('admin.article.index') !!}">
                             <i class="fa-fw">A</i>
-                            <span class="hide-menu">All Article</span>
+                            <span class="hide-menu">All</span>
                         </a>
                     </li>
                     <li>
                         <a href="{!! route('admin.article.create') !!}">
                             <i class="fa-fw">N</i>
-                            <span class="hide-menu">New Article</span>
+                            <span class="hide-menu">New</span>
                         </a>
                     </li>
                     <li>
                         <a href="{!! route('admin.article.draft') !!}">
                             <i class="fa-fw">D</i>
-                            <span class="hide-menu">Draft Article</span>
+                            <span class="hide-menu">Draft</span>
                         </a>
                     </li>
                 </ul>
@@ -103,16 +108,68 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{!! route('admin.ref.category.index') !!}">
-                            <i class="fa-fw">C</i>
-                            <span class="hide-menu">Category</span>
+                        <a href="javascript:void(0)" class="waves-effect">
+                            <i class="ti-layout-media-overlay fa-fw"></i>
+                            <span class="hide-menu">Page</span>
+                            <span class="fa arrow"></span>
                         </a>
+                        <ul class="nav nav-third-level">
+                            <li>
+                                <a href="{!! route('admin.ref.page.index') !!}">
+                                    <i class="fa-fw">L</i>
+                                    <span class="hide-menu">List</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{!! route('admin.ref.page.create') !!}">
+                                    <i class="fa-fw">N</i>
+                                    <span class="hide-menu">New</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <a href="{!! route('admin.ref.tag.index') !!}">
-                            <i class="fa-fw">T</i>
-                            <span class="hide-menu">Tag</span>
+                        <a href="javascript:void(0)" class="waves-effect">
+                            <i class="ti-layout-accordion-list fa-fw"></i>
+                            <span class="hide-menu">Category</span>
+                            <span class="fa arrow"></span>
                         </a>
+                        <ul class="nav nav-third-level">
+                            <li>
+                                <a href="{!! route('admin.ref.category.index') !!}">
+                                    <i class="fa-fw">L</i>
+                                    <span class="hide-menu">List</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{!! route('admin.ref.category.create') !!}">
+                                    <i class="fa-fw">N</i>
+                                    <span class="hide-menu">New</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0)" class="waves-effect">
+                            <i class="ti-tag fa-fw"></i>
+                            <span class="hide-menu">Tags</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-third-level">
+                            <li>
+                                <a href="{!! route('admin.ref.tag.index') !!}">
+                                    <i class="fa-fw">A</i>
+                                    <span class="hide-menu">All</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{!! route('admin.ref.tag.create') !!}">
+                                    <i class="fa-fw">N</i>
+                                    <span class="hide-menu">New</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="{!! route('admin.advertise-type.index') !!}">
@@ -168,10 +225,38 @@
                 </ul>
             </li>
             <li>
-                <a href="{!! route('admin.advertise.index') !!}" class="waves-effect">
-                    <i class="mdi mdi-logout fa-fw"></i>
-                    <span class="hide-menu">Advertise</span>
+                <a href="#" class="waves-effect">
+                    <i class="ti-announcement fa-fw" data-icon="v"></i>
+                    <span class="hide-menu"> Advertise <span class="fa arrow"></span>
+                        <span class="label label-rouded label-inverse pull-right">4</span>
+                    </span>
                 </a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{!! route('admin.advertise.index') !!}">
+                            <i class=" fa-fw">L</i>
+                            <span class="hide-menu">List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{!! route('admin.advertise.create') !!}">
+                            <i class=" fa-fw">N</i>
+                            <span class="hide-menu">New</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class=" fa-fw">A</i>
+                            <span class="hide-menu">Active</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class=" fa-fw">E</i>
+                            <span class="hide-menu">Expired</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li class="devider"></li>
             <li>

@@ -177,9 +177,11 @@
                             <img alt="" class="blocky" src="blog/img/samples/z1.jpg"/>
                             <div class="sec-1-big-text lefty">
                                 <h3>Famous artist share his tracks for free</h3>
-                                <h6><span><i class="fa fa-user"></i>John Doe</span><span><i
-                                                class="fa fa-clock-o"></i>20 Jan 2014</span><span><i
-                                                class="fa fa-comment-o"></i>21 comments</span></h6>
+                                <h6>
+                                    <span><i class="fa fa-user"></i>John Doe</span><span>
+                                        <i class="fa fa-clock-o"></i>20 Jan 2014</span><span>
+                                        <i class="fa fa-comment-o"></i>21 comments</span>
+                                </h6>
                                 <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit amet,
                                     lobortis
                                     hendrerit nunc. Curabitur pharetra in velit at ornare. Pellentesque vitae nibh

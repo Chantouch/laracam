@@ -18,6 +18,8 @@ class CreateAdvertiseTypesTable extends Migration
 			$table->string('name',255)->nullable();
 			$table->string('slug')->nullable();
 			$table->tinyInteger('active')->default(0);
+			$table->string('width')->nullable();
+			$table->string('height')->nullable();
 			$table->timestamps();
 		});
 	}

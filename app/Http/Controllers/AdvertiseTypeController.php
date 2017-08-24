@@ -100,7 +100,7 @@ class AdvertiseTypeController extends Controller
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
-            if (empty($advertiseType->slug)) {
+            if (empty($advertiseType->slug) || empty($request->slug)) {
                 $data['slug'] = str_slug($request->name, '-');
             }
             $ads = $advertiseType->update($data);

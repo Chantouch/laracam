@@ -22,6 +22,36 @@
     @endif
 </div>
 
+<div class="row">
+    <div class="col-md-6">
+
+        {!! Form::label('width', 'Advertise Width (Size):') !!}
+        <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
+            <div class="form-line">
+                {!! Form::text('width', null, ['class' => 'form-control', 'placeholder' => 'Enter your advertise type width']) !!}
+            </div>
+            @if ($errors->has('width'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('width') }}</strong>
+                </span>
+            @endif
+        </div>
+    </div>
+    <div class="col-md-6">
+        {!! Form::label('height', 'Advertise Height (Size):') !!}
+        <div class="form-group{{ $errors->has('height') ? ' has-error' : '' }}">
+            <div class="form-line">
+                {!! Form::text('height', null, ['class' => 'form-control', 'placeholder' => 'Enter your advertise type height']) !!}
+            </div>
+            @if ($errors->has('height'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('height') }}</strong>
+                </span>
+            @endif
+        </div>
+    </div>
+</div>
+
 {{ Form::hidden('active', '0') }}
 {!! Form::checkbox('active', '1', null, ['class' => 'filled-in', 'id'=> 'active']) !!}
 <label for="active">Active</label>
