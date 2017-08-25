@@ -7,11 +7,14 @@ use App\Scopes\PostedScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
 {
 	use Mediable;
 	protected $guarded = [];
+	protected $dates = ['posted_at'];
 	protected $fillable = [
 		'title', 'description', 'slug', 'user_id', 'active', 'path', 'thumbnail_id', 'posted_at'
 	];
@@ -150,19 +153,37 @@ class Post extends Model
 	 * Store and set the post's thumbnail
 	 *
 	 * @param UploadedFile $thumbnail
-	 * @return void
+	 * @return UploadedFile
 	 */
 	public function storeAndSetThumbnail(UploadedFile $thumbnail)
 	{
-		$thumbnail_name = $thumbnail->store('/');
+		$thumbnail_name = $thumbnail->store('uploads/posts');
+		if (!count($this->media)) {
+			$media = $this->media()->create([
+				'filename'          => $thumbnail_name,
+				'original_filename' => $thumbnail->getClientOriginalName(),
+				'mime_type'         => $thumbnail->getMimeType()
+			]);
+			$this->update(['thumbnail_id' => $media->id]);
+		} else {
+			$old_file = [$this->media()->first()->filename];
+			if (File::exists(storage_path('app/uploads/posts'))) {
+				Storage::delete($old_file);
+			}
+			$this->media()->first()->update([
+				'filename'          => $thumbnail_name,
+				'original_filename' => $thumbnail->getClientOriginalName(),
+				'mime_type'         => $thumbnail->getMimeType()
+			]);
+		}
+		return $thumbnail;
+	}
 
-		$media = $this->media()->create([
-			'filename'          => $thumbnail_name,
-			'original_filename' => $thumbnail->getClientOriginalName(),
-			'mime_type'         => $thumbnail->getMimeType()
-		]);
-
-		$this->update(['thumbnail_id' => $media->id]);
+	public function storeAndSetAuthor()
+	{
+		if (empty($this->user_id)) {
+			$this->user_id = auth()->id();
+		}
 	}
 
 	/**
@@ -172,7 +193,7 @@ class Post extends Model
 	 */
 	public function author()
 	{
-		return $this->belongsTo(User::class);
+		return $this->belongsTo(User::class, 'user_id');
 	}
 
 	/**

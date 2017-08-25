@@ -109,35 +109,18 @@
             <h3 class="sec-title">Top news</h3>
             <div class="top-big-two">
                 @if(count($posts))
-                    @foreach($posts->random(1) as $post)
-                        <div class="big-two-1 blocky boxgrid3 caption">
-                            <img alt="" src="blog/img/samples/sample4.jpg"/>
+                    @foreach($posts->random(2) as $index => $post)
+                        <div class="big-two-{!! $index + 1 !!} blocky boxgrid3 caption">
+                            <img alt="{!! $post->title !!}" src="blog/img/samples/sample4.jpg"/>
                             <div class="cover boxcaption3">
-                                <h3><a href="#single.html">Red hair just coming back to fashion</a></h3>
+                                <h3><a href="#single.html">{!! str_limit($post->title, 35) !!}</a></h3>
                                 <p class="artcl-time-1">
-                                    <span><i class="fa fa-clock-o"></i>20 Jan 2014</span>
+                                    <span><i class="fa fa-clock-o"></i>{!! $post->posted_at->diffForHumans() !!}</span>
                                     <span><i class="fa fa-comment-o"></i>21 comments</span>
                                 </p>
-                                <p>Curabitur fringilla porttitor porta. Vivamus vel nulla ullamcorper, fringilla ligula
-                                    nec,
-                                    pellentesque nisl. Sed dol...</p>
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
-                @if(count($posts))
-                    @foreach($posts->random(1) as $post)
-                        <div class="big-two-2 blocky boxgrid3 caption">
-                            <img alt="" src="blog/img/samples/sample5.jpg"/>
-                            <div class="cover boxcaption3">
-                                <h3><a href="#single.html">Arrows will be allowed in Olympic Sport</a></h3>
-                                <p class="artcl-time-1">
-                                    <span><i class="fa fa-clock-o"></i>20 Jan 2014</span>
-                                    <span><i class="fa fa-comment-o"></i>13 comments</span>
-                                </p>
-                                <p>Curabitur fringilla porttitor porta. Vivamus vel nulla ullamcorper, fringilla ligula
-                                    nec,
-                                    pellentesque nisl. Sed dol...</p>
+                                <div>
+                                    {!! str_limit($post->description, 250) !!}
+                                </div>
                             </div>
                         </div>
                     @endforeach
@@ -146,15 +129,15 @@
         </div>
         @if(isset($categories))
             @if(count($categories))
-                @foreach($categories as $category)
+                @foreach($categories as $index => $category)
                     @foreach($category->articles->random(1) as $article)
                         <div class="tn-small-1 blocky">
                             <a href="#">
                                 <img alt="{!! $article->title !!}" class="lefty"
                                      src="{!! asset($article->path.$article->images->file) !!}"/>
                             </a>
-                            <h4 class="lefty">{!! $article->title !!}</h4>
-                            <a class="lefty cat-a cat-label{!! $category->id !!}" href="#">{!! $category->name !!}</a>
+                            <h4 class="lefty">{!!str_limit( $article->title, 50) !!}</h4>
+                            <a class="lefty cat-a cat-label{!! $index + 1 !!}" href="#">{!! $category->name !!}</a>
                             <p class="righty">
                                 <span>
                                     <i class="fa fa-clock-o"></i> {!! $article->created_at->diffForHumans() !!}
@@ -173,24 +156,32 @@
                 <div class="news-sec-1 float-width">
                     <div class="float-width sec-cont2">
                         <h3 class="sec-title"><a href="#">{!! $category->name !!}</a></h3>
-                        <div class="sec-1-big float-width">
-                            <img alt="" class="blocky" src="blog/img/samples/z1.jpg"/>
-                            <div class="sec-1-big-text lefty">
-                                <h3>Famous artist share his tracks for free</h3>
-                                <h6>
-                                    <span><i class="fa fa-user"></i>John Doe</span><span>
-                                        <i class="fa fa-clock-o"></i>20 Jan 2014</span><span>
-                                        <i class="fa fa-comment-o"></i>21 comments</span>
-                                </h6>
-                                <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit amet,
-                                    lobortis
-                                    hendrerit nunc. Curabitur pharetra in velit at ornare. Pellentesque vitae nibh
-                                    volutpat
-                                    velit feugiat euismod ut a elit. Donec in felis rutrum risus bibendum cursus.
-                                    Aliquam
-                                    interdum aliquam elementum ...</p>
-                            </div>
-                        </div>
+                        @if(count($category->articles))
+                            @foreach($category->articles->random(1) as $post)
+                                <div class="sec-1-big float-width">
+                                    <img alt="{!! $post->title !!}" class="blocky"
+                                         src="{!! asset($post->path.$post->images->file) !!}"/>
+                                    <div class="sec-1-big-text lefty">
+                                        <h3>{!! $post->title !!}</h3>
+                                        <h6>
+                                            <span>
+                                                <i class="fa fa-user"></i>{!! $post->author->name !!}
+                                            </span>
+                                            <span>
+                                                <i class="fa fa-clock-o"></i>{!! $post->posted_at->format('d M Y') !!}
+                                            </span>
+                                            <span>
+                                                <i class="fa fa-comment-o"></i>21 comments
+                                            </span>
+                                        </h6>
+                                        <div>
+                                            {!! str_limit($post->description, 260) !!}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+
                         <div class="sec-1-sm">
                             <img alt="" class="blocky" src="blog/img/samples/e5.jpg"/>
                             <div class="sec-1-sm-text blocky">
@@ -231,6 +222,7 @@
                                 <p>Suspendisse dapibus blandit auctor. Aenean nisl felis, fermentum in ante sit...</p>
                             </div>
                         </div>
+
                     </div>
                 </div>
             @endforeach

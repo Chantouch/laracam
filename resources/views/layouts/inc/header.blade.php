@@ -231,9 +231,11 @@
                             <div class="u-img"><img src="{!! asset('images/users/varun.jpg') !!}" alt="user"/></div>
                             <div class="u-text">
                                 <h4>Steave Jobs</h4>
-                                <p class="text-muted">varun@gmail.com</p><a href="profile.html"
-                                                                            class="btn btn-rounded btn-danger btn-sm">View
-                                    Profile</a></div>
+                                <p class="text-muted">varun@gmail.com</p>
+                                <a href="profile.html" class="btn btn-rounded btn-danger btn-sm">
+                                    View Profile
+                                </a>
+                            </div>
                         </div>
                     </li>
                     <li role="separator" class="divider"></li>
@@ -243,7 +245,15 @@
                     <li role="separator" class="divider"></li>
                     <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+                    <li>
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            <i class="fa fa-power-off"></i> Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </li>
                 </ul>
                 <!-- /.dropdown-user -->
             </li>

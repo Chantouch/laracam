@@ -26,7 +26,7 @@
                     <img src="{!! asset('images/users/varun.jpg') !!}" alt="user-img" class="img-circle">
                     <span class="hide-menu"> Steve Gection<span class="fa arrow"></span></span>
                 </a>
-                <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+                <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0;">
                     <li>
                         <a href="javascript:void(0)"><i class="ti-user"></i>
                             <span class="hide-menu">My Profile</span></a></li>
@@ -42,8 +42,11 @@
                             <span class="hide-menu">Account Setting</span></a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)"><i class="fa fa-power-off"></i>
-                            <span class="hide-menu">Logout</span></a>
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            <i class="fa fa-power-off"></i>
+                            <span class="hide-menu">Logout</span>
+                        </a>
                     </li>
                 </ul>
             </li>
@@ -66,7 +69,7 @@
 
             <li>
                 <a href="#" class="waves-effect">
-                    <i class="mdi mdi-av-timer fa-fw" data-icon="v"></i>
+                    <i class="ti-clipboard fa-fw" data-icon="v"></i>
                     <span class="hide-menu"> Posts <span class="fa arrow"></span>
                         <span class="label label-rouded label-inverse pull-right">4</span>
                     </span>
@@ -93,20 +96,14 @@
                 </ul>
             </li>
 
-            <li>
-                <a href="#" class="waves-effect">
-                    <i class="mdi mdi-av-timer fa-fw" data-icon="v"></i>
+            <li class="{!! Request::is('admin/ref/*') ? ' active': '' !!}">
+                <a href="#" class="waves-effect{!! Request::is('admin/ref/*') ? ' active': '' !!}">
+                    <i class="ti-server fa-fw" data-icon="v"></i>
                     <span class="hide-menu"> Ref.Master Data <span class="fa arrow"></span>
                         <span class="label label-rouded label-inverse pull-right">4</span>
                     </span>
                 </a>
                 <ul class="nav nav-second-level">
-                    <li>
-                        <a href="{!! route('admin.ref.page.index') !!}">
-                            <i class="fa-fw">P</i>
-                            <span class="hide-menu">Page</span>
-                        </a>
-                    </li>
                     <li>
                         <a href="javascript:void(0)" class="waves-effect">
                             <i class="ti-layout-media-overlay fa-fw"></i>
@@ -190,19 +187,19 @@
                     <li>
                         <a href="{!! route('admin.manage.user.index') !!}"
                            class="{!! Request::is('admin/manage/user*')? 'active' : '' !!}">
-                            <i class="ti-layout-width-default fa-fw"></i>
+                            <i class="mdi mdi-account fa-fw"></i>
                             <span class="hide-menu">User</span>
                         </a>
                     </li>
                     <li>
                         <a href="{!! route('admin.manage.role.index') !!}">
-                            <i class="ti-layout-sidebar-left fa-fw"></i>
+                            <i class="mdi mdi-label-outline fa-fw"></i>
                             <span class="hide-menu">Role</span>
                         </a>
                     </li>
                     <li>
                         <a href="{!! route('admin.manage.permission.index') !!}">
-                            <i class="ti-layout-sidebar-left fa-fw"></i>
+                            <i class="mdi mdi-key-variant fa-fw"></i>
                             <span class="hide-menu">Permission</span>
                         </a>
                     </li>
@@ -260,7 +257,8 @@
             </li>
             <li class="devider"></li>
             <li>
-                <a href="#" class="waves-effect">
+                <a href="{{ route('logout') }}" class="waves-effect" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
                     <i class="mdi mdi-logout fa-fw"></i>
                     <span class="hide-menu">Log out</span>
                 </a>

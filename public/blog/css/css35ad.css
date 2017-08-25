@@ -1167,7 +1167,7 @@ font-size: 11px;
 
 .big-two-1.boxgrid3 p, .big-two-2.boxgrid3 p{
 	font-size: 13px;
-	color: #ffffff;
+	color: #ffffff !important;
 
 }
 

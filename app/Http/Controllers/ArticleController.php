@@ -71,8 +71,13 @@ class ArticleController extends Controller
 			if (!empty($request->slug)) {
 				$data['slug'] = str_slug($request->title);
 			}
+			$data['description'] = clean($request->description);
 			$model_created = Post::with('images')->create($data);
 			if ($model_created) {
+				$model_created->storeAndSetAuthor();
+				if ($request->hasFile('background')) {
+					$model_created->storeAndUpdateThumbnail($request->file('background'));
+				}
 				if ($request->hasFile('file')) {
 					$this->uploadImage($request, $path, $model_created, 'file');
 				}
@@ -142,6 +147,11 @@ class ArticleController extends Controller
 			}
 			$path = 'uploads/article/' . date('Y') . '/';
 			$data['path'] = $path;
+			if ($request->hasFile('background')) {
+				$post->storeAndSetThumbnail($request->file('background'));
+			}
+			$post->storeAndSetAuthor();
+			$data['description'] = clean($request->description);
 			$updated = $post->update($data);
 			if ($updated) {
 				if ($request->hasFile('file')) {

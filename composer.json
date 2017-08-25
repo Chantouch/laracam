@@ -15,6 +15,7 @@
     "laravel/tinker": "~1.0",
     "laravelcollective/html": "^5.4",
     "league/fractal": "^0.17.0",
+    "mews/purifier": "^2.0",
     "santigarcor/laratrust": "4.0.*",
     "torann/laravel-meta-tags": "^3.0"
   },
