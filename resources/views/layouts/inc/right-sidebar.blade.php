@@ -17,8 +17,10 @@
         <div class="r-panel-body">
             <ul id="themecolors" class="m-t-20">
                 <li><b>With Light sidebar</b></li>
-                <li><a href="javascript:void(0)" data-theme="default"
-                       class="default-theme working">1</a></li>
+                <li>
+                    <a href="javascript:void(0)" data-theme="default"
+                       class="default-theme working">1</a>
+                </li>
                 <li><a href="javascript:void(0)" data-theme="green" class="green-theme">2</a></li>
                 <li><a href="javascript:void(0)" data-theme="gray" class="yellow-theme">3</a></li>
                 <li><a href="javascript:void(0)" data-theme="blue" class="blue-theme">4</a></li>

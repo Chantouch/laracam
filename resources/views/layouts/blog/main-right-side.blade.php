@@ -10,12 +10,20 @@
 <div class="sm-sldr-box float-width">
     <div class="flexslider sm-sldr">
         <ul class="slides">
-            <li>
-                <img alt="" src="{!! asset('blog/img/samples/z2.jpg') !!}"/>
-            </li>
-            <li>
-                <img alt="" src="{!! asset('blog/img/samples/z2.jpg') !!}"/>
-            </li>
+            @if(isset($home_top_news_slider))
+                @if(count($home_top_news_slider))
+                    @foreach($home_top_news_slider->random(1) as $ads)
+                        <li>
+                            {{--<img alt="{!! $ads->provider_name !!}" src="{!! asset('blog/img/samples/z2.jpg') !!}"/>--}}
+                            {{ Html::image($ads->banner()->media_url, $ads->banner()->original_filename) }}
+                        </li>
+                    @endforeach
+                @else
+                    <li>
+                        <img alt="" src="{!! asset('blog/img/samples/z2.jpg') !!}"/>
+                    </li>
+                @endif
+            @endif
         </ul>
     </div>
 </div>

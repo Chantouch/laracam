@@ -13,7 +13,8 @@
     <div class="artcl-main float-width">
         <div class="artcl-prev-nxt float-width">
             <div class="artcl-prev w50 blocky">
-                <a href="{!! route('blog.article.show', $previous) !!}"><i class="fa fa-angle-left"></i> PREV ARTICLE</a>
+                <a href="{!! route('blog.article.show', $previous) !!}"><i class="fa fa-angle-left"></i> PREV
+                    ARTICLE</a>
                 <p>Girl as a DJ on 2014 tour</p>
             </div>
             <div class="artcl-nxt w50 blocky text-right">
@@ -22,36 +23,29 @@
             </div>
         </div>
         <div class="artcl-body float-width">
-            <h2>Famous artist share his tracks for free</h2>
+            <h2>{!! $post->excerptTitle(300) !!}</h2>
             <h5>
-                <span><i class="fa fa-user"></i>John Doe</span>
-                <span><i class="fa fa-clock-o"></i>20 Jan 2014</span>
-                <span><i class="fa fa-comment-o"></i>21 comments</span>
+                <span><i class="fa fa-user"></i>{!! $post->checkAuthor() !!}</span>
+                <span><i class="fa fa-clock-o"></i>{!! humanize_date($post->posted_at) !!}</span>
+                <span><i class="fa fa-comment-o"></i>{!! count($post->comments) !!} comments</span>
             </h5>
             <article class="float-width articl-data">
-                <img alt="" src="{!! asset('blog/img/samples/a1.jpg') !!}"/>
-                <p>
-                    <span>Proin pharetra, ante quis sollicitudin sollicitudin, est sapien mollis mi, ac viverra purus nibh a urna. Suspendisse non tincidunt velit, vel vestibulum turpis.</span><br/>
-                    Morbi libero massa, euismod at dictum in, bibendum quis elit. Cum sociis natoque penatibus et magnis
-                    dis parturient montes, nascetur ridiculus mus. Mauris leo velit, pharetra eget tincidunt nec,
-                    viverra in leo. Phasellus vel varius elit. Etiam tristique euismod enim ut congue. Nam aliquam sed
-                    lorem id pellentesque. Donec commodo, turpis in venenatis luctus, erat nisl luctus felis, vestibulum
-                    laoreet elit mauris quis mauris. Morbi quis malesuada quam. <br/><br/>
-                    Donec a felis pellentesque, varius nunc laoreet, cursus arcu. Praesent eget venenatis lorem, eu
-                    pharetra lectus. Quisque a metus ut purus consequat dapibus.
-                </p>
+                @if($post->hasThumbnail())
+                    <img alt="{!! $post->excerptTitle(60) !!}"
+                         src="{!! asset(route('media.posts.path',[$post->id,'large_'.$post->thumbnail()->filename])) !!}"
+                         class="img-responsive"/>
+                @else
+                    <img alt="" src="{!! asset('blog/img/samples/a1.jpg') !!}"/>
+                @endif
+                <div class="content">
+                    {!! $post->description !!}
+                </div>
                 <p class="artcl-qt">
                     <i class="fa fa-quote-left"></i>
                     <span>
                         Proin porta arcu sollicitudin magna viverra commodo. In pellentesque turpis sapien, at tincidunt dolor fringilla nec. Maecenas sollicitudin metus eget
                         vestibulum luctus.
-                        </span>
-                </p>
-                <p>
-                    Aliquam tristique vehicula nulla sit amet facilisis. Nulla ultrices vitae eros at semper. Donec
-                    sapien lacus, tincidunt sed sem quis, accumsan mollis eros. Aenean id enim dolor. Suspendisse
-                    potenti. Curabitur molestie dolor et urna tristique vehicula. Curabitur tincidunt congue porta. Duis
-                    condimentum accumsan erat nec consequat.
+                    </span>
                 </p>
             </article>
         </div>

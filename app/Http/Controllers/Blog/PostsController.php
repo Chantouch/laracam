@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Blog;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -9,8 +10,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use App\Model\Post;
 
-class PostsController extends Controller
+class PostsController extends BaseController
 {
+    /**
+     * PostsController constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public $view = 'blog.';
 
     /**

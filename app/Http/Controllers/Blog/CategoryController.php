@@ -63,7 +63,6 @@ class CategoryController extends BaseController
             $category = Category::with(['parent', 'articles'])
                 ->where('slug', $idOrSlug)->firstOrFail();
         }
-        //dd($category);
         $posts = Post::with('categories')->get()->random(4);
         return view($this->view . 'show', compact('category', 'posts'));
     }

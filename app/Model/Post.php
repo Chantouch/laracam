@@ -235,6 +235,17 @@ class Post extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * Return the post's author
+     */
+    public function checkAuthor()
+    {
+        if ($this->author()) {
+            return $this->author->name;
+        }
+        return 'N/A';
+    }
+
 //    /**
 //     * Return the post's comments
 //     *
