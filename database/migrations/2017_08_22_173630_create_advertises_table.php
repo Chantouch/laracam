@@ -17,6 +17,7 @@ class CreateAdvertisesTable extends Migration
             $table->increments('id');
             $table->string('slug')->nullable();
             $table->unsignedInteger('advertise_type_id', false)->nullable();
+            $table->unsignedInteger('media_id', false)->nullable();
             $table->string('provider_name', 255)->nullable();
             $table->string('url')->nullable();
             $table->longText('tracking_code_large')->nullable();
@@ -28,6 +29,7 @@ class CreateAdvertisesTable extends Migration
             $table->timestamps();
             $table->foreign('advertise_type_id')->references('id')
                 ->on('advertise_types')->onDelete('cascade');
+            $table->foreign('media_id')->references('id')->on('media');
         });
     }
 

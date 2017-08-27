@@ -102,4 +102,18 @@ class Category extends Model
     {
         return $this->belongsToMany(Post::class, 'post_categories', 'category_id', 'post_id')->withPivot('category_id', 'post_id')->withTimestamps();
     }
+
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKey(): string
+    {
+        if (!empty($this->slug)) {
+            return $this->slug;
+        }
+        return $this->id;
+    }
 }

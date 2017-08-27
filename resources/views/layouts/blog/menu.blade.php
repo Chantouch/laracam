@@ -11,10 +11,11 @@
         <div class="col-lg-8">
             <!-- Main Menu -->
             <ul id="main-menu-items" class="sm sm-menu menu-efct">
-                <li class="active"><a href="#">Home</a></li>
-                <li class=""><a href="#">Sport</a></li>
-                <li><a href="#">Health</a></li>
-                <li><a href="#">Entertainment</a></li>
+                <li class="active"><a href="/">Home</a></li>
+                <li class=""><a href="/topics/sport">Sport</a></li>
+                <li><a href="/topics/health">Health</a></li>
+                <li><a href="/topics/entertainment">Entertainment</a></li>
+                <li><a href="/topics/cook-recipes">Cook Recipe</a></li>
                 {{--<li>--}}
                 {{--<a href="#">Magalla Pages</a>--}}
                 {{--<ul class="main-menu-sub">--}}

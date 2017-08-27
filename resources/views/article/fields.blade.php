@@ -19,6 +19,11 @@
             <span class="input-group-addon" id="article-slug">https://example.com/article/</span>
             {!! Form::text('slug', null, ['class' => 'form-control', 'aria-describedby' => 'article-slug']) !!}
         </div>
+        @if ($errors->has('slug'))
+            <span class="help-block">
+                <strong>{{ $errors->first('slug') }}</strong>
+            </span>
+        @endif
 
         <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
             {!! Form::label('description', 'Article Description:', ['class'=>'col-md-12']) !!}
@@ -111,6 +116,12 @@
                 </div>
                 <p>Status: @{{ article.status }}
                     <a href="javascript:void (0)" @click.prevent="showStatus()" v-if="edit">Edit</a>
+                </p>
+                <p>Visibility:
+                    <a href="javascript:void (0)">Edit</a>
+                </p>
+                <p>Publish@:
+                    <a href="javascript:void (0)">Edit</a>
                 </p>
                 <div class="form-group" v-if="status">
                     <label class="col-sm-12" for="status"></label>
@@ -292,8 +303,8 @@
         <div class="panel-wrapper collapse in">
             <div class="panel-body">
                 <!--Feature image-->
-                <div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
-                    <label class="col-sm-12">Feature Image</label>
+                <div class="form-group{{ $errors->has('thumbnail') ? ' has-error' : '' }}">
+                    <label class="col-sm-12">Feature Image (Must 1280x720)</label>
                     <div class="col-sm-12">
                         <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                             <div class="form-control" data-trigger="fileinput">
@@ -303,14 +314,14 @@
                             <span class="input-group-addon btn btn-default btn-file">
                                 <span class="fileinput-new">Select file</span>
                                 <span class="fileinput-exists">Change</span>
-                                <input type="file" name="file" @change.prevent="previewImage" accept="image/*">
+                                <input type="file" name="thumbnail" @change.prevent="previewImage" accept="image/*">
                             </span>
                             <a href="javascript:void (0)" class="input-group-addon btn btn-default fileinput-exists"
                                data-dismiss="fileinput" @click.prevent="removeImage">Remove</a>
                         </div>
-                        @if ($errors->has('file'))
+                        @if ($errors->has('thumbnail'))
                             <span class="help-block">
-                                <small>{{ $errors->first('file') }}</small>
+                                <small>{{ $errors->first('thumbnail') }}</small>
                             </span>
                         @endif
                     </div>
@@ -330,45 +341,6 @@
                         <img class="img-thumbnail" :src="images">
                     </div>
                 @endif
-                <!--Background image-->
-                <div class="form-group{{ $errors->has('background') ? ' has-error' : '' }}">
-                    <label class="col-sm-12">Background Image</label>
-                    <div class="col-sm-12">
-                        <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                            <div class="form-control" data-trigger="fileinput">
-                                <i class="glyphicon glyphicon-file fileinput-exists"></i>
-                                <span class="fileinput-filename"></span>
-                            </div>
-                            <span class="input-group-addon btn btn-default btn-file">
-                                <span class="fileinput-new">Select file</span>
-                                <span class="fileinput-exists">Change</span>
-                                <input type="file" name="background" accept="image/*">
-                            </span>
-                            <a href="javascript:void (0)" class="input-group-addon btn btn-default fileinput-exists"
-                               data-dismiss="fileinput" @click.prevent="removeImage">Remove</a>
-                        </div>
-                        @if ($errors->has('background'))
-                            <span class="help-block">
-                                <small>{{ $errors->first('background') }}</small>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-                {{--@if(isset($post))--}}
-                    {{--@if(count($post->images))--}}
-                        {{--<img src="{!! asset($post->path.$post->images->file) !!}" alt="{!! $post->title !!}"--}}
-                             {{--class="img-thumbnail">--}}
-                    {{--@endif--}}
-                    {{--<div v-if="images.length > 0">--}}
-                        {{--<img class="img-thumbnail" :src="images">--}}
-                    {{--</div>--}}
-                {{--@else--}}
-                    {{--<img src="{!! asset('images/not.jpg') !!}" alt="No Image Available"--}}
-                         {{--class="img-thumbnail">--}}
-                    {{--<div class="img-preview" v-if="images.length > 0">--}}
-                        {{--<img class="img-thumbnail" :src="images">--}}
-                    {{--</div>--}}
-                {{--@endif--}}
             </div>
         </div>
     </div>

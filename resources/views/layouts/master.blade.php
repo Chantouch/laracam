@@ -65,6 +65,36 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+                                </button>
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
+                        @if ($message = Session::get('info'))
+                            <div class="alert alert-info alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+                                </button>
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
+                        @if ($message = Session::get('warning'))
+                            <div class="alert alert-warning alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+                                </button>
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
+                        @if ($message = Session::get('error'))
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+                                </button>
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
+                    </div>
                     @yield('content')
                 </div>
                 @include('layouts.inc.right-sidebar')
@@ -105,7 +135,7 @@
 <script src="{{ asset('plugins/styleswitcher/jQuery.style.switcher.js') }}"></script>
 <script>
     $(function () {
-        @if(Session::has('message'))
+                @if(Session::has('message'))
         let type = "{{ Session::get('alert-type', 'info') }}";
         switch (type) {
             case 'info':

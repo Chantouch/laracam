@@ -18,7 +18,7 @@ $factory->state(Media::class, 'thumbnail', function (Generator $faker) {
         'filename' => $faker->image,
         'original_filename' => 'avatar.png',
         'mime_type' => 'image/png',
-        'mediable_type' => 'App\Post',
+        'mediable_type' => 'App\Model\Post',
         'mediable_id' => function () {
             return factory(Post::class)->create()->id;
         }

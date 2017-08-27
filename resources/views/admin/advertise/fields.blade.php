@@ -108,16 +108,35 @@
         </div>
 
         <!--Image of ads-->
-        {!! Form::label('file', 'Image:') !!}
-        <div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
-            <div class="form-line">
-                {!! Form::file('file', ['class' => 'form-control']) !!}
+        <div class="row">
+            <div class="form-group{{ $errors->has('banner') ? ' has-error' : '' }}">
+                <label class="col-sm-12">Banner Image <span>(Please follow the ads size of image)</span></label>
+                <div class="col-sm-12">
+                    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                        <div class="form-control" data-trigger="fileinput">
+                            <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                            <span class="fileinput-filename"></span>
+                        </div>
+                        <span class="input-group-addon btn btn-default btn-file">
+                            <span class="fileinput-new">Select file</span>
+                            <span class="fileinput-exists">Change</span>
+                            <input type="file" name="banner" accept="image/*">
+                        </span>
+                        <a href="javascript:void (0)" class="input-group-addon btn btn-default fileinput-exists"
+                           data-dismiss="fileinput">Remove</a>
+                    </div>
+                    @if ($errors->has('banner'))
+                        <span class="help-block">
+                            <small>{{ $errors->first('banner') }}</small>
+                        </span>
+                    @endif
+                    @if(isset($advertise))
+                        @if($advertise->hasBanner())
+                            <img src="" alt="{!! $advertise->provider_name !!}" class="img-responsive">
+                        @endif
+                    @endif
+                </div>
             </div>
-            @if ($errors->has('file'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('file') }}</strong>
-                </span>
-            @endif
         </div>
 
     </div>

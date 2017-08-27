@@ -16,9 +16,19 @@
         </div>
         <div class="top-banner col-lg-8">
             <!-- Top ad banner -->
-            <a href="#">
-                <img alt="" src="{!! asset('blog/img/top-banner.jpg') !!}"/>
-            </a>
+            @if(count($top_ads))
+                @foreach($top_ads as $ads)
+                    @if($ads->hasBanner())
+                        <a href="{!! $ads->url !!}" target="_blank">
+                            {{ Html::image($ads->banner()->media_url, $ads->banner()->original_filename) }}
+                        </a>
+                    @else
+                        <a href="#">
+                            <img alt="" src="{!! asset('blog/img/top-banner.jpg') !!}"/>
+                        </a>
+                    @endif
+                @endforeach
+            @endif
         </div>
     </div>
 </div>

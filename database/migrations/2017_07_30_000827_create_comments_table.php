@@ -22,6 +22,7 @@ class CreateCommentsTable extends Migration
             $table->unsignedInteger('parent_id')->nullable();
             $table->integer('commentable_id')->nullable();
             $table->string('commentable_type')->nullable();
+            $table->dateTime('posted_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -21,7 +21,7 @@ class AdvertiseController extends Controller
      */
     public function index()
     {
-        $advertises = Advertise::paginate(10);
+        $advertises = Advertise::with('ads_type')->paginate(10);
         return view($this->view . 'index', compact('advertises'));
     }
 
@@ -51,8 +51,10 @@ class AdvertiseController extends Controller
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
-            $data['slug'] = str_slug($request->provider_name, '-');
             $advertise = Advertise::with('ads_type')->create($data);
+            if ($request->hasFile('banner')) {
+                $advertise->mediaUpload($request->file('banner'));
+            }
             if (!$advertise) {
                 DB::rollBack();
                 return redirect()->back()->with('error', 'Can not insert your data requirement');
@@ -67,22 +69,24 @@ class AdvertiseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Model\Advertise $advertise
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Advertise $advertise)
+    public function show($id)
     {
-        return response($advertise, 200);
+        $advertise = Advertise::with('media')->find($id);
+        return view($this->view . 'show', compact('advertise'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Model\Advertise $advertise
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Advertise $advertise)
+    public function edit($id)
     {
+        $advertise = Advertise::with('media')->find($id);
         $advertise_types = AdvertiseType::all();
         return view($this->view . 'edit', compact('advertise', 'advertise_types'));
     }
@@ -91,20 +95,21 @@ class AdvertiseController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \App\Model\Advertise $advertise
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Advertise $advertise)
+    public function update(Request $request, $id)
     {
         try {
             DB::beginTransaction();
             $data = $request->all();
+            $advertise = Advertise::with('media')->find($id);
             $validator = Validator::make($data, Advertise::rule(), Advertise::message());
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
-            if (empty($advertise->slug)) {
-                $data['slug'] = str_slug($request->provider_name, '-');
+            if ($request->hasFile('banner')) {
+                $advertise->mediaUpload($request->file('banner'));
             }
             $ads = $advertise->update($data);
             if (!$ads) {

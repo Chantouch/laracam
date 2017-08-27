@@ -11,6 +11,18 @@
 |
 */
 
+Route::get('media/news/{id}/{filename}', function ($id, $filename) {
+    $path = storage_path('app/public/uploads/posts/' . $id . '/' . $filename);
+    if (!File::exists($path)) {
+        abort(404);
+    }
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    return $response;
+})->name('media.posts.path');
+
 Auth::routes();
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -33,9 +45,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 //-------------Blog Front Route-------------//
-
-Route::get('/', 'Blog\HomeController@index')->name('blog.index');
-
-Route::prefix('admin')->name('admin.')->group(function () {
-
+Route::name('blog.')->namespace('Blog')->group(function () {
+    Route::get('/', 'HomeController@index')->name('index');
+    Route::get('/files/{filename}', 'MediaController@getFile')->name('files');
+    Route::get('/media/{filename}', 'MediaController@getFiles')->name('media');
+    Route::resource('article', 'PostsController', ['only' => 'show']);
+    Route::resource('topics', 'CategoryController', ['only' => 'show']);
 });
+Route::get('/insert-db', 'HomeController@insertPostCategory');

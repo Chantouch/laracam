@@ -13,10 +13,10 @@ use App\Model\Attachment;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Validator;
 
 trait UploadTrait
 {
+    use Mediable;
 
     /**
      * @param Request $request
@@ -50,4 +50,5 @@ trait UploadTrait
             }
         }
     }
+
 }

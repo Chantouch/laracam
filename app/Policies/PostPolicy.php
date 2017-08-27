@@ -20,6 +20,7 @@ class PostPolicy
         if ($user->isAdmin()) {
             return true;
         }
+        return false;
     }
 
     /**
@@ -31,6 +32,6 @@ class PostPolicy
      */
     public function update(User $user, Post $post): bool
     {
-        return $user->id === $post->author_id;
+        return $user->id === $post->user_id;
     }
 }

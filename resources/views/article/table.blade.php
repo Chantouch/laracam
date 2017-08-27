@@ -17,9 +17,9 @@
                 <tr>
                     <th>{!! $loop->index+1 !!}</th>
                     <td>
-                        @if(count($article->images))
-                            <img src="{!! asset($article->path.$article->images->file) !!}"
-                                 alt="{!! $article->name !!}" width="50">
+                        @if($article->hasThumbnail())
+                            <img src="{!! asset(route('media.posts.path',[$article->id,'small_'.$article->thumbnail()->filename])) !!}"
+                                 alt="{!! $article->title !!}" width="50">
                         @else
                             <img src="{!! asset('img/slider-870x323.jpg') !!}" alt="Thumbnail of page"
                                  class="img-thumbnail">

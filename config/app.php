@@ -173,6 +173,7 @@ return [
         Cviebrock\EloquentSluggable\ServiceProvider::class,
 	    Torann\LaravelMetaTags\MetaTagsServiceProvider::class,
 	    Mews\Purifier\PurifierServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -238,6 +239,7 @@ return [
         'MetaTag'   => Torann\LaravelMetaTags\Facades\MetaTag::class,
 	    'Helper' => \App\Helpers\Helper::class,
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];

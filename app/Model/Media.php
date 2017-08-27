@@ -26,7 +26,17 @@ class Media extends Model
      */
     public function getUrlAttribute(): string
     {
-        return route('files', ['filename' => $this->filename]);
+        return route('blog.files', ['filename' => $this->filename]);
+    }
+
+    /**
+     * Get the media's url.
+     *
+     * @return string
+     */
+    public function getMediaUrlAttribute(): string
+    {
+        return route('blog.media', ['filename' => $this->filename]);
     }
 
     /**
