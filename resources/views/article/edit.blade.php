@@ -19,6 +19,7 @@
     <script type="text/javascript" src="{!! asset('plugins/summernote/dist/summernote.min.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('plugins/dropzone-master/dist/dropzone.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('js/script.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('js/jquery.slimscroll.js') !!}"></script>
 @stop
 
 
@@ -55,7 +56,7 @@
             created: function () {
                 this.tagList();
                 this.categoryList();
-                this.getMediaLibrary();
+                //this.getMediaLibrary();
             },
             methods: {
                 tagList: function () {
@@ -155,24 +156,19 @@
                 addMedia: function (e) {
                     e.preventDefault();
                     $('#add-media').modal('show');
+                    this.getMediaLibrary();
                 },
                 getMediaLibrary: function () {
                     let vm = this;
                     vm.$http.get('/api/v1/media-library').then((response) => {
                         vm.mediaLibrary = response.data;
                     });
-                }
+                },
             },
             watch: {
                 tags: function (nv) {
                     this.tags = nv;
                 },
-//                mediaLibrary: function () {
-//                    let vm = this;
-//                    vm.$http.get('/api/v1/media-library').then((response) => {
-//                        vm.mediaLibrary = response.data;
-//                    });
-//                }
             }
         });
     </script>
@@ -181,5 +177,23 @@
             maxFilesize: 100,
             acceptedFiles: ".jpeg,.jpg,.png,.gif"
         };
+    </script>
+    <script type="text/javascript">
+        $('#media-library-slim').slimScroll({
+            color: '#3900ff',
+            size: '10px',
+            height: '500px',
+            railVisible: true,
+            alwaysVisible: false
+        });
+
+        $(document).ready(function (e) {
+            $(".img-check").click(function () {
+                $(this).toggleClass("check");
+            });
+            $('.input-hidden').on('change', function () {
+                $('.input-hidden').not(this).prop('checked', false);
+            });
+        });
     </script>
 @stop

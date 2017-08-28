@@ -228,7 +228,7 @@
     <!-- Facebook share JS -->
     <div id="fb-root"></div>
     <script>(function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
+            let js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
             js = d.createElement(s);
             js.id = id;
@@ -239,7 +239,7 @@
 
     <!-- Twitter share JS -->
     <script>!function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+            let js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
             if (!d.getElementById(id)) {
                 js = d.createElement(s);
                 js.id = id;
@@ -251,6 +251,5 @@
 
     <!-- Pinterest share JS -->
     <script type="text/javascript" async src="../../assets.pinterest.com/js/pinit.js"></script>
-
 
 @stop
