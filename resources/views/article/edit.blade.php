@@ -3,11 +3,13 @@
     <link href="{!! asset('plugins/multiselect/css/multi-select.css') !!}" rel="stylesheet" type="text/css"/>
     <link href="{!! asset('plugins/custom-select/custom-select.css') !!}" rel="stylesheet" type="text/css"/>
     <link href="{!! asset('plugins/summernote/dist/summernote.css') !!}" rel="stylesheet" type="text/css"/>
+    <link href="{!! asset('plugins/dropzone-master/dist/dropzone.css') !!}" rel="stylesheet" type="text/css"/>
 @stop
 @section('content')
     {!! Form::model($post, ['route' => ['admin.article.update', $post->id], 'method' => 'patch', 'files'=> true,'class'=>'form-horizontal']) !!}
     @include('article.fields')
     {!! Form::close() !!}
+    @include('article.add-media')
 @stop
 
 @section('plugins')
@@ -15,6 +17,7 @@
     <script type="text/javascript" src="{!! asset('plugins/custom-select/custom-select.min.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('js/jasny-bootstrap.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('plugins/summernote/dist/summernote.min.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('plugins/dropzone-master/dist/dropzone.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('js/script.js') !!}"></script>
 @stop
 
@@ -46,11 +49,13 @@
                 },
                 newTag: {
                     'name': ''
-                }
+                },
+                mediaLibrary: {}
             },
             created: function () {
                 this.tagList();
                 this.categoryList();
+                this.getMediaLibrary();
             },
             methods: {
                 tagList: function () {
@@ -133,7 +138,6 @@
                     if (input.files && input.files[0]) {
                         // create a new FileReader to read this image and convert to base64 format
                         let reader = new FileReader();
-                        console.log(reader);
                         // Define a callback function to run, when FileReader finishes its job
                         reader.onload = (e) => {
                             // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
@@ -147,13 +151,35 @@
                 removeImage: function () {
                     let vm = this;
                     vm.images = '';
+                },
+                addMedia: function (e) {
+                    e.preventDefault();
+                    $('#add-media').modal('show');
+                },
+                getMediaLibrary: function () {
+                    let vm = this;
+                    vm.$http.get('/api/v1/media-library').then((response) => {
+                        vm.mediaLibrary = response.data;
+                    });
                 }
             },
             watch: {
                 tags: function (nv) {
                     this.tags = nv;
-                }
+                },
+//                mediaLibrary: function () {
+//                    let vm = this;
+//                    vm.$http.get('/api/v1/media-library').then((response) => {
+//                        vm.mediaLibrary = response.data;
+//                    });
+//                }
             }
         });
+    </script>
+    <script type="text/javascript">
+        Dropzone.options.imageUpload = {
+            maxFilesize: 100,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif"
+        };
     </script>
 @stop

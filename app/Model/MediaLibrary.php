@@ -1,0 +1,103 @@
+<?php
+
+namespace App\Model;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\UploadedFile;
+
+class MediaLibrary extends Model
+{
+	protected $fillable = [
+		'filename',
+		'original_filename',
+		'mime_type',
+		'url',
+		'title',
+		'caption',
+		'alt_text',
+		'description'
+	];
+
+	/**
+	 * Store and set the post's thumbnail
+	 *
+	 * @param UploadedFile $uploadedFile
+	 *
+	 * @return UploadedFile
+	 */
+	public function storeMediaLibrary(UploadedFile $uploadedFile)
+	{
+		$media_base_name = $uploadedFile->store('public/uploads/media/library');
+		$media_library_name = str_replace('public/uploads/media/library/', '', $media_base_name);
+		$this->create([
+			'filename'          => $media_library_name,
+			'original_filename' => $uploadedFile->getClientOriginalName(),
+			'mime_type'         => $uploadedFile->getMimeType(),
+			'title'             => $uploadedFile->getClientOriginalName(),
+			'alt_text'          => $media_library_name,
+			'url'               => config('app.url') . '/media-library/libraries/' . $media_library_name
+		]);
+		return $uploadedFile;
+	}
+
+	/**
+	 * Get the media's url.
+	 *
+	 * @return string
+	 */
+	public function getMediaUrlAttribute(): string
+	{
+		return route('blog.media', ['filename' => $this->filename]);
+	}
+
+	/**
+	 * Get the media's storage path.
+	 *
+	 * @return string
+	 */
+	public function getPath(): string
+	{
+		return storage_path('app/') . $this->filename;
+	}
+
+
+	/**
+	 * Scope a query to order posts by latest posted
+	 *
+	 * @param \Illuminate\Database\Eloquent\Builder $query
+	 * @return \Illuminate\Database\Eloquent\Builder
+	 */
+	public function scopeLatest($query)
+	{
+		return $query->orderBy('created_at', 'desc');
+	}
+
+	/**
+	 * Scope a query to only include posts posted last month.
+	 *
+	 * @param \Illuminate\Database\Eloquent\Builder $query
+	 * @param int $limit
+	 * @return \Illuminate\Database\Eloquent\Builder
+	 */
+	public function scopeLastMonth($query, $limit = 5)
+	{
+		return $query->whereBetween('created_at', [Carbon::now()->subMonth(), Carbon::now()])
+			->latest()
+			->limit($limit);
+	}
+
+	/**
+	 * Scope a query to only include posts posted last week.
+	 *
+	 * @param \Illuminate\Database\Eloquent\Builder $query
+	 * @return \Illuminate\Database\Eloquent\Builder
+	 */
+	public function scopeLastWeek($query)
+	{
+		return $query->whereBetween('created_at', [Carbon::now()->subWeek(), Carbon::now()])
+			->latest();
+	}
+
+
+}

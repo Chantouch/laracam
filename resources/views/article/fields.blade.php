@@ -24,7 +24,11 @@
                 <strong>{{ $errors->first('slug') }}</strong>
             </span>
         @endif
-
+        <div class="form-group">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-primary" @click.prevent="addMedia"><i class="mdi mdi-camera-iris"></i> Add Media</button>
+            </div>
+        </div>
         <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
             {!! Form::label('description', 'Article Description:', ['class'=>'col-md-12']) !!}
             <div class="col-sm-12">

@@ -98,9 +98,12 @@ class UsersController extends ApiController
         return $this->item($user);
     }
 
-    /**
-    * Update the specified resource in storage.
-    */
+	/**
+	 * Update the specified resource in storage.
+	 * @param UsersRequest $request
+	 * @param User $user
+	 * @return \Illuminate\Http\Response
+	 */
     public function update(UsersRequest $request, User $user)
     {
         $this->authorize('update', $user);

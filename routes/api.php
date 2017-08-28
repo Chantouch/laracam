@@ -23,4 +23,5 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
     Route::get('cat-most-used', 'API\MasterController@catMostUsed')->name('cat-most-used');
     Route::post('category', 'Ref\CategoryController@ajaxNew')->name('category.ajax-new');
     Route::post('tag', 'Ref\TagController@ajaxNew')->name('tag.ajax-new');
+    Route::get('media-library', 'API\V1\MediaLibraryController@index')->name('media.library');
 });

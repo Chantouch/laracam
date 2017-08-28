@@ -41,6 +41,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('article', 'ArticleController');
     Route::resource('advertise', 'AdvertiseController');
     Route::resource('advertise-type', 'AdvertiseTypeController');
+    Route::resource('media-library', 'Admin\MediaLibraryController');
     Route::get('draft/article', 'ArticleController@draft')->name('article.draft');
 });
 

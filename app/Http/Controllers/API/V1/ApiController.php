@@ -38,10 +38,11 @@ class ApiController extends Controller
         return $this->statusCode;
     }
 
-    /**
-     * Set the Status Code
-     * @param string $statusCode
-     */
+	/**
+	 * Set the Status Code
+	 * @param string $statusCode
+	 * @return $this
+	 */
     public function setStatusCode($statusCode)
     {
         $this->statusCode = $statusCode;
@@ -57,10 +58,12 @@ class ApiController extends Controller
         return $this->transformer;
     }
 
-    /**
-     * Set the transformer
-     * @param $transfomer
-     */
+	/**
+	 * Set the transformer
+	 * @param $transformer
+	 * @return $this
+	 * @internal param $transfomer
+	 */
     public function setTransformer($transformer)
     {
         $this->transformer = $transformer;
@@ -76,10 +79,11 @@ class ApiController extends Controller
         return $this->resourceKey;
     }
 
-    /**
-     * Set the resourceKey
-     * @param string $resourceKey
-     */
+	/**
+	 * Set the resourceKey
+	 * @param string $resourceKey
+	 * @return $this
+	 */
     public function setResourceKey($resourceKey)
     {
         $this->resourceKey = $resourceKey;
@@ -168,12 +172,13 @@ class ApiController extends Controller
         return $this->respond($this->createData($resource));
     }
 
-    /**
-     * Bind a collection to a transformer and return data.
-     *
-     * @param object $collection
-     * @return \Illuminate\Http\Response
-     */
+	/**
+	 * Bind a collection to a transformer and return data.
+	 *
+	 * @param $items
+	 * @return IlluminateResponse
+	 * @internal param object $collection
+	 */
     public function collection($items)
     {
         $resource = new Collection($items, $this->getTransformer(), $this->getResourceKey());
@@ -181,12 +186,13 @@ class ApiController extends Controller
         return $this->respond($this->createData($resource));
     }
 
-    /**
-     * Bind a paginated collection to a transformer and return data.
-     *
-     * @param object $item
-     * @return \Illuminate\Http\Response
-     */
+	/**
+	 * Bind a paginated collection to a transformer and return data.
+	 *
+	 * @param $paginator
+	 * @return IlluminateResponse
+	 * @internal param object $item
+	 */
     public function paginatedCollection($paginator)
     {
         $resource = new Collection($paginator->getCollection(), $this->getTransformer(), $this->getResourceKey());
