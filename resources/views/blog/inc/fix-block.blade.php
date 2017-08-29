@@ -33,7 +33,8 @@
                     <p>
                         {!! $post->excerpt(100) !!}
                     </p>
-                    <a href="{!! route('blog.article.show', [$post->getRouteKey()]) !!}">MORE <i class="fa fa-angle-double-right"></i></a>
+                    <a href="{!! route('blog.article.show', [$post->getRouteKey()]) !!}">MORE <i
+                                class="fa fa-angle-double-right"></i></a>
                 </div>
             </div>
         @endforeach
@@ -46,7 +47,9 @@
         @foreach($top_right_ads as $ads)
             <a href="{!! $ads->url !!}" target="_blank">
                 <div class="rt-block mid-block-1 boxgrid2 caption">
-                    {{ Html::image($ads->banner()->media_url, $ads->banner()->original_filename) }}
+                    @if($ads->hasBanner())
+                        {{ Html::image($ads->banner()->media_url, $ads->banner()->original_filename) }}
+                    @endif
                     <h4 class="cat-label cat-label4">
                         <a href="#">{!! $ads->provider_name !!}</a>
                     </h4>

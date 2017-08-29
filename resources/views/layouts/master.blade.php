@@ -127,6 +127,8 @@
 <script src="{!! asset('js/toastr.js') !!}"></script>
 <!-- Custom Theme JavaScript -->
 <script src="{{ asset('js/custom.min.js') }}"></script>
+<!-- Plugin JavaScript -->
+<script src="{!! asset('plugins/moment/moment.js') !!}"></script>
 <script type="text/javascript" src="{!! asset('js/vue/vue.js') !!}"></script>
 <script src="{!! asset('js/vue/vue-resource.min.js') !!}"></script>
 <script src="{!! asset('js/vue/vue-axios.min.js') !!}"></script>

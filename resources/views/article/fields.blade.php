@@ -26,7 +26,9 @@
         @endif
         <div class="form-group">
             <div class="col-md-12">
-                <button type="button" class="btn btn-primary" @click.prevent="addMedia"><i class="mdi mdi-camera-iris"></i> Add Media</button>
+                <button type="button" class="btn btn-primary" @click.prevent="addMedia"><i
+                            class="mdi mdi-camera-iris"></i> Add Media
+                </button>
             </div>
         </div>
         <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
@@ -121,12 +123,6 @@
                 <p>Status: @{{ article.status }}
                     <a href="javascript:void (0)" @click.prevent="showStatus()" v-if="edit">Edit</a>
                 </p>
-                <p>Visibility:
-                    <a href="javascript:void (0)">Edit</a>
-                </p>
-                <p>Publish@:
-                    <a href="javascript:void (0)">Edit</a>
-                </p>
                 <div class="form-group" v-if="status">
                     <label class="col-sm-12" for="status"></label>
                     <input type="hidden" name="status" id="hidden_post_status" :value="article.status">
@@ -141,6 +137,32 @@
                             <a href="javascript:void (0)" class="btn" @click.prevent="changeStatus()">OK</a>
                             <a href="javascript:void (0)" @click.prevent="cancelStatus()">Cancel</a>
                         </div>
+                    </div>
+                </div>
+                <p>Visibility:
+                    <a href="javascript:void (0)">Edit</a>
+                </p>
+                <p>Publish@: @{{ posted_at.now_label }}
+                    <a href="javascript:void (0)" @click.prevent="schedulePost" v-if="posted_at.edit">Edit</a>
+                </p>
+                <div class="form-group" v-if="posted_at.schedule">
+                    <label class="col-sm-12" for="status"></label>
+                    <input type="hidden" name="posted_at" id="hidden_posted_at" :value="posted_at.now">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <input type="date" class="form-control" v-model="posted_at.date">
+                            <span class="input-group-addon"><i class="icon-calender"></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-7 m-t-15">
+                        <div class="input-group">
+                            <input type="time" class="form-control" :value="posted_at.time">
+                            <span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span> </span>
+                        </div>
+                    </div>
+                    <div class="col-md-5 m-t-15">
+                        <a href="javascript:void (0)" class="btn" @click.prevent="changeStatus()">OK</a>
+                        <a href="javascript:void (0)" @click.prevent="cancelStatus()">Cancel</a>
                     </div>
                 </div>
             </div>

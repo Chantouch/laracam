@@ -79,9 +79,9 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="media-library">
-                        <div class="col-md-12">
-                            <h3 class="box-title m-b-0">Media Files Uploaded</h3>
-                            <p class="text-muted m-b-30"> Select any file to keep to article</p>
+                        <div class="col-md-9 col-sm-9">
+                            <h4 class="box-title m-b-0">Media Files Uploaded</h4>
+                            <p class="text-muted m-b-10"> Select any file to keep to article</p>
                             <div class="row">
                                 <div id="media-library-slim">
                                     <span v-for="media in mediaLibrary.data">
@@ -90,6 +90,31 @@
                                         <img src="//placekitten.com/150/150" :alt="media.attributes.alt_text"/>
                                     </label>
                                     </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <h4 class="box-title m-b-0">Media Details</h4>
+                            <p class="text-muted m-b-10">Media Deep details insider</p>
+                            <div class="attachment-info">
+                                <div class="thumbnail thumbnail-image">
+                                    <img src="http://www.treasury.gov.kh/wp-content/uploads/2017/08/13.jpg"
+                                         draggable="true" alt="">
+                                </div>
+                                <div class="details">
+                                    <div class="filename">13.jpg</div>
+                                    <div class="uploaded">August 7, 2017</div>
+                                    <div class="file-size">364 kB</div>
+                                    <div class="dimensions">1200 × 799</div>
+                                    <a class="edit-attachment"
+                                       href="http://www.treasury.gov.kh/wp-admin/post.php?post=2155&amp;action=edit&amp;image-editor"
+                                       target="_blank">Edit Image</a>
+                                    <button type="button" class="button-link delete-attachment">
+                                        Delete Permanently
+                                    </button>
+                                    <div class="compat-meta">
+
+                                    </div>
                                 </div>
                             </div>
                         </div>

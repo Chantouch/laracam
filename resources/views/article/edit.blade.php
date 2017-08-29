@@ -4,6 +4,12 @@
     <link href="{!! asset('plugins/custom-select/custom-select.css') !!}" rel="stylesheet" type="text/css"/>
     <link href="{!! asset('plugins/summernote/dist/summernote.css') !!}" rel="stylesheet" type="text/css"/>
     <link href="{!! asset('plugins/dropzone-master/dist/dropzone.css') !!}" rel="stylesheet" type="text/css"/>
+    <link href="{!! asset('plugins/clockpicker/dist/jquery-clockpicker.min.css') !!}" rel="stylesheet">
+    <link href="{!! asset('plugins/jquery-asColorPicker-master/css/asColorPicker.css') !!}" rel="stylesheet">
+    <link href="{!! asset('plugins/bootstrap-datepicker/bootstrap-datepicker.min.css') !!}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{!! asset('plugins/timepicker/bootstrap-timepicker.min.css') !!}" rel="stylesheet">
+    <link href="{!! asset('plugins/bootstrap-daterangepicker/daterangepicker.css') !!}" rel="stylesheet">
 @stop
 @section('content')
     {!! Form::model($post, ['route' => ['admin.article.update', $post->id], 'method' => 'patch', 'files'=> true,'class'=>'form-horizontal']) !!}
@@ -20,11 +26,23 @@
     <script type="text/javascript" src="{!! asset('plugins/dropzone-master/dist/dropzone.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('js/script.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('js/jquery.slimscroll.js') !!}"></script>
+    <!-- Clock Plugin JavaScript -->
+    <script src="{!! asset('plugins/clockpicker/dist/jquery-clockpicker.min.js') !!}"></script>
+    <!-- Color Picker Plugin JavaScript -->
+    <script src="{!! asset('plugins/jquery-asColorPicker-master/libs/jquery-asColor.js') !!}"></script>
+    <script src="{!! asset('plugins/jquery-asColorPicker-master/libs/jquery-asGradient.js') !!}"></script>
+    <script src="{!! asset('plugins/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js') !!}"></script>
+    <!-- Date Picker Plugin JavaScript -->
+    <script src="{!! asset('plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') !!}"></script>
+    <!-- Date range Plugin JavaScript -->
+    <script src="{!! asset('plugins/timepicker/bootstrap-timepicker.min.js') !!}"></script>
+    <script src="{!! asset('plugins/bootstrap-daterangepicker/daterangepicker.js') !!}"></script>
 @stop
 
 
 @section('scripts')
     <script>
+
         let app = new Vue({
             el: '#app',
             data: {
@@ -33,7 +51,7 @@
                 status: false,
                 edit: true,
                 article: {
-                    'status': 'draft',
+                    status: 'draft',
                     category: {!! isset($post->categories) ? $post->categories->pluck('id') : 0 !!},
                     tags: {!! isset($post->tags) ? $post->tags->pluck('id') : 0 !!},
                 },
@@ -51,7 +69,17 @@
                 newTag: {
                     'name': ''
                 },
-                mediaLibrary: {}
+                mediaLibrary: {},
+                //checkBox: true
+                posted_at: {
+                    date: '',
+                    time: '',
+                    now_label: 'Immediately',
+                    schedule: '',
+                    edit: true,
+                    now: ''
+                },
+                visibility: false,
             },
             created: function () {
                 this.tagList();
@@ -83,7 +111,6 @@
                 },
                 changeStatus: function () {
                     let vm = this;
-
                     vm.status = false;
                     vm.edit = true;
                 },
@@ -164,6 +191,24 @@
                         vm.mediaLibrary = response.data;
                     });
                 },
+                checkOnlyOne: function ($id) {
+                    console.log($id);
+                },
+                schedulePost: function () {
+                    let vm = this;
+                    vm.posted_at.schedule = true;
+                    vm.posted_at.edit = false;
+                    let now = new Date();
+                    let day = ("0" + now.getDate()).slice(-2);
+                    let month = ("0" + (now.getMonth() + 1)).slice(-2);
+                    vm.posted_at.date = now.getFullYear() + "-" + (month) + "-" + (day);
+                    let h = now.getHours();
+                    let m = now.getMinutes();
+                    if (h < 10) h = '0' + h;
+                    if (m < 10) m = '0' + m;
+                    vm.posted_at.time = h + ':' + m;
+                    vm.posted_at.now = vm.posted_at.date + ' ' + vm.posted_at.time;
+                }
             },
             watch: {
                 tags: function (nv) {
@@ -188,12 +233,14 @@
         });
 
         $(document).ready(function (e) {
-            $(".img-check").click(function () {
-                $(this).toggleClass("check");
-            });
             $('.input-hidden').on('change', function () {
                 $('.input-hidden').not(this).prop('checked', false);
+                console.log(this);
             });
+        });
+        $('.date-picker').datepicker({
+            autoclose: true,
+            todayHighlight: true
         });
     </script>
 @stop
