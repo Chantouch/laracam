@@ -4,7 +4,6 @@ namespace App\Transformers;
 
 use App\Model\MediaLibrary;
 use League\Fractal\TransformerAbstract;
-use App\Model\Post;
 
 class MediaLibraryTransformer extends TransformerAbstract
 {

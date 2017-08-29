@@ -36,9 +36,31 @@ class MediaLibrary extends Model
 			'mime_type'         => $uploadedFile->getMimeType(),
 			'title'             => $uploadedFile->getClientOriginalName(),
 			'alt_text'          => $media_library_name,
-			'url'               => config('app.url') . '/media-library/libraries/' . $media_library_name
+			'url'               => "/admin/media-library/$media_library_name"
 		]);
 		return $uploadedFile;
+	}
+
+	/**
+	 * Store and set the media library
+	 *
+	 * @param $filename
+	 * @param $mimetype
+	 * @param $originalname
+	 * @param $clientname
+	 * @return $this
+	 */
+	public function storeMediaLibraryByPost($filename, $mimetype, $originalname = null, $clientname = null)
+	{
+		$this->create([
+			'filename'          => $filename,
+			'original_filename' => $originalname,
+			'mime_type'         => $mimetype,
+			'title'             => $clientname,
+			'alt_text'          => $filename,
+			'url'               => "/admin/media-library/$filename"
+		]);
+		return $this;
 	}
 
 	/**

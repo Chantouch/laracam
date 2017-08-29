@@ -26,7 +26,7 @@
                         @endif
                     </td>
                     <td>{!! str_limit($article->title, 100) !!}</td>
-                    <td>{!! str_limit($article->description, 200) !!}</td>
+                    <td>{!! $article->excerpt(100) !!}</td>
                     <td>
                         @foreach($article->tags as $tag)
                             <span class="label label-info">{!! $tag->name !!}</span>

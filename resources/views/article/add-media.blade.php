@@ -84,15 +84,12 @@
                             <p class="text-muted m-b-30"> Select any file to keep to article</p>
                             <div class="row">
                                 <div id="media-library-slim">
-                                    <input type="checkbox" name="emotion" id="sad" class="input-hidden"/>
-                                    <label for="sad">
-                                        <img src="//placekitten.com/150/150" alt="I'm sad"/>
+                                    <span v-for="media in mediaLibrary.data">
+                                    <input type="checkbox" name="emotion" :id="media.id" class="input-hidden"/>
+                                    <label :for="media.id">
+                                        <img src="//placekitten.com/150/150" :alt="media.attributes.alt_text"/>
                                     </label>
-
-                                    <input type="checkbox" name="emotion" id="happy" class="input-hidden"/>
-                                    <label for="happy">
-                                        <img src="//placekitten.com/151/151" alt="I'm happy"/>
-                                    </label>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -115,10 +112,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">
-                    Close
+                    Cancel
                 </button>
                 <button type="button" class="btn btn-danger waves-effect waves-light">
-                    Save changes
+                    Insert Media
                 </button>
             </div>
         </div>
