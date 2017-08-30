@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="{!! asset('blog/css/css9a38.css?file=responsive') !!}">
     <link rel="stylesheet" href="{!! asset('blog/css/cssf83a.css?file=calendar') !!}">
     <script src="{!! asset('blog/js/jsde43.css?file=vendor/modernizr-2.6.2-respond-1.1.0.min') !!}"></script>
-
+    @yield('css')
 </head>
 <body>
 <div id="app">

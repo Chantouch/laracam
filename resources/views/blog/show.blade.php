@@ -7,19 +7,67 @@
  */
 ?>
 @extends('layouts.blog.app')
+@section('css')
+    <style>
+        .my-contrain {
+            position: relative;
+        }
 
+        .fix-bg {
+            position: absolute;
+            left: 0;
+            top: -40px;
+            width: 100%;
+            height: 800px;
+            overflow: hidden;
+        }
+
+        .fix-bg .img {
+            position: absolute;
+            left: -20px;
+            height: 100%;
+            top: 0;
+            width: calc(100% + 40px);
+            background-repeat: no-repeat;
+            background-position: top center;
+            background-size: 100% auto;
+            -webkit-filter: blur(10px);
+            -moz-filter: blur(10px);
+            -o-filter: blur(10px);
+            -ms-filter: blur(10px);
+            filter: blur(10px);
+        }
+
+        .fix-bg .inside {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: -webkit-linear-gradient(top, rgba(246, 246, 246, 0) 0, #f6f6f6 100%);
+            background: linear-gradient(to bottom, rgba(246, 246, 246, 0) 0, #f6f6f6 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80f6f6f6', endColorstr='#f6f6f6', GradientType=0);
+        }
+    </style>
+@stop
 @section('content')
     <!-- The Article -->
     <div class="artcl-main float-width">
         <div class="artcl-prev-nxt float-width">
             <div class="artcl-prev w50 blocky">
-                <a href="{!! route('blog.article.show', $previous) !!}"><i class="fa fa-angle-left"></i> PREV
-                    ARTICLE</a>
-                <p>Girl as a DJ on 2014 tour</p>
+                @if(count($previousPost))
+                    <a href="{!! route('blog.article.show', $previousPost->getRouteExist($previousPost)) !!}">
+                        <i class="fa fa-angle-left"></i> PREV ARTICLE</a>
+                    <p>{!! strip_tags(str_limit($previousPost->title,45)) !!}</p>
+                @endif
             </div>
             <div class="artcl-nxt w50 blocky text-right">
-                <a href="{!! route('blog.article.show', $next) !!}">NEXT ARTICLE <i class="fa fa-angle-right"></i></a>
-                <p>Dont forget to hit play fast</p>
+                @if(count($nextPost))
+                    <a href="{!! route('blog.article.show', $nextPost->getRouteExist($nextPost)) !!}">
+                        NEXT ARTICLE <i class="fa fa-angle-right"></i>
+                    </a>
+                    <p>{!! strip_tags(str_limit($nextPost->title,45)) !!}</p>
+                @endif
             </div>
         </div>
         <div class="artcl-body float-width">

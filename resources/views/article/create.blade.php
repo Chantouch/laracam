@@ -47,7 +47,16 @@
                 },
                 newTag: {
                     'name': ''
-                }
+                },
+                posted_at: {
+                    date: '',
+                    time: '',
+                    now_label: 'Immediately',
+                    schedule: '',
+                    edit: true,
+                    now: ''
+                },
+                visibility: false,
             },
             created: function () {
                 this.tagList();
@@ -151,6 +160,24 @@
                         // Start the reader job - read file as a data url (base64 format)
                         reader.readAsDataURL(input.files[0]);
                     }
+                },
+                checkOnlyOne: function ($id) {
+                    console.log($id);
+                },
+                schedulePost: function () {
+                    let vm = this;
+                    vm.posted_at.schedule = true;
+                    vm.posted_at.edit = false;
+                    let now = new Date();
+                    let day = ("0" + now.getDate()).slice(-2);
+                    let month = ("0" + (now.getMonth() + 1)).slice(-2);
+                    vm.posted_at.date = now.getFullYear() + "-" + (month) + "-" + (day);
+                    let h = now.getHours();
+                    let m = now.getMinutes();
+                    if (h < 10) h = '0' + h;
+                    if (m < 10) m = '0' + m;
+                    vm.posted_at.time = h + ':' + m;
+                    vm.posted_at.now = vm.posted_at.date + ' ' + vm.posted_at.time;
                 }
             },
             watch: {
