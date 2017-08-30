@@ -14,16 +14,20 @@
             </div>
         </div>
 
-        <label for="basic-url">SEO (Slug)</label>
-        <div class="input-group m-b-30">
-            <span class="input-group-addon" id="article-slug">https://example.com/article/</span>
-            {!! Form::text('slug', null, ['class' => 'form-control', 'aria-describedby' => 'article-slug']) !!}
+        <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
+            <label for="basic-url" class="col-md-12">SEO (Slug)</label>
+            <div class="col-sm-12">
+                <div class="input-group m-b-30">
+                    <span class="input-group-addon" id="article-slug">https://example.com/article/</span>
+                    {!! Form::text('slug', null, ['class' => 'form-control', 'aria-describedby' => 'slug']) !!}
+                </div>
+                @if ($errors->has('slug'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('slug') }}</strong>
+                    </span>
+                @endif
+            </div>
         </div>
-        @if ($errors->has('slug'))
-            <span class="help-block">
-                <strong>{{ $errors->first('slug') }}</strong>
-            </span>
-        @endif
         <div class="form-group">
             <div class="col-md-12">
                 <button type="button" class="btn btn-primary" @click.prevent="addMedia"><i

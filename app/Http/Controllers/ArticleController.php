@@ -66,9 +66,6 @@ class ArticleController extends Controller
 			DB::beginTransaction();
 			$data = $request->all();
 			$storage_path = storage_path("app/public/uploads/media/library/");
-			if (!file_exists($storage_path)) {
-				mkdir($storage_path, 0777, true);
-			}
 			//First check need to clean the description for html tag
 			//$data['description'] = clean($request->description);
 			$dom = new DOMDocument();
@@ -100,11 +97,7 @@ class ArticleController extends Controller
 			//<!--Save the description content to db-->
 			$data['description'] = $dom->saveHTML();
 			$model_created = Post::with('images')->create($data);
-			if (empty($request->slug)) {
-				$data['slug'] = $model_created->slug_utf8($request->title);
-			}
 			if ($model_created) {
-				$model_created->storeAndSetAuthor();
 				if ($request->hasFile('thumbnail')) {
 					$model_created->storeAndSetThumbnail($request->file('thumbnail'), $model_created);
 				}
@@ -202,13 +195,6 @@ class ArticleController extends Controller
 			} // <!--Check-->
 			//<!--Save the description content to db-->
 			$data['description'] = $dom->saveHTML();
-			if (empty($post->slug)) {
-				if (!empty($request->slug)) {
-					$data['slug'] = str_slug($request->slug);
-				} else {
-					$data['slug'] = $post->slug_utf8($request->title);
-				}
-			}
 			$updated = $post->update($data);
 			if ($updated) {
 				if ($request->has('tags')) {

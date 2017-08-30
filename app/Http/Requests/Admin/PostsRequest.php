@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Model\Post;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Model\User;
 
@@ -43,14 +44,16 @@ class PostsRequest extends FormRequest
      */
     public function rules()
     {
+        $article = $this->route()->parameter('article');
         return [
             'title' => 'required',
             'description' => 'required',
             //'can_be_author' => 'required|accepted',
-            //'slug' => 'unique:posts,slug,' . ($this->post ? $this->post->id : null),
+            'slug' => 'unique:posts,slug,' . ($article ? $article : null),
             'background' => 'dimensions:min_width=1280,min_height=720',
             'thumb_nail' => 'dimensions:min_width=510,min_height=287',
-            'categories' => 'required'
+            'categories' => 'required',
+            'user_id' => 'exists:users,id',
         ];
     }
 }
