@@ -35,6 +35,7 @@
     },
     "files": [
       "App/Helpers/Helper.php",
+      "App/Helpers/HelperForm.php",
       "App/Helpers/Date.php"
     ]
   },

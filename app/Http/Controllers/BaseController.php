@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 
 use App\Model\Advertise;
+use Torann\LaravelMetaTags\Facades\MetaTag;
 
 class BaseController extends Controller
 {
@@ -20,6 +21,9 @@ class BaseController extends Controller
     public function __construct()
 
     {
+	    MetaTag::set('title', 'You are at home');
+	    MetaTag::set('description', 'Blog Wes Anderson bicycle rights, occupy Shoreditch gentrify keffiyeh.');
+	    MetaTag::set('image', asset('images/default-share-image.png'));
         $top_ads = Advertise::with(['ads_type', 'media'])
             ->where('advertise_type_id', 1)->get()->random(1);
         $top_right_ads = Advertise::with(['ads_type', 'media'])

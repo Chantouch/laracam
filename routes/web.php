@@ -25,23 +25,23 @@ Route::get('media/news/{id}/{filename}', function ($id, $filename) {
 
 Auth::routes();
 
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth')->group(function () {
     Route::get('dashboard', 'HomeController@index')->name('dashboard');
-    Route::prefix('manage')->name('manage.')->group(function () {
-        Route::resource('user', 'Manage\UserController');
-        Route::resource('role', 'Manage\RoleController');
-        Route::resource('permission', 'Manage\PermissionController');
+    Route::prefix('manage')->name('manage.')->namespace('Manage')->group(function () {
+        Route::resource('user', 'UserController');
+        Route::resource('role', 'RoleController');
+        Route::resource('permission', 'PermissionController');
     });
-    Route::prefix('ref')->name('ref.')->group(function () {
-        Route::resource('category', 'Ref\CategoryController');
-        Route::patch('category/status/{id}', 'Ref\CategoryController@updateStatus');
-        Route::resource('tag', 'Ref\TagController');
-        Route::resource('page', 'Ref\PageController');
+    Route::prefix('ref')->name('ref.')->namespace('Ref')->group(function () {
+        Route::resource('category', 'CategoryController');
+        Route::patch('category/status/{id}', 'CategoryController@updateStatus');
+        Route::resource('tag', 'TagController');
+        Route::resource('page', 'PageController');
     });
     Route::resource('article', 'ArticleController');
     Route::resource('advertise', 'AdvertiseController');
     Route::resource('advertise-type', 'AdvertiseTypeController');
-    Route::resource('media-library', 'Admin\MediaLibraryController');
+    Route::resource('media-library', 'MediaLibraryController');
     Route::get('draft/article', 'ArticleController@draft')->name('article.draft');
 });
 

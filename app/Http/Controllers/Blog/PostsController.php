@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use App\Model\Post;
+use Torann\LaravelMetaTags\Facades\MetaTag;
 
 class PostsController extends BaseController
 {
@@ -73,6 +74,10 @@ class PostsController extends BaseController
 			->where('id', '>', $post->id)
 			->select('slug', 'title', 'id')
 			->orderby('slug', 'desc')->first();
+		//---------Set meta tag to header----------//
+		MetaTag::set('title', $post->title);
+		MetaTag::set('description', $post->description);
+		MetaTag::set('image', asset('images/default-share-image.png'));
 		return view($this->view . 'show', compact(
 			'post', 'comments', 'previousPost', 'nextPost'
 		));

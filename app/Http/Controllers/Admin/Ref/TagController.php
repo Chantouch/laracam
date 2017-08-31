@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Ref;
+namespace App\Http\Controllers\Admin\Ref;
 
 use App\Http\Controllers\Controller;
 use App\Model\Tag;

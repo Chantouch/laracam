@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PostsRequest;
 use App\Http\Traits\CrudTrait;
 use App\Http\Traits\ManyToManyTrait;
@@ -13,6 +14,7 @@ use App\Model\MediaLibrary;
 use App\Model\Post;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\ImageManagerStatic as Image;
 use DOMDocument;
@@ -96,20 +98,24 @@ class ArticleController extends Controller
 			} // <!--Check-->
 			//<!--Save the description content to db-->
 			$data['description'] = $dom->saveHTML();
-			$model_created = Post::with('images')->create($data);
-			if ($model_created) {
+			switch ($request->submit) {
+				case 'publish':
+					$data['active'] = 1;
+					break;
+				case 'draft':
+					$data['active'] = 2;
+			}
+			$post = Post::with('images')->create($data);
+			$post->storeAndSetAuthor();
+			if ($post) {
 				if ($request->hasFile('thumbnail')) {
-					$model_created->storeAndSetThumbnail($request->file('thumbnail'), $model_created);
+					$post->storeAndSetThumbnail($request->file('thumbnail'), $post);
 				}
 				if ($request->has('tags')) {
-					$this->attachTag($model_created, 'App\Model\Post', $request->tags);
+					$this->attachTag($post, 'App\Model\Post', $request->tags);
 				}
-				if ($request->has('categories')) {
-					$this->attachRelation($model_created->categories(), explode(',', $request->categories));
-				}
-				if ($request->has('meta_title')) {
-					$this->createMeta($model_created, $request->meta_title, $request->meta_keywords, $request->meta_description);
-				}
+				$this->attachRelation($post->categories(), explode(',', $request->categories));
+				$post->setAndStoreMetaTag($request->meta_title, $request->meta_keywords, $request->meta_description);
 			}
 			DB::commit();
 			return redirect()->route($this->route . 'index')->with('success', 'Post created successfully');
@@ -141,7 +147,7 @@ class ArticleController extends Controller
 		$categories = Category::with('articles')->where('status', 1)
 			->orderBy('name', 'desc')
 			->pluck('name', 'id')->toArray();
-		$post = Post::with('images')->find($id);
+		$post = Post::with('images', 'meta')->find($id);
 		return view($this->view . 'edit', compact('post', 'categories'));
 	}
 
@@ -159,9 +165,6 @@ class ArticleController extends Controller
 			$data = $request->all();
 			$post = Post::with('images')->find($id);
 			$storage_path = storage_path("app/public/uploads/media/library/");
-			if (!file_exists($storage_path)) {
-				mkdir($storage_path, 0777, true);
-			}
 			if ($request->hasFile('thumbnail')) {
 				$post->storeAndSetThumbnail($request->file('thumbnail'), $post);
 			}
@@ -195,17 +198,18 @@ class ArticleController extends Controller
 			} // <!--Check-->
 			//<!--Save the description content to db-->
 			$data['description'] = $dom->saveHTML();
+			switch ($request->submit) {
+				case 'publish':
+					$data['active'] = 1;
+					break;
+				case 'draft':
+					$data['active'] = 2;
+			}
 			$updated = $post->update($data);
 			if ($updated) {
-				if ($request->has('tags')) {
-					$this->syncTag($post, 'App\Model\Post', $request->tags);
-				}
-				if ($request->has('categories')) {
-					$this->syncRelation($post->categories(), explode(',', $request->categories));
-				}
-				if ($request->has('meta_title')) {
-					$this->createMeta($post, $request->meta_title, $request->meta_keywords, $request->meta_description);
-				}
+				$this->syncTag($post, 'App\Model\Post', $request->tags);
+				$this->syncRelation($post->categories(), explode(',', $request->categories));
+				$post->setAndStoreMetaTag($request->meta_title, $request->meta_keywords, $request->meta_description);
 			}
 			DB::commit();
 			return redirect()->route($this->route . 'index')->with('success', 'Post updated successfully');
@@ -232,7 +236,7 @@ class ArticleController extends Controller
 	 */
 	public function draft()
 	{
-		$articles = Post::with('images')->where('active', 3)->paginate(25);
+		$articles = Post::with('images')->where('active', 2)->paginate(25);
 		return view($this->view . 'index', compact('articles'));
 	}
 }

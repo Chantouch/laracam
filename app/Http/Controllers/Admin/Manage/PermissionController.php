@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Manage;
+namespace App\Http\Controllers\Admin\Manage;
 
 use App\Model\Permission;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

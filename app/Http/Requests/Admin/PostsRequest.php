@@ -52,8 +52,7 @@ class PostsRequest extends FormRequest
             'slug' => 'unique:posts,slug,' . ($article ? $article : null),
             'background' => 'dimensions:min_width=1280,min_height=720',
             'thumb_nail' => 'dimensions:min_width=510,min_height=287',
-            'categories' => 'required',
-            'user_id' => 'exists:users,id',
+            'categories' => 'required'
         ];
     }
 }

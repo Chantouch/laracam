@@ -63,7 +63,15 @@
                     {!! Form::label('meta_title', 'Meta Title:', ['class'=>'col-md-12']) !!}
                     <span class="col-md-12 m-b-10">Meta title SEO title of page. Title - 50-80 characters (usually - 75)</span>
                     <div class="col-sm-12">
-                        {!! Form::text('meta_title', null, ['class' => 'form-control', 'placeholder' => 'Enter your article meta title']) !!}
+                        @if(isset($post))
+                            @if($post->hasMetaTag())
+                                {!! Form::text('meta_title', $post->metaTag()->meta_title, ['class' => 'form-control', 'placeholder' => 'Enter your article meta title']) !!}
+                            @else
+                                {!! Form::text('meta_title', null, ['class' => 'form-control', 'placeholder' => 'Enter your article meta title']) !!}
+                            @endif
+                        @else
+                            {!! Form::text('meta_title', null, ['class' => 'form-control', 'placeholder' => 'Enter your article meta title']) !!}
+                        @endif
                         @if ($errors->has('meta_title'))
                             <span class="help-block">
                                 <small>{{ $errors->first('meta_title') }}</small>
@@ -75,7 +83,15 @@
                     {!! Form::label('meta_keywords', 'Meta keywords:', ['class'=>'col-md-12']) !!}
                     <span class="col-md-12 m-b-10">Keywords - up to 250 characters</span>
                     <div class="col-sm-12">
-                        {!! Form::textarea('meta_keywords', null, ['class' => 'form-control', 'placeholder' => 'Enter your article meta keywords','rows'=>'7']) !!}
+                        @if(isset($post))
+                            @if($post->hasMetaTag())
+                                {!! Form::textarea('meta_keywords', $post->metaTag()->meta_keywords, ['class' => 'form-control', 'placeholder' => 'Enter your article meta keywords','rows'=>'7']) !!}
+                            @else
+                                {!! Form::textarea('meta_keywords', null, ['class' => 'form-control', 'placeholder' => 'Enter your article meta keywords','rows'=>'7']) !!}
+                            @endif
+                        @else
+                            {!! Form::textarea('meta_keywords', null, ['class' => 'form-control', 'placeholder' => 'Enter your article meta keywords','rows'=>'7']) !!}
+                        @endif
                         @if ($errors->has('meta_keywords'))
                             <span class="help-block">
                                 <small>{{ $errors->first('meta_keywords') }}</small>
@@ -87,7 +103,15 @@
                     {!! Form::label('meta_description', 'Meta Description:', ['class'=>'col-md-12']) !!}
                     <span class="col-md-12 m-b-10">Description - about 150-200 characters</span>
                     <div class="col-sm-12">
-                        {!! Form::textarea('meta_description', null, ['class' => 'form-control', 'placeholder' => 'Enter your article meta description','rows'=>'7']) !!}
+                        @if(isset($post))
+                            @if($post->hasMetaTag())
+                                {!! Form::textarea('meta_description', $post->metaTag()->meta_description, ['class' => 'form-control', 'placeholder' => 'Enter your article meta description','rows'=>'7']) !!}
+                            @else
+                                {!! Form::textarea('meta_description', null, ['class' => 'form-control', 'placeholder' => 'Enter your article meta description','rows'=>'7']) !!}
+                            @endif
+                        @else
+                            {!! Form::textarea('meta_description', null, ['class' => 'form-control', 'placeholder' => 'Enter your article meta description','rows'=>'7']) !!}
+                        @endif
                         @if ($errors->has('meta_description'))
                             <span class="help-block">
                                 <small>{{ $errors->first('meta_description') }}</small>
@@ -114,14 +138,20 @@
             <div class="panel-body">
                 <div class="row m-b-20">
                     <div class="col-md-6">
-                        <button class="btn btn-outline btn-default waves-effect waves-light">
-                            <span>Save as @{{ article.status }}</span>
-                        </button>
+                        @if(!isset($post))
+                            <button class="btn btn-outline btn-default waves-effect waves-light"
+                                    name="submit" value="draft">
+                                <span>Save as @{{ article.status }}</span>
+                            </button>
+                        @endif
                     </div>
                     <div class="col-md-6">
-                        <button type="button" class="btn btn-info waves-effect waves-light" style="margin-right: 0">
-                            <span>Preview</span> <i class="fa fa-eye m-l-5"></i>
-                        </button>
+                        @if(isset($post))
+                            <a href="{!! route('blog.article.show',[$post->getRouteKey()]) !!}" target="_blank"
+                               class="btn btn-info waves-effect waves-light" style="margin-right: 0">
+                                <span>Preview</span> <i class="fa fa-eye m-l-5"></i>
+                            </a>
+                        @endif
                     </div>
                 </div>
                 <p>Status: @{{ article.status }}
@@ -179,7 +209,7 @@
                         </a>
                     </div>
                     <div class="col-md-6">
-                        <button class="fcbtn btn btn-info btn-outline btn-1e">
+                        <button class="fcbtn btn btn-info btn-outline btn-1e" name="submit" value="publish">
                             <span>Publish</span> <i class="fa fa-save m-l-5"></i>
                         </button>
                     </div>

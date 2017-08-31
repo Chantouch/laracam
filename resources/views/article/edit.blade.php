@@ -24,8 +24,7 @@
     <script type="text/javascript" src="{!! asset('js/jasny-bootstrap.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('plugins/summernote/dist/summernote.min.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('plugins/dropzone-master/dist/dropzone.js') !!}"></script>
-    <script type="text/javascript" src="{!! asset('js/script.js') !!}"></script>
-    <script type="text/javascript" src="{!! asset('js/jquery.slimscroll.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('js/post.js') !!}"></script>
     <!-- Clock Plugin JavaScript -->
     <script src="{!! asset('plugins/clockpicker/dist/jquery-clockpicker.min.js') !!}"></script>
     <!-- Color Picker Plugin JavaScript -->
@@ -38,7 +37,6 @@
     <script src="{!! asset('plugins/timepicker/bootstrap-timepicker.min.js') !!}"></script>
     <script src="{!! asset('plugins/bootstrap-daterangepicker/daterangepicker.js') !!}"></script>
 @stop
-
 
 @section('scripts')
     <script>

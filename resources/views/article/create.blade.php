@@ -16,7 +16,7 @@
     <script type="text/javascript" src="{!! asset('plugins/custom-select/custom-select.min.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('js/jasny-bootstrap.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('plugins/summernote/dist/summernote.min.js') !!}"></script>
-    <script type="text/javascript" src="{!! asset('js/script.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('js/post.js') !!}"></script>
 @stop
 
 

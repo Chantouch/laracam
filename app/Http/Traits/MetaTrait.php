@@ -27,10 +27,12 @@ trait MetaTrait
             $meta->meta_title = $meta_title;
             $meta->meta_keywords = $meta_keywords;
             $meta->meta_description = $meta_description;
-            $save = $model->meta_key()->save($meta);
+            $save = $model->meta()->save($meta);
             if (!$save) {
                 throw new ModelNotFoundException();
             }
         }
     }
+
+
 }

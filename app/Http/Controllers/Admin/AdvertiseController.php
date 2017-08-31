@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Model\Advertise;
 use App\Model\AdvertiseType;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
