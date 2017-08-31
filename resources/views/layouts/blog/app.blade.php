@@ -18,13 +18,13 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ MetaTag::get('title') }} | {{ config('app.name', 'Laravel') }}</title>
-    {!! MetaTag::tag('description') !!}
-    {!! MetaTag::tag('image') !!}
-    {!! MetaTag::openGraph() !!}
-    {!! MetaTag::twitterCard() !!}
-    <!--Set default share picture after custom section pictures--!>
+{!! MetaTag::tag('description') !!}
+{!! MetaTag::tag('image') !!}
+{!! MetaTag::openGraph() !!}
+{!! MetaTag::twitterCard() !!}
+<!--Set default share picture after custom section pictures--!>
     {!! MetaTag::tag('image', asset('images/default-logo.png')) !!}
-    <!-- CSRF Token -->
+        <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -59,18 +59,27 @@
         @yield('main-news-block')
     </div>
     <!-- News Ticker -->
-    <div class="container">
-        @include('layouts.blog.breaking-news')
-    </div>
-    <!-- Main Body -->
-    <div class="container">
-        <!-- Main Left side -->
-        <div class="main-left-side">
-            @yield('content')
+    @if(!Request::is('article/*'))
+        <div class="container">
+            @include('layouts.blog.breaking-news')
         </div>
-        <!-- Main Right side -->
-        <div class="main-right-side">
-            @include('layouts.blog.main-right-side')
+    @endif
+
+    <div class="container-position">
+        <div class="fix-bg">
+            <div class="img" style="background-image:url('http://media.sabay.com/media/sabay-news/Social-International/General/man.jpg');"></div>
+            <div class="inside"></div>
+        </div>
+        <!-- Main Body -->
+        <div class="container">
+            <!-- Main Left side -->
+            <div class="main-left-side">
+                @yield('content')
+            </div>
+            <!-- Main Right side -->
+            <div class="main-right-side">
+                @include('layouts.blog.main-right-side')
+            </div>
         </div>
     </div>
     <!-- Footer -->

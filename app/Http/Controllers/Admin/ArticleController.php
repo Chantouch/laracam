@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PostsRequest;
+use App\Http\Services\HTMLFixer;
 use App\Http\Traits\CrudTrait;
 use App\Http\Traits\ManyToManyTrait;
 use App\Http\Traits\MetaTrait;

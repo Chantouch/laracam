@@ -16,7 +16,7 @@
         .fix-bg {
             position: absolute;
             left: 0;
-            top: -40px;
+            top: -20px;
             width: 100%;
             height: 800px;
             overflow: hidden;
@@ -28,8 +28,7 @@
             height: 100%;
             top: 0;
             width: calc(100% + 40px);
-            background-repeat: no-repeat;
-            background-position: top center;
+            background: no-repeat top center;
             background-size: 100% auto;
             -webkit-filter: blur(10px);
             -moz-filter: blur(10px);
@@ -44,13 +43,19 @@
             left: 0;
             width: 100%;
             height: 50%;
-            background: -webkit-linear-gradient(top, rgba(246, 246, 246, 0) 0, #f6f6f6 100%);
-            background: linear-gradient(to bottom, rgba(246, 246, 246, 0) 0, #f6f6f6 100%);
+            background: -webkit-linear-gradient(top, rgba(246, 246, 246, 0) 0, #f2f2f2 100%);
+            background: linear-gradient(to bottom, rgba(246, 246, 246, 0) 0, #f2f2f2 100%);
             filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80f6f6f6', endColorstr='#f6f6f6', GradientType=0);
         }
+
+        .container-position, .artcl-main, .smedia {
+            position: relative;
+        }
+
     </style>
 @stop
 @section('content')
+    <!-- HTML -->
     <!-- The Article -->
     <div class="artcl-main float-width">
         <div class="artcl-prev-nxt float-width">

@@ -236,9 +236,5 @@
                 console.log(this);
             });
         });
-        $('.date-picker').datepicker({
-            autoclose: true,
-            todayHighlight: true
-        });
     </script>
 @stop
