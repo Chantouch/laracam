@@ -8,45 +8,27 @@
 ?>
 @section('style')
     <style>
+
         .input-hidden {
             position: absolute;
             left: -9999px;
         }
 
-        input[type=checkbox]:checked + label > img {
+        input[type=radio]:checked + label > img {
             border: 1px solid #fff;
             box-shadow: 0 0 3px 3px #090;
         }
 
         /* Stuff after this is only to make things more pretty */
-        input[type=checkbox] + label > img {
+        input[type=radio] + label > img {
             border: 1px dashed #444;
             width: 150px;
-            height: 150px;
+            height: 120px;
             transition: 500ms all;
         }
 
-        input[type=checkbox]:checked + label > img {
+        input[type=radio]:checked + label > img {
             transform: rotateZ(-10deg) rotateX(10deg);
-        }
-
-        /*
-         | //lea.verou.me/css3patterns
-         | Because white bgs are boring.
-        */
-        html {
-            background-size: 100% 1.2em;
-            background: #fff linear-gradient(
-                    90deg,
-                    transparent 79px,
-                    #abced4 79px,
-                    #abced4 81px,
-                    transparent 81px
-            ),
-            linear-gradient(
-                    #eee .1em,
-                    transparent .1em
-            );
         }
 
     </style>
@@ -85,31 +67,32 @@
                             <div class="row">
                                 <div id="media-library-slim">
                                     <span v-for="media in mediaLibrary.data">
-                                    <input type="checkbox" name="emotion" :id="media.id" class="input-hidden"/>
-                                    <label :for="media.id">
-                                        <img src="//placekitten.com/150/150" :alt="media.attributes.alt_text"/>
-                                    </label>
+                                        <input type="radio" name="media_library" :id="media.id" class="input-hidden"
+                                               @change.prevent="mediaLibraryDetail(media.id)"/>
+                                        <label :for="media.id">
+                                            <img :src="media.attributes.url" :alt="media.attributes.alt_text"/>
+                                        </label>
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-3">
+                        <div class="col-md-3 col-sm-3" v-if="mediaLibraryDetailsChecked">
                             <h4 class="box-title m-b-0">Media Details</h4>
                             <p class="text-muted m-b-10">Media Deep details insider</p>
                             <div class="attachment-info">
-                                <div class="thumbnail thumbnail-image">
-                                    <img src="http://www.treasury.gov.kh/wp-content/uploads/2017/08/13.jpg"
-                                         draggable="true" alt="">
+                                <div class="thumbnail">
+                                    <img :src="mediaLibraryDetails.url" :alt="mediaLibraryDetails.alt_text">
                                 </div>
                                 <div class="details">
-                                    <div class="filename">13.jpg</div>
-                                    <div class="uploaded">August 7, 2017</div>
+                                    <div class="filename">@{{ mediaLibraryDetails.limit_name + '.' +
+                                        mediaLibraryDetails.mime_type }}
+                                    </div>
+                                    <div class="uploaded">@{{ mediaLibraryDetails.uploaded_at }}</div>
                                     <div class="file-size">364 kB</div>
                                     <div class="dimensions">1200 × 799</div>
-                                    <a class="edit-attachment"
-                                       href="http://www.treasury.gov.kh/wp-admin/post.php?post=2155&amp;action=edit&amp;image-editor"
-                                       target="_blank">Edit Image</a>
-                                    <button type="button" class="button-link delete-attachment">
+                                    <a class="edit-attachment" href="" target="_blank">Edit Image</a>
+                                    <button type="button" class="btn btn-danger waves-effect"
+                                            @click.prevent="deleteMediaLibrary(mediaLibraryDetails.id)">
                                         Delete Permanently
                                     </button>
                                     <div class="compat-meta">
@@ -117,6 +100,59 @@
                                     </div>
                                 </div>
                             </div>
+                            <form action="#" class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="url" class="col-md-12">URL</label>
+                                    <div class="col-md-12">
+                                        <input class="form-control input-sm" id="url" readonly
+                                               :value="mediaLibraryDetails.url">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="title" class="col-md-12">Title</label>
+                                    <div class="col-md-12">
+                                        <input class="form-control input-sm" id="title"
+                                               v-model="mediaLibraryDetails.title"
+                                               @change.prevent="editMediaLibraryDetail(mediaLibraryDetails.id)"
+                                               :value="mediaLibraryDetails.title">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="caption" class="col-md-12">Caption</label>
+                                    <div class="col-md-12">
+                                            <textarea name="caption" id="caption" cols="10" rows="5"
+                                                      v-model="mediaLibraryDetails.caption"
+                                                      @change.prevent="editMediaLibraryDetail(mediaLibraryDetails.id)"
+                                                      class="form-control input-sm">
+                                                @{{ mediaLibraryDetails.caption }}
+                                            </textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="alt_text" class="col-md-12">Alt Text</label>
+                                    <div class="col-md-12">
+                                        <input class="form-control input-sm" id="alt_text"
+                                               v-model="mediaLibraryDetails.alt_text"
+                                               @change.prevent="editMediaLibraryDetail(mediaLibraryDetails.id)"
+                                               :value="mediaLibraryDetails.alt_text">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="description" class="col-md-12">Description</label>
+                                    <div class="col-md-12">
+                                            <textarea name="description" id="description" cols="10" rows="5"
+                                                      v-model="mediaLibraryDetails.description"
+                                                      class="form-control input-sm"
+                                                      @change.prevent="editMediaLibraryDetail(mediaLibraryDetails.id)">
+                                                @{{ mediaLibraryDetails.description }}
+                                            </textarea>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <div class="clearfix"></div>
                     </div>

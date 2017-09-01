@@ -8,6 +8,7 @@ use Illuminate\Http\UploadedFile;
 
 class MediaLibrary extends Model
 {
+	protected $appends = ['limit_name', 'uploaded_at'];
 	protected $fillable = [
 		'filename',
 		'original_filename',
@@ -16,7 +17,10 @@ class MediaLibrary extends Model
 		'title',
 		'caption',
 		'alt_text',
-		'description'
+		'description',
+		'size',
+		'width',
+		'height'
 	];
 
 	/**
@@ -104,9 +108,7 @@ class MediaLibrary extends Model
 	 */
 	public function scopeLastMonth($query, $limit = 5)
 	{
-		return $query->whereBetween('created_at', [Carbon::now()->subMonth(), Carbon::now()])
-			->latest()
-			->limit($limit);
+		return $query->whereBetween('created_at', [Carbon::now()->subMonth(), Carbon::now()])->latest()->limit($limit);
 	}
 
 	/**
@@ -117,9 +119,22 @@ class MediaLibrary extends Model
 	 */
 	public function scopeLastWeek($query)
 	{
-		return $query->whereBetween('created_at', [Carbon::now()->subWeek(), Carbon::now()])
-			->latest();
+		return $query->whereBetween('created_at', [Carbon::now()->subWeek(), Carbon::now()])->latest();
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getLimitNameAttribute()
+	{
+		return $this->attributes['filename'] = str_limit($this->attributes['filename'], 20);
+	}
 
+	/**
+	 * @return string
+	 */
+	public function getUploadedAtAttribute()
+	{
+		return $this->attributes['created_at'] = Carbon::parse($this->attributes['created_at'])->format('M, d, Y H:s:i');
+	}
 }

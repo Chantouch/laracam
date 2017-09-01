@@ -4,12 +4,6 @@
     <link href="{!! asset('plugins/custom-select/custom-select.css') !!}" rel="stylesheet" type="text/css"/>
     <link href="{!! asset('plugins/summernote/dist/summernote.css') !!}" rel="stylesheet" type="text/css"/>
     <link href="{!! asset('plugins/dropzone-master/dist/dropzone.css') !!}" rel="stylesheet" type="text/css"/>
-    <link href="{!! asset('plugins/clockpicker/dist/jquery-clockpicker.min.css') !!}" rel="stylesheet">
-    <link href="{!! asset('plugins/jquery-asColorPicker-master/css/asColorPicker.css') !!}" rel="stylesheet">
-    <link href="{!! asset('plugins/bootstrap-datepicker/bootstrap-datepicker.min.css') !!}" rel="stylesheet"
-          type="text/css"/>
-    <link href="{!! asset('plugins/timepicker/bootstrap-timepicker.min.css') !!}" rel="stylesheet">
-    <link href="{!! asset('plugins/bootstrap-daterangepicker/daterangepicker.css') !!}" rel="stylesheet">
 @stop
 @section('content')
     {!! Form::model($post, ['route' => ['admin.article.update', $post->id], 'method' => 'patch', 'files'=> true,'class'=>'form-horizontal']) !!}
@@ -25,17 +19,6 @@
     <script type="text/javascript" src="{!! asset('plugins/summernote/dist/summernote.min.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('plugins/dropzone-master/dist/dropzone.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('js/post.js') !!}"></script>
-    <!-- Clock Plugin JavaScript -->
-    <script src="{!! asset('plugins/clockpicker/dist/jquery-clockpicker.min.js') !!}"></script>
-    <!-- Color Picker Plugin JavaScript -->
-    <script src="{!! asset('plugins/jquery-asColorPicker-master/libs/jquery-asColor.js') !!}"></script>
-    <script src="{!! asset('plugins/jquery-asColorPicker-master/libs/jquery-asGradient.js') !!}"></script>
-    <script src="{!! asset('plugins/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js') !!}"></script>
-    <!-- Date Picker Plugin JavaScript -->
-    <script src="{!! asset('plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') !!}"></script>
-    <!-- Date range Plugin JavaScript -->
-    <script src="{!! asset('plugins/timepicker/bootstrap-timepicker.min.js') !!}"></script>
-    <script src="{!! asset('plugins/bootstrap-daterangepicker/daterangepicker.js') !!}"></script>
 @stop
 
 @section('scripts')
@@ -68,7 +51,6 @@
                     'name': ''
                 },
                 mediaLibrary: {},
-                //checkBox: true
                 posted_at: {
                     date: '',
                     time: '',
@@ -78,6 +60,15 @@
                     now: ''
                 },
                 visibility: false,
+                mediaLibraryDetails: {
+                    id: '',
+                    alt_text: '',
+                    caption: '',
+                    description: '',
+                    title: '',
+                    url: ''
+                },
+                mediaLibraryDetailsChecked: false,
             },
             created: function () {
                 this.tagList();
@@ -96,6 +87,17 @@
                     vm.$http.get('/api/v1/categories').then((response) => {
                         this.categories = response.data;
                     })
+                },
+                toastMessage: function ($message, $type, $loaderBg) {
+                    $.toast({
+                        heading: 'Welcome to my Elite admin',
+                        text: $message,
+                        position: 'top-right',
+                        loaderBg: $loaderBg,
+                        icon: $type,
+                        hideAfter: 3000,
+                        stack: 6
+                    });
                 },
                 showStatus: function () {
                     let vm = this;
@@ -180,7 +182,10 @@
                 },
                 addMedia: function (e) {
                     e.preventDefault();
-                    $('#add-media').modal('show');
+                    $('#add-media').modal({
+                        'show': true,
+                        'backdrop': false,
+                    });
                     this.getMediaLibrary();
                 },
                 getMediaLibrary: function () {
@@ -189,8 +194,15 @@
                         vm.mediaLibrary = response.data;
                     });
                 },
-                checkOnlyOne: function ($id) {
-                    console.log($id);
+                editMediaLibraryDetail: function ($id) {
+                    let vm = this;
+                    let input = vm.mediaLibraryDetails;
+                    vm.$http.patch('/api/v1/media-library/' + $id, input).then((response) => {
+                        vm.toastMessage(response.data, 'info', '#ff6849');
+                        this.getMediaLibrary();
+                    }).catch(error => {
+
+                    })
                 },
                 schedulePost: function () {
                     let vm = this;
@@ -206,7 +218,41 @@
                     if (m < 10) m = '0' + m;
                     vm.posted_at.time = h + ':' + m;
                     vm.posted_at.now = vm.posted_at.date + ' ' + vm.posted_at.time;
-                }
+                },
+                mediaLibraryDetail: function ($id) {
+                    let vm = this;
+                    vm.$http.get('/api/v1/media-library/' + $id).then(response => {
+                        vm.mediaLibraryDetailsChecked = true;
+                        vm.mediaLibraryDetails = response.data;
+                    }).catch(error => {
+
+                    })
+                },
+                deleteMediaLibrary: function ($id) {
+                    let vm = this;
+                    swal({
+                        title: "Are you sure?",
+                        text: "You will not be able to recover this imaginary file!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, delete it!",
+                        cancelButtonText: "No, cancel plx!",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    }, function (isConfirm) {
+                        if (isConfirm) {
+                            vm.$http.delete('/api/v1/media-library/' + id).then(response => {
+                                swal("Deleted!", response.data, "success");
+                                vm.getMediaLibrary();
+                            }).catch(err => {
+
+                            })
+                        } else {
+                            swal("Cancelled", "Your file is safe :)", "error");
+                        }
+                    });
+                },
             },
             watch: {
                 tags: function (nv) {
@@ -231,8 +277,8 @@
         });
 
         $(document).ready(function (e) {
-            $('.input-hidden').on('change', function () {
-                $('.input-hidden').not(this).prop('checked', false);
+            $('.input-hiddens34').on('change', function () {
+                $('.input-hiddens34').not(this).prop('checked', false);
                 console.log(this);
             });
         });
