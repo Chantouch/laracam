@@ -8,14 +8,6 @@ use App\Http\Controllers\Controller;
 
 class MasterController extends Controller
 {
-    /**
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
-     */
-    public function tag()
-    {
-        $tags = Tag::all();
-        return response($tags, 200);
-    }
 
     public function categories()
     {

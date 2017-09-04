@@ -188,42 +188,4 @@ class CategoryController extends Controller
         return response(['message' => 'Status updated'], 200);
     }
 
-    /**
-     * @param Request $request
-     * @return $this|array|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Database\Eloquent\Model|\Symfony\Component\HttpFoundation\Response
-     */
-    public function ajaxNew(Request $request)
-    {
-        try {
-            DB::beginTransaction();
-            $data = $request->all();
-            $validator = Validator::make($data, ['newcategory' => 'required']);
-            if ($validator->fails()) {
-                return [
-                    'fail' => true,
-                    'errors' => $validator->getMessageBag()->toArray()
-                ];
-            }
-            if ($request->has('parent_cat')) {
-                $data['parent_id'] = $request->parent_cat;
-                $data['name'] = $request->newcategory;
-                $data['description'] = $request->newcategory;
-                $data['status'] = 1;
-                $data['slug'] = str_slug($request->newcategory, '-');
-                $category = Category::with('parent')->create($data);
-            } else {
-                $data['parent_id'] = null;
-                $data['name'] = $request->newcategory;
-                $data['description'] = $request->newcategory;
-                $data['slug'] = str_slug($request->newcategory, '-');
-                $data['status'] = 1;
-                $category = Category::with('children')->create($data);
-            }
-            DB::commit();
-            return $category;
-        } catch (ModelNotFoundException $exception) {
-            DB::rollback();
-            return response(['error' => 'Something went wrong']);
-        }
-    }
 }

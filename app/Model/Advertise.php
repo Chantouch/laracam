@@ -17,7 +17,7 @@ class Advertise extends Model
     protected $fillable = [
         'slug', 'advertise_type_id', 'provider_name', 'tracking_code_large',
         'tracking_code_tablet', 'tracking_code_mobile', 'active', 'url',
-        'start_date', 'end_date', 'media_id'
+        'start_date', 'end_date', 'media_id', 'is_video'
     ];
 
     //-------Validation-------//

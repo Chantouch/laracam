@@ -174,6 +174,7 @@ return [
 	    Torann\LaravelMetaTags\MetaTagsServiceProvider::class,
 	    Mews\Purifier\PurifierServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        PragmaRX\Tracker\Vendor\Laravel\ServiceProvider::class,
 
 	    /*
 		 * Application Service Providers...
@@ -239,7 +240,8 @@ return [
         'MetaTag'   => Torann\LaravelMetaTags\Facades\MetaTag::class,
 	    'Helper' => \App\Helpers\Helper::class,
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Tracker' => PragmaRX\Tracker\Vendor\Laravel\Facade::class,
     ],
 
 ];

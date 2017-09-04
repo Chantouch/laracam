@@ -1,4 +1,4 @@
-<div class="col-sm-9">
+<div class="col-md-9 col-sm-12">
     <div class="white-box">
         <h3 class="box-title m-b-0">Article</h3>
         <p class="text-muted m-b-30 font-30">Easy to managing your article</p>
@@ -17,7 +17,7 @@
         <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
             <label for="basic-url" class="col-md-12">SEO (Slug)</label>
             <div class="col-sm-12">
-                <div class="input-group m-b-30">
+                <div class="input-group">
                     <span class="input-group-addon" id="article-slug">https://example.com/article/</span>
                     {!! Form::text('slug', null, ['class' => 'form-control', 'aria-describedby' => 'slug']) !!}
                 </div>
@@ -30,8 +30,8 @@
         </div>
         <div class="form-group">
             <div class="col-md-12">
-                <button type="button" class="btn btn-primary" @click.prevent="addMedia"><i
-                            class="mdi mdi-camera-iris"></i> Add Media
+                <button type="button" class="btn btn-primary" @click.prevent="addMedia">
+                    <i class="mdi mdi-camera-iris"></i> Add Media
                 </button>
             </div>
         </div>
@@ -123,8 +123,7 @@
         </div>
     </div>
 </div>
-<div class="col-sm-3">
-
+<div class="col-md-3 col-sm-12">
     <!--Publish-->
     <div class="panel panel-default">
         <div class="panel-heading">Publish
@@ -137,18 +136,18 @@
         <div class="panel-wrapper collapse in">
             <div class="panel-body">
                 <div class="row m-b-20">
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-sm-6">
                         @if(!isset($post))
-                            <button class="btn btn-outline btn-default waves-effect waves-light"
+                            <button class="btn btn-outline btn-default waves-effect waves-light pull-left"
                                     name="submit" value="draft">
                                 <span>Save as @{{ article.status }}</span>
                             </button>
                         @endif
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-sm-6">
                         @if(isset($post))
                             <a href="{!! route('blog.article.show',[$post->getRouteKey()]) !!}" target="_blank"
-                               class="btn btn-info waves-effect waves-light" style="margin-right: 0">
+                               class="btn btn-info waves-effect waves-light pull-right" style="margin-right: 0">
                                 <span>Preview</span> <i class="fa fa-eye m-l-5"></i>
                             </a>
                         @endif
@@ -160,13 +159,13 @@
                 <div class="form-group" v-if="status">
                     <label class="col-sm-12" for="status"></label>
                     <input type="hidden" name="status" id="hidden_post_status" :value="article.status">
-                    <div class="col-sm-7">
+                    <div class="col-md-7 col-sm-7">
                         <select class="form-control" id="status" v-model="article.status">
                             <option value="pending">Pending Review</option>
                             <option selected value="draft">Draft</option>
                         </select>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-5 col-sm-5">
                         <div class="row">
                             <a href="javascript:void (0)" class="btn" @click.prevent="changeStatus()">OK</a>
                             <a href="javascript:void (0)" @click.prevent="cancelStatus()">Cancel</a>
@@ -202,14 +201,14 @@
             </div>
             <div class="panel-footer">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-sm-6">
                         <a href="{!! route('admin.article.index') !!}"
-                           class="fcbtn btn btn-danger btn-outline btn-1d">
+                           class="fcbtn btn btn-danger btn-outline btn-1d pull-left">
                             Move to trash
                         </a>
                     </div>
-                    <div class="col-md-6">
-                        <button class="fcbtn btn btn-info btn-outline btn-1e" name="submit" value="publish">
+                    <div class="col-md-6 col-sm-6">
+                        <button class="fcbtn btn btn-info btn-outline btn-1e pull-right" name="submit" value="publish">
                             <span>Publish</span> <i class="fa fa-save m-l-5"></i>
                         </button>
                     </div>
@@ -253,7 +252,7 @@
                         <div class="form-group{{ $errors->has('categories') ? ' has-error' : '' }}">
                             <div class="col-md-12">
                                 <input type="hidden" name="categories" :value="article.category">
-                                <div class="checkbox checkbox-success" v-for="category in categories">
+                                <div class="checkbox checkbox-success" v-for="category in categories.categories">
                                     <input :id="'checkbox-'+category.id" type="checkbox" :value="category.id"
                                            v-model="article.category">
                                     <label :for="'checkbox-'+category.id"> @{{ category.name }} </label>
@@ -269,10 +268,20 @@
                         <div class="clearfix"></div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="most-used">
-                        <div class="col-md-12">
-                            <div class="checkbox checkbox-success">
-                                <input id="checkbox-11" type="checkbox" checked="">
-                                <label for="checkbox-11"> Coca Cola </label>
+                        <div class="form-group{{ $errors->has('categories') ? ' has-error' : '' }}">
+                            <div class="col-md-12">
+                                <input type="hidden" name="categories" :value="article.category">
+                                <div class="checkbox checkbox-success" v-for="category in categories.most_used_cat">
+                                    <input :id="'checkbox-'+category.id" type="checkbox" :value="category.id"
+                                           v-model="article.category">
+                                    <label :for="'checkbox-'+category.id"> @{{ category.name }} </label>
+                                </div>
+                                {{--{!! Form::select('categories[]',$categories , null, ['class' => 'select2 m-b-10 select2-multiple', 'multiple', 'data-placeholder'=>'Choose']) !!}--}}
+                                @if ($errors->has('categories'))
+                                    <span class="help-block">
+                                        <small>{{ $errors->first('categories') }}</small>
+                                    </span>
+                                @endif
                             </div>
                         </div>
                         <div class="clearfix"></div>

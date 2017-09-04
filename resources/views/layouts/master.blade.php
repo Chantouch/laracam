@@ -126,7 +126,7 @@
 <script src="{!! asset('plugins/toast-master/js/jquery.toast.js') !!}"></script>
 <script src="{!! asset('js/toastr.js') !!}"></script>
 <!-- Custom Theme JavaScript -->
-<script src="{{ asset('js/custom.min.js') }}"></script>
+<script src="{{ asset('js/custom.js') }}"></script>
 <!-- Plugin JavaScript -->
 <script src="{!! asset('plugins/moment/moment.js') !!}"></script>
 <script type="text/javascript" src="{!! asset('js/vue/vue.js') !!}"></script>

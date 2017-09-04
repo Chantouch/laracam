@@ -1,20 +1,20 @@
-var hidemenu;
+let hidemenu;
 
 /* set Cookie to hide menu */
 function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
+    let d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    var expires = "expires=" + d.toGMTString();
+    let expires = "expires=" + d.toGMTString();
     document.cookie = cname + "=" + cvalue + "; " + expires;
 }
 
 /* get Cookie to check hide menu */
 function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i].trim();
-        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+    let name = cname + "=";
+    let ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i].trim();
+        if (c.indexOf(name) === 0) return c.substring(name.length, c.length);
     }
     return "";
 }
@@ -30,7 +30,7 @@ jQuery(document).ready(function() {
             type: 'POST',
             data: $('#contactform').serialize(),
             success: function(data) {
-                if (data == 'Sent Success') {
+                if (data === 'Sent Success') {
                     $('#formmsg').addClass('mag-alert-scc').show().find('span.error').html('Thank you for contact us');
                 } else {
                     $('#formmsg').addClass('mag-alert-dngr').show().find('span.error').html(data);
@@ -41,7 +41,7 @@ jQuery(document).ready(function() {
     });
     /* Toggle scroll menu */
     $('#hidemenu').bind('click', function() {
-        var nav = $('.main-menu');
+        let nav = $('.main-menu');
         nav.removeClass("f-nav");
         $(this).hide();
         hidemenu = true;
@@ -49,7 +49,7 @@ jQuery(document).ready(function() {
     });
 
     $('#showmenu').bind('click', function() {
-        var nav = $('.main-menu');
+        let nav = $('.main-menu');
         nav.addClass("f-nav");
         $(this).show();
         hidemenu = false;
@@ -129,7 +129,7 @@ jQuery(document).ready(function() {
     });
 
     /* Right Side Calender */
-    var cal = CALENDAR();
+    let cal = CALENDAR();
 
     cal.init();
 
@@ -144,7 +144,7 @@ jQuery(document).ready(function() {
 
 /* ===== Sliders ===== */
 
-$(window).load(function() {
+$(window).on('load', function() {
     $('.flexslider.hm-slider').flexslider({
         animation: 'fade',
         controlNav: false,
@@ -208,11 +208,11 @@ $(window).load(function() {
 
 
 /* This is for the Fixed Menu on scroll */
-var nav = $('.main-menu');
+let nav = $('.main-menu');
 
 $(window).scroll(function() {
-    var hidecookie = getCookie('hidemenu');
-    if ($(this).scrollTop() > 160 && hidemenu != true && hidecookie != 'hide') {
+    let hidecookie = getCookie('hidemenu');
+    if ($(this).scrollTop() > 160 && hidemenu !== true && hidecookie !== 'hide') {
         nav.addClass("f-nav");
         $('#hidemenu').show();
     } else {

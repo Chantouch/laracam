@@ -15,7 +15,7 @@
                     <li>
                         @if($post->hasThumbnail())
                             <img alt="{!! $post->excerptTitle(60) !!}"
-                                 src="{!! asset(route('media.posts.path',[$post->id,'medium_'.$post->thumbnail()->filename])) !!}"/>
+                                 src="{!! asset(route('media.posts.path',[$post->id,'small_'.$post->thumbnail()->filename])) !!}"/>
                         @else
                             <img alt="{!! $post->excerptTitle(60) !!}" src="blog/img/samples/sample.jpg"/>
                         @endif
@@ -42,4 +42,18 @@
             @endif
         </ul>
     </div>
+</div>
+
+<div class="mid-block-ads-468x60 boxgrid caption">
+    <img alt="Dolorem temporibus omnis voluptas repudiandae ipsa..." src="blog/img/ads-468x60.png">
+    <h4 class="cat-label cat-label2">
+        <a href="#" class="font-uppercase">Sport</a>
+    </h4>
+</div>
+
+<div class="mid-block-ads-468x60 boxgrid caption">
+    <img alt="Dolorem temporibus omnis voluptas repudiandae ipsa..." src="blog/img/ads-468x60-1.png">
+    <h4 class="cat-label cat-label2">
+        <a href="#" class="font-uppercase">Sport</a>
+    </h4>
 </div>

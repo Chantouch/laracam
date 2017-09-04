@@ -18,13 +18,14 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ MetaTag::get('title') }} | {{ config('app.name', 'Laravel') }}</title>
-{!! MetaTag::tag('description') !!}
-{!! MetaTag::tag('image') !!}
-{!! MetaTag::openGraph() !!}
-{!! MetaTag::twitterCard() !!}
-<!--Set default share picture after custom section pictures--!>
+    {!! MetaTag::tag('description') !!}
+    {!! MetaTag::tag('image') !!}
+    {!! MetaTag::openGraph() !!}
+    {!! MetaTag::twitterCard() !!}
+    <!--Set default share picture after custom section pictures--!>
     {!! MetaTag::tag('image', asset('images/default-logo.png')) !!}
-        <!-- CSRF Token -->
+
+    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -101,9 +102,10 @@
 <!-- Scripts -->
 {{--<script src="{{ asset('js/app.js') }}"></script>--}}
 
-<script src="{!! asset('blog/js/js5a10.css?file=vendor/jquery-1.10.1.min') !!}"></script>
+<script src="{!! asset('blog/js/jquery-3.2.1.min.js') !!}"></script>
+{{--<script src="{!! asset('blog/js/js5a10.js?file=vendor/jquery-3.2.1.min') !!}"></script>--}}
 
-<script src="{!! asset('blog/js/js9978.css?file=vendor/bootstrap.min') !!}"></script>
+<script src="{!! asset('bootstrap/dist/js/bootstrap.min.js') !!}"></script>
 
 <script src="{!! asset('blog/js/jsec26.css?file=jquery.smartmenus.min') !!}"></script>
 
@@ -119,7 +121,13 @@
 
 <script src="{!! asset('blog/js/jsf83a.css?file=calendar') !!}"></script>
 
-<script src="{!! asset('blog/js/js35ad.css?file=main') !!}"></script>
+<script src="{!! asset('blog/js/js35ad.js?file=main') !!}"></script>
+
+<script src="{!! asset('blog/js/slick.min.js') !!}"></script>
+
+@yield('plugins')
+
+@yield('scripts')
 
 </body>
 </html>

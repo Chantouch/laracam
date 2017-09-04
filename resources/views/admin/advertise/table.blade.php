@@ -6,6 +6,7 @@
                 <th>#</th>
                 <th>Slug</th>
                 <th>Name</th>
+                <th>Ad Type</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -16,8 +17,9 @@
                     <th>{!! $loop->index+1 !!}</th>
                     <td>{!! $advertise->slug !!}</td>
                     <td>{!! $advertise->provider_name !!}</td>
+                    <td>{!! $advertise->ads_type->name !!}</td>
                     <td>
-                        <span class="badge badge-primary">{!! $advertise->active !!}</span>
+                        {!! status($advertise->active) !!}
                     </td>
                     <td>
                         <div class="btn-group">

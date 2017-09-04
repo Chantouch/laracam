@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('slug')->nullable();
             $table->string('activation_key')->nullable();
             $table->tinyInteger('status')->default(0);
+            $table->dateTime('posted_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

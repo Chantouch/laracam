@@ -25,6 +25,8 @@ class CreatePostsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('meta_id')->references('id')->on('metas')->onDelete('cascade');
 	        $table->datetime('posted_at');
+            $table->integer('thumbnail_id')->unsigned()->nullable();
+            $table->foreign('thumbnail_id')->references('id')->on('media');
             $table->timestamps();
         });
     }

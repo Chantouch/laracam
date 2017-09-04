@@ -10,6 +10,8 @@
   "require": {
     "php": ">=5.6.4",
     "cviebrock/eloquent-sluggable": "^4.2",
+    "doctrine/dbal": "^2.5",
+    "geoip2/geoip2": "~2.0",
     "intervention/image": "^2.4",
     "laravel/framework": "5.4.*",
     "laravel/passport": "^3.0",
@@ -17,6 +19,7 @@
     "laravelcollective/html": "^5.4",
     "league/fractal": "^0.17.0",
     "mews/purifier": "^2.0",
+    "pragmarx/tracker": "^3.1",
     "santigarcor/laratrust": "4.0.*",
     "torann/laravel-meta-tags": "^3.0"
   },

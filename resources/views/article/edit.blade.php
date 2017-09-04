@@ -4,6 +4,7 @@
     <link href="{!! asset('plugins/custom-select/custom-select.css') !!}" rel="stylesheet" type="text/css"/>
     <link href="{!! asset('plugins/summernote/dist/summernote.css') !!}" rel="stylesheet" type="text/css"/>
     <link href="{!! asset('plugins/dropzone-master/dist/dropzone.css') !!}" rel="stylesheet" type="text/css"/>
+    <link href="{!! asset('plugins/sweetalert/sweetalert.css') !!}" rel="stylesheet" type="text/css"/>
 @stop
 @section('content')
     {!! Form::model($post, ['route' => ['admin.article.update', $post->id], 'method' => 'patch', 'files'=> true,'class'=>'form-horizontal']) !!}
@@ -18,6 +19,8 @@
     <script type="text/javascript" src="{!! asset('js/jasny-bootstrap.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('plugins/summernote/dist/summernote.min.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('plugins/dropzone-master/dist/dropzone.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('plugins/sweetalert/sweetalert.min.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('plugins/sweetalert/jquery.sweet-alert.custom.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('js/post.js') !!}"></script>
 @stop
 
@@ -84,7 +87,7 @@
                 },
                 categoryList: function () {
                     let vm = this;
-                    vm.$http.get('/api/v1/categories').then((response) => {
+                    vm.$http.get('/api/v1/category').then((response) => {
                         this.categories = response.data;
                     })
                 },
@@ -230,6 +233,7 @@
                 },
                 deleteMediaLibrary: function ($id) {
                     let vm = this;
+                    console.log($id);
                     swal({
                         title: "Are you sure?",
                         text: "You will not be able to recover this imaginary file!",
@@ -242,45 +246,32 @@
                         closeOnCancel: false
                     }, function (isConfirm) {
                         if (isConfirm) {
-                            vm.$http.delete('/api/v1/media-library/' + id).then(response => {
-                                swal("Deleted!", response.data, "success");
-                                vm.getMediaLibrary();
+                            vm.$http.delete('/api/v1/media-library/' + $id).then(response => {
+                                swal("Deleted!", response.data.data, "success");
                             }).catch(err => {
 
-                            })
+                            });
+                            vm.getMediaLibrary();
                         } else {
                             swal("Cancelled", "Your file is safe :)", "error");
                         }
                     });
                 },
+
+                copyText: function () {
+                    let vm = this;
+                    vm.$refs.url.select();
+                    let copied = document.execCommand('copy');
+                    if (copied) {
+                        vm.toastMessage('Url copied, Please pasted insert image url', 'info', '#3720ff');
+                    }
+                }
             },
             watch: {
                 tags: function (nv) {
                     this.tags = nv;
                 },
             }
-        });
-    </script>
-    <script type="text/javascript">
-        Dropzone.options.imageUpload = {
-            maxFilesize: 100,
-            acceptedFiles: ".jpeg,.jpg,.png,.gif"
-        };
-    </script>
-    <script type="text/javascript">
-        $('#media-library-slim').slimScroll({
-            color: '#3900ff',
-            size: '10px',
-            height: '500px',
-            railVisible: true,
-            alwaysVisible: false
-        });
-
-        $(document).ready(function (e) {
-            $('.input-hiddens34').on('change', function () {
-                $('.input-hiddens34').not(this).prop('checked', false);
-                console.log(this);
-            });
         });
     </script>
 @stop

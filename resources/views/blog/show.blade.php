@@ -8,6 +8,7 @@
 ?>
 @extends('layouts.blog.app')
 @section('css')
+    <link rel="stylesheet" href="{!! asset('plugins/fancybox/dist/jquery.fancybox.css') !!}">
     <style>
         .my-contrain {
             position: relative;
@@ -83,13 +84,6 @@
                 <span><i class="fa fa-comment-o"></i>{!! count($post->comments) !!} comments</span>
             </h5>
             <article class="float-width articl-data">
-                @if($post->hasThumbnail())
-                    <img alt="{!! $post->excerptTitle(60) !!}"
-                         src="{!! asset(route('media.posts.path',[$post->id,'large_'.$post->thumbnail()->filename])) !!}"
-                         class="img-responsive"/>
-                @else
-                    <img alt="" src="{!! asset('blog/img/samples/a1.jpg') !!}"/>
-                @endif
                 <div class="content">
                     {!! $post->description !!}
                 </div>
@@ -108,49 +102,59 @@
         <div class="lefty artcl-tags">
             <h3>TAGS : </h3>
             <ul>
-                <li><a href="#">famous, </a></li>
-                <li><a href="#">artist, </a></li>
-                <li><a href="#">dj, </a></li>
-                <li><a href="#">hip hop, </a></li>
-                <li><a href="#">rap</a></li>
+                @if(count($post->tags))
+                    @foreach($post->tags as $tag)
+                        <li>
+                            <a href="#">
+                                <span class="badge badge-info">{!! $tag->name !!}</span>
+                            </a>
+                        </li>
+                    @endforeach
+                @endif
             </ul>
         </div>
         <div class="righty artcl-shr">
             <ul>
                 <li>
-                    <div class="fb-share-button" data-href="http://developers.facebook.com/docs/plugins/"
-                         data-width="100" data-type="button"></div>
+                    <div class="fb-share-button" data-href="{!! route('blog.article.show', [$post->getRouteKey()]) !!}"
+                         data-width="100" data-type="button">
+                    </div>
                 </li>
                 <li>
                     <a href="https://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
                 </li>
                 <li>
                     <a href="http://www.pinterest.com/pin/create/button/?url=http%3A%2F%2Fwww.flickr.com%2Fphotos%2Fkentbrew%2F6851755809%2F&amp;media=http%3A%2F%2Ffarm8.staticflickr.com%2F7027%2F6851755809_df5b2051c9_z.jpg&amp;description=Next%20stop%3A%20Pinterest"
-                       data-pin-do="buttonPin" data-pin-config="none"><img alt=""
-                                                                           src="../../assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png"/></a>
+                       data-pin-do="buttonPin" data-pin-config="none">
+                        <img alt="Pin share"
+                             src="https://assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png"/>
+                    </a>
                 </li>
             </ul>
         </div>
     </div>
     <!-- Article Author Bio -->
     <div class="author-bio float-width">
-        <h3 class="float-width">john smithowsky</h3>
-        <div class="author-info">
-            <img alt="" src="{!! asset('blog/img/samples/a2.jpg') !!}"/>
-            <p>
-                Aliquam tristique vehicula nulla sit amet facilisis. Nulla ultrices vitae eros at semper. Donec sapien
-                lacus, tincidunt sed sem quis, accumsan mollis eros. Aenean id enim dolor. Suspendisse potenti.
-            </p>
-            <ul>
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-            </ul>
-        </div>
+        @if($post->author)
+            <h3 class="float-width">{!! $post->checkAuthor() !!}</h3>
+            <div class="author-info">
+                <img alt="" src="{!! asset('blog/img/samples/a2.jpg') !!}"/>
+                <p>
+                    Aliquam tristique vehicula nulla sit amet facilisis. Nulla ultrices vitae eros at semper. Donec
+                    sapien
+                    lacus, tincidunt sed sem quis, accumsan mollis eros. Aenean id enim dolor. Suspendisse potenti.
+                </p>
+                <ul>
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                </ul>
+            </div>
+        @endif
     </div>
     <!-- Article Comments Section -->
     <div class="artcl-comments float-width">
@@ -248,28 +252,28 @@
     <div class="artcl-reltd float-width">
         <h3 class="sec-title">RELATED POSTS</h3>
         <div class="reltd-sngl">
-            <img alt="" src="img/samples/e1.jpg">
+            <img alt="" src="{!! asset('blog/img/samples/e1.jpg') !!}">
             <div class="reltd-sngl-txt">
                 <h3>After party of Blondi Concert will begin tomorrow </h3>
                 <p><i class="fa fa-clock-o"></i>20 Jan 2014</p>
             </div>
         </div>
         <div class="reltd-sngl">
-            <img alt="" src="img/samples/e2.jpg">
+            <img alt="" src="{!! asset('blog/img/samples/e2.jpg') !!}">
             <div class="reltd-sngl-txt">
                 <h3>After party of Blondi Concert will begin tomorrow </h3>
                 <p><i class="fa fa-clock-o"></i>20 Jan 2014</p>
             </div>
         </div>
         <div class="reltd-sngl">
-            <img alt="" src="img/samples/e3.jpg">
+            <img alt="" src="{!! asset('blog/img/samples/e3.jpg') !!}">
             <div class="reltd-sngl-txt">
                 <h3>After party of Blondi Concert will begin tomorrow </h3>
                 <p><i class="fa fa-clock-o"></i>20 Jan 2014</p>
             </div>
         </div>
         <div class="reltd-sngl">
-            <img alt="" src="img/samples/e4.jpg">
+            <img alt="" src="{!! asset('blog/img/samples/e4.jpg') !!}">
             <div class="reltd-sngl-txt">
                 <h3>After party of Blondi Concert will begin tomorrow </h3>
                 <p><i class="fa fa-clock-o"></i>20 Jan 2014</p>
@@ -285,7 +289,7 @@
             if (d.getElementById(id)) return;
             js = d.createElement(s);
             js.id = id;
-            js.src = "../../connect.facebook.net/en_US/all.js#xfbml=1&appId=135708533180992";
+            js.src = "https://connect.facebook.net/en_US/all.js#xfbml=1&appId=1906910106248873";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
@@ -303,6 +307,37 @@
     </script>
 
     <!-- Pinterest share JS -->
-    <script type="text/javascript" async src="../../assets.pinterest.com/js/pinit.js"></script>
+    <script type="text/javascript" async src="https://assets.pinterest.com/js/pinit.js"></script>
 
+@stop
+
+@section('plugins')
+    <script src="{!! asset('plugins/fancybox/dist/jquery.fancybox.js') !!}"></script>
+@stop
+@section('scripts')
+    <script !src="">
+        $().fancybox({
+            selector : '[data-fancybox="images"]',
+            thumbs   : false,
+            hash     : false,
+        });
+
+        $(".main-slider").slick({
+            slidesToShow   : 3,
+            slidesToScroll : 3,
+            infinite   : true,
+            dots       : false,
+            arrows     : false,
+            responsive : [
+                {
+                    breakpoint: 960,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+
+    </script>
 @stop

@@ -95,20 +95,41 @@
 
 <div class="row" v-else="">
     <div class="col-md-12">
-        {!! Form::label('url', 'Provider Url:') !!}
-        <div class="form-group{{ $errors->has('url') ? ' has-error' : '' }}">
-            <div class="form-line">
-                {!! Form::text('url', null, ['class' => 'form-control', 'placeholder' => 'Enter your provider url']) !!}
-            </div>
+        <label for="is_video">Is Video?</label>
+        <div class="form-group">
+            <input type="hidden" name="is_video" :value="advertise.is_video">
+            <input type="checkbox" id="is_video" v-model="advertise.is_video" @change.prevent="isVideo">
+        </div>
+    </div>
+
+    <div class="col-md-12" v-if="advertise.is_video">
+        <div class="form-group{{ $errors->has('url') ? ' has-error' : '' }}" v-if="advertise.is_video">
+            {!! Form::label('url', 'Provider URL:') !!}
+            {!! Form::textarea('url', null, ['class' => 'form-control summernote', 'placeholder' => 'Enter your url']) !!}
             @if ($errors->has('url'))
                 <span class="help-block">
-                    <strong>{{ $errors->first('url') }}</strong>
+                    <small>{{ $errors->first('url') }}</small>
                 </span>
             @endif
         </div>
+    </div>
 
-        <!--Image of ads-->
+    <div class="col-md-12" v-else="">
         <div class="row">
+            <div class="col-md-12">
+                {!! Form::label('url', 'Provider URL:') !!}
+                <div class="form-group{{ $errors->has('url') ? ' has-error' : '' }}">
+                    <div class="form-line">
+                        {!! Form::text('url', null, ['class' => 'form-control', 'placeholder' => 'Enter your provider url']) !!}
+                    </div>
+                    @if ($errors->has('url'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('url') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>
+            <!--Image of ads-->
             <div class="form-group{{ $errors->has('banner') ? ' has-error' : '' }}">
                 <label class="col-sm-12">Banner Image <span>(Please follow the ads size of image)</span></label>
                 <div class="col-sm-12">
@@ -138,7 +159,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -146,5 +166,5 @@
 {!! Form::checkbox('active', '1', null, ['class' => 'filled-in', 'id'=> 'active']) !!}
 <label for="active">Active</label>
 <br>
-<button type="submit" class="btn btn-primary m-t-15 waves-effect">SUBMIT</button>
+<button class="btn btn-primary m-t-15 waves-effect">SUBMIT</button>
 <a href="{!! route('admin.advertise.index') !!}" class="btn btn-primary m-t-15 waves-effect">CANCEL</a>

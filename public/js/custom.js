@@ -5,7 +5,7 @@ $(document).ready(function () {
 
     "use strict";
 
-    var body = $("body");
+    let body = $("body");
 
     $(function () {
         $(".preloader").fadeOut();
@@ -23,15 +23,17 @@ $(document).ready(function () {
     $(".right-side-toggle").on("click", function () {
         $(".right-sidebar").slideDown(50).toggleClass("shw-rside");
         $(".fxhdr").on("click", function () {
-            body.toggleClass("fix-header"); /* Fix Header JS */
+            body.toggleClass("fix-header");
+            /* Fix Header JS */
         });
         $(".fxsdr").on("click", function () {
-            body.toggleClass("fix-sidebar"); /* Fix Sidebar JS */
+            body.toggleClass("fix-sidebar");
+            /* Fix Sidebar JS */
         });
 
         /* ===== Service Panel JS ===== */
 
-        var fxhdr = $('.fxhdr');
+        let fxhdr = $('.fxhdr');
         if (body.hasClass("fix-header")) {
             fxhdr.attr('checked', true);
         } else {
@@ -46,13 +48,14 @@ $(document).ready(function () {
     =========================================================== */
 
     $(function () {
-        var set = function () {
-                var topOffset = 60,
+        let set = function () {
+                let topOffset = 60,
                     width = (window.innerWidth > 0) ? window.innerWidth : this.screen.width,
                     height = ((window.innerHeight > 0) ? window.innerHeight : this.screen.height) - 1;
                 if (width < 768) {
                     $('div.navbar-collapse').addClass('collapse');
-                    topOffset = 100; /* 2-row-menu */
+                    topOffset = 100;
+                    /* 2-row-menu */
                 } else {
                     $('div.navbar-collapse').removeClass('collapse');
                 }
@@ -88,10 +91,10 @@ $(document).ready(function () {
     /* ===== Collapsible Panels JS ===== */
 
     (function ($, window, document) {
-        var panelSelector = '[data-perform="panel-collapse"]',
+        let panelSelector = '[data-perform="panel-collapse"]',
             panelRemover = '[data-perform="panel-dismiss"]';
         $(panelSelector).each(function () {
-            var collapseOpts = {
+            let collapseOpts = {
                     toggle: false
                 },
                 parent = $(this).closest('.panel'),
@@ -112,7 +115,7 @@ $(document).ready(function () {
 
         $(document).on('click', panelSelector, function (e) {
             e.preventDefault();
-            var parent = $(this).closest('.panel'),
+            let parent = $(this).closest('.panel'),
                 wrapper = parent.find('.panel-wrapper');
             wrapper.collapse('toggle');
         });
@@ -121,15 +124,16 @@ $(document).ready(function () {
 
         $(document).on('click', panelRemover, function (e) {
             e.preventDefault();
-            var removeParent = $(this).closest('.panel');
+            let removeParent = $(this).closest('.panel');
 
             function removeElement() {
-                var col = removeParent.parent();
+                let col = removeParent.parent();
                 removeParent.remove();
                 col.filter(function () {
                     return ($(this).is('[class*="col-"]') && $(this).children('*').length === 0);
                 }).remove();
             }
+
             removeElement();
         });
     }(jQuery, window, document));
@@ -190,7 +194,7 @@ $(document).ready(function () {
 
     $('.visited li a').on("click", function (e) {
         $('.visited li').removeClass('active');
-        var $parent = $(this).parent();
+        let $parent = $(this).parent();
         if (!$parent.hasClass('active')) {
             $parent.addClass('active');
         }

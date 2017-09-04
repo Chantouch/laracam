@@ -8,6 +8,7 @@ use App\Model\Post;
 use App\Model\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Tracker;
 
 class HomeController extends Controller
 {
@@ -29,9 +30,10 @@ class HomeController extends Controller
     public function index()
     {
         $comments = Comment::lastWeek()->get();
-        $posts = Post::lastWeek()->get();
+        $postsLastWeek = Post::lastWeek()->get();
         $users = User::lastWeek()->get();
-        return view('admin.dashboard.index', compact('comments', 'posts', 'users'));
+        $visitor = Tracker::currentSession();
+        return view('admin.dashboard.index', compact('comments', 'postsLastWeek', 'users'));
     }
 
     /**

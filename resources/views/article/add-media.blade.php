@@ -45,7 +45,7 @@
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active">
                         <a href="#media-library" aria-controls="media-library" role="tab" data-toggle="tab"
-                           aria-expanded="true">
+                           aria-expanded="true" @click.prevent="getMediaLibrary">
                             <span class="visible-xs"><i class="ti-home"></i></span>
                             <span class="hidden-xs"> Media Library</span>
                         </a>
@@ -92,7 +92,7 @@
                                     <div class="dimensions">1200 × 799</div>
                                     <a class="edit-attachment" href="" target="_blank">Edit Image</a>
                                     <button type="button" class="btn btn-danger waves-effect"
-                                            @click.prevent="deleteMediaLibrary(mediaLibraryDetails.id)">
+                                            @click="deleteMediaLibrary(mediaLibraryDetails.id)">
                                         Delete Permanently
                                     </button>
                                     <div class="compat-meta">
@@ -104,8 +104,13 @@
                                 <div class="form-group">
                                     <label for="url" class="col-md-12">URL</label>
                                     <div class="col-md-12">
-                                        <input class="form-control input-sm" id="url" readonly
-                                               :value="mediaLibraryDetails.url">
+                                        <div class="input-group">
+                                            <input class="form-control input-sm" id="url" readonly
+                                                   :value="mediaLibraryDetails.url" ref="url">
+                                            <div class="input-group-addon">
+                                                <a href="javascript:void (0)" @click.prevent="copyText"><i class="ti-layers"></i></a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -172,10 +177,10 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal" id="close">
                     Cancel
                 </button>
-                <button type="button" class="btn btn-danger waves-effect waves-light">
+                <button type="button" class="btn btn-danger waves-effect waves-light" id="insert-media" disabled>
                     Insert Media
                 </button>
             </div>

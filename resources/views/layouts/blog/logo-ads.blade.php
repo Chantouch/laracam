@@ -24,7 +24,7 @@
                         </a>
                     @else
                         <a href="#">
-                            <img alt="" src="{!! asset('blog/img/top-banner.jpg') !!}"/>
+                            <img alt="" src="{!! asset('blog/img/top-banner.jpg') !!}" height="90"/>
                         </a>
                     @endif
                 @endforeach
